@@ -1,11 +1,12 @@
 package bitlap.validation
 
-import org.hibernate.validator.internal.engine.ConfigurationImpl
-
+import javax.validation._
 import javax.validation.executable.ExecutableValidator
 import javax.validation.metadata.BeanDescriptor
-import javax.validation._
+
 import scala.jdk.CollectionConverters._
+
+import org.hibernate.validator.internal.engine.ConfigurationImpl
 
 /**
  * ValidatorFactory for scala.

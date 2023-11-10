@@ -1,11 +1,12 @@
 package bitlap.validation
 
-import org.hibernate.validator.internal.constraintvalidators.bv.size.SizeValidatorForCollection
-
+import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import javax.validation.constraints.Size
-import javax.validation.{ConstraintValidator, ConstraintValidatorContext}
+
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
+
+import org.hibernate.validator.internal.constraintvalidators.bv.size.SizeValidatorForCollection
 
 /**
  * Check that the length of a wrapped value is between min and max.
