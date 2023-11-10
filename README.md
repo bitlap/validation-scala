@@ -14,10 +14,13 @@ This library enable validation to some Monad. (e.g. Option, Seq, Map, etc)
 
 ## Getting Started
 
-Support Scala 3, 2.13:
+Support Scala `3`, `2.13`:
 ```scala
 libraryDependencies ++= Seq(
-  "org.bitlap" %% "bean-validation-scala" % "0.4.2"
+  "org.bitlap" %% "bean-validation-scala" % "1.0.0",
+  // for use above Java 9, the following dependencies are required.
+  // "jakarta.xml.bind"        % "jakarta.xml.bind-api"    % "2.3.2",
+  // "org.glassfish.jaxb"      % "jaxb-runtime"            % "2.3.2"
 )
 ```
 
