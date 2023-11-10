@@ -3,7 +3,10 @@
 JSR 303 and 349 Bean Validation for Scala.
 This library enable validation to some Monad. (e.g. Option, Seq, Map, etc)
 
-![CI][Badge-CI] [![Nexus (Snapshots)][Badge-Snapshots]][Link-Snapshots] [![Sonatype Nexus (Releases)][Badge-Releases]][Link-Releases]
+[![Project stage][Badge-Stage]][Badge-Stage-Page] ![CI][Badge-CI] [![Nexus (Snapshots)][Badge-Snapshots]][Link-Snapshots] [![Sonatype Nexus (Releases)][Badge-Releases]][Link-Releases]
+
+[Badge-Stage]: https://img.shields.io/badge/Project%20Stage-Experimental-orange.svg
+[Badge-Stage-Page]: https://github.com/bitlap/bitlap/wiki/Project-Stages
 
 [Badge-CI]: https://github.com/bitlap/bean-validation-scala/actions/workflows/scala.yml/badge.svg
 [Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/bean-validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
