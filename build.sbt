@@ -9,6 +9,7 @@ val elVersion                    = "3.0.0"
 val jodaConvertVersion           = "2.2.2"
 val jodaTimeVersion              = "2.12.5"
 val specs2Version                = "4.19.2"
+val zioVersion                   = "2.0.13"
 
 val supportCrossVersionList = Seq(scala3_Version, scala2_13Version)
 
@@ -34,17 +35,41 @@ inThisBuild(
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 addCommandAlias("check", "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck")
 
+lazy val commonSettings = Seq(
+  crossScalaVersions := supportCrossVersionList,
+  // Add warnings
+  scalacOptions ++= Seq(
+    "-feature",
+    "-unchecked",
+    "-deprecation"
+  )
+)
+
 lazy val root = project
   .in(file("."))
+  .settings(commonSettings)
   .settings(
-    name               := "bean-validation-scala",
-    crossScalaVersions := supportCrossVersionList,
-    // Add warnings
-    scalacOptions ++= Seq(
-      "-feature",
-      "-unchecked",
-      "-deprecation"
-    ),
+    name           := "validation-scala",
+    publish / skip := true
+  )
+  .aggregate(fp, core)
+
+lazy val fp = project
+  .in(file("fp"))
+  .settings(commonSettings)
+  .settings(
+    name := "validation-scala-fp",
+    libraryDependencies ++= Seq(
+      "dev.zio" %% "zio" % zioVersion % Provided
+    )
+  )
+  .dependsOn(core)
+
+lazy val core = project
+  .in(file("core"))
+  .settings(commonSettings)
+  .settings(
+    name := "validation-scala",
     Compile / doc / scalacOptions ++= {
       // Work around 2.12 bug which prevents javadoc in nested java classes from compiling.
       CrossVersion.partialVersion(scalaVersion.value) match {

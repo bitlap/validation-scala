@@ -10,7 +10,7 @@ class ScalaValidatorFactorySpec extends BaseSpec {
     }
 
     "Get a instance of Validator" >> {
-      val validator = ScalaValidatorFactory.validator
+      val validator = ScalaValidatorFactory.scalaValidator
 
       validator must_!= null
     }

@@ -1,4 +1,4 @@
-# bean-validation-scala
+# validation-scala
 
 JSR 303 and 349 Bean Validation for Scala.
 This library enable validation to some Monad. (e.g. Option, Seq, Map, etc)
@@ -8,20 +8,24 @@ This library enable validation to some Monad. (e.g. Option, Seq, Map, etc)
 [Badge-Stage]: https://img.shields.io/badge/Project%20Stage-Experimental-orange.svg
 [Badge-Stage-Page]: https://github.com/bitlap/bitlap/wiki/Project-Stages
 
-[Badge-CI]: https://github.com/bitlap/bean-validation-scala/actions/workflows/scala.yml/badge.svg
-[Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/bean-validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Snapshots]: https://oss.sonatype.org/content/repositories/snapshots/org/bitlap/bean-validation-scala_3/
+[Badge-CI]: https://github.com/bitlap/validation-scala/actions/workflows/scala.yml/badge.svg
+[Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Snapshots]: https://oss.sonatype.org/content/repositories/snapshots/org/bitlap/validation-scala_3/
 
-[Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/bean-validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Releases]: https://oss.sonatype.org/content/repositories/releases/org/bitlap/bean-validation-scala_3/
+[Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Releases]: https://oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala_3/
 
 ## Getting Started
 
 Support Scala `3`, `2.13`:
 ```scala
 libraryDependencies ++= Seq(
-  "org.bitlap" %% "bean-validation-scala" % "1.0.0",
-  // for use above Java 9, the following dependencies are required.
+  "org.bitlap" %% "validation-scala" % "latest version",
+  
+  // zio wrapper
+  // "org.bitlap" %% "validation-scala-fp" % "latest version",
+  
+  // NOTE: for use above Java 9, the following dependencies are required.
   // "jakarta.xml.bind"        % "jakarta.xml.bind-api"    % "2.3.2",
   // "org.glassfish.jaxb"      % "jaxb-runtime"            % "2.3.2"
 )
@@ -43,7 +47,7 @@ Step 2. Create validator by our library:
 ```scala
 import bitlap.validation.ScalaValidatorFactory
 
-val validator = ScalaValidatorFactory.validator
+val validator = ScalaValidatorFactory.scalaValidator
 ```
 
 Step 3. Validate a case class object:

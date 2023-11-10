@@ -11,7 +11,7 @@ trait BaseSpec extends Specification {
     this.getClass.getSimpleName.replaceAll("Spec$", "")
 
   def test(bean: Any, expected: Int) = {
-    val validator  = ScalaValidatorFactory.validator
+    val validator  = ScalaValidatorFactory.scalaValidator
     val violations = validator.validate(bean)
     violations.size must_=== expected
   }
