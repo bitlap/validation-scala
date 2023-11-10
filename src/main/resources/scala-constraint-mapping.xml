@@ -68,7 +68,8 @@
   <constraint-definition annotation="javax.validation.constraints.Size">
     <validated-by include-existing-validators="true">
       <value>bitlap.validation.SizeValidatorForOption</value>
-      <value>bitlap.validation.SizeValidatorForSeqOps</value>
+      <value>bitlap.validation.SizeValidatorForMap</value>
+      <value>bitlap.validation.SizeValidatorForSeq</value>
     </validated-by>
   </constraint-definition>
 

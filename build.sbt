@@ -37,8 +37,8 @@ addCommandAlias("check", "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck"
 lazy val root = project
   .in(file("."))
   .settings(
-    name                     := "bean-validation-scala",
-    crossScalaVersions       := supportCrossVersionList,
+    name               := "bean-validation-scala",
+    crossScalaVersions := supportCrossVersionList,
     // Add warnings
     scalacOptions ++= Seq(
       "-feature",
@@ -54,8 +54,6 @@ lazy val root = project
           Nil
       }
     },
-    Test / fork              := true,
-    Test / parallelExecution := true,
     libraryDependencies ++= Seq(
       "org.hibernate"           % "hibernate-validator"     % hibernateVersion,
       "javax.validation"        % "validation-api"          % validationVersion,
