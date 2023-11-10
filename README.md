@@ -126,5 +126,6 @@ For example.
 
 ```
 Copyright 2015 - 2017 tsukaby.com
+Copyright 2023 bitlap.org
 MIT License
 ```
