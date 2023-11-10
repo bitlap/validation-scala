@@ -6,11 +6,11 @@ This library enable validation to some Monad. (e.g. Option, Seq, Map, etc)
 ![CI][Badge-CI] [![Nexus (Snapshots)][Badge-Snapshots]][Link-Snapshots] [![Sonatype Nexus (Releases)][Badge-Releases]][Link-Releases]
 
 [Badge-CI]: https://github.com/bitlap/bean-validation-scala/actions/workflows/scala.yml/badge.svg
-[Badge-Snapshots]: https://img.shields.io/nexus/s/io.github.jxnu-liguobin/bean-validation-scala_3?server=https%3A%2F%2Foss.sonatype.org
-[Link-Snapshots]: https://oss.sonatype.org/content/repositories/snapshots/io/github/jxnu-liguobin/bean-validation-scala_3/
+[Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/bean-validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Snapshots]: https://oss.sonatype.org/content/repositories/snapshots/org/bitlap/bean-validation-scala_3/
 
-[Badge-Releases]: https://img.shields.io/nexus/r/io.github.jxnu-liguobin/bean-validation-scala_3?server=https%3A%2F%2Foss.sonatype.org
-[Link-Releases]: https://oss.sonatype.org/content/repositories/releases/io/github/jxnu-liguobin/bean-validation-scala_3/
+[Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/bean-validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Releases]: https://oss.sonatype.org/content/repositories/releases/org/bitlap/bean-validation-scala_3/
 
 ## Getting Started
 
