@@ -9,7 +9,7 @@ import scala.jdk.CollectionConverters._
 import zio._
 
 /**
- * ValidatorFactory for scala.
+ * ValidatorFactory for zio.
  */
 object ZioValidatorFactory {
 
