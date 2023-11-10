@@ -67,6 +67,10 @@ final class SizeFunction(val annotation: Size) extends CheckOptionFunction {
             val v = new SizeValidatorForCollection
             v.initialize(annotation)
             v.isValid(x.toSeq.asJava, ctx)
+          case x: scala.collection.Set[_] @unchecked =>
+            val v = new SizeValidatorForCollection
+            v.initialize(annotation)
+            v.isValid(x.toSet.asJava, ctx)
           case _                                     => throw new IllegalStateException("oops.")
         }
       case None                    =>
