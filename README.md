@@ -38,7 +38,7 @@ Step 1. Add annotations to your case class:
 import javax.validation.constraints.Size
 
 case class Person(
-  @(Size@field)(min = 4)
+  @(Size @field)(min = 4)
   name: Option[String]
 )
 ```
