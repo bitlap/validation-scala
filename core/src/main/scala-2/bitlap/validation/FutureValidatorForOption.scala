@@ -1,16 +1,9 @@
 package bitlap.validation
 
-import java.util.{ Calendar, Date }
 import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import javax.validation.constraints.Future
 
-import org.hibernate.validator.internal.constraintvalidators.bv.future.{
-  FutureValidatorForCalendar,
-  FutureValidatorForDate,
-  FutureValidatorForReadableInstant,
-  FutureValidatorForReadablePartial
-}
-import org.joda.time.{ ReadableInstant, ReadablePartial }
+import bitlap.validation.function.TimeFutureFunction
 
 /**
  * Check that the wrapped Calendar, Date and JodaTime classes passed to be validated is in the future.
@@ -21,27 +14,8 @@ class FutureValidatorForOption extends ConstraintValidator[Future, Option[_]] {
   override def initialize(constraintAnnotation: Future): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new TimeFutureFunction(constraintAnnotation)
+
   override def isValid(value: Option[_], context: ConstraintValidatorContext): Boolean =
-    value match {
-      case Some(x: Calendar)        =>
-        val v = new FutureValidatorForCalendar
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case Some(x: Date)            =>
-        val v = new FutureValidatorForDate
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case Some(x: ReadableInstant) =>
-        val v = new FutureValidatorForReadableInstant
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case Some(x: ReadablePartial) =>
-        val v = new FutureValidatorForReadablePartial
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case None                     =>
-        true
-      case Some(_)                  =>
-        throw new IllegalStateException("oops.")
-    }
+    function.check(value)(context)
 }

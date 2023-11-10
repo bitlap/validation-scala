@@ -3,9 +3,9 @@ package bitlap.validation
 import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 
 import org.hibernate.validator.constraints.LuhnCheck
-import org.hibernate.validator.internal.constraintvalidators.hv.LuhnCheckValidator
 
 import bitlap.validation.Utils._
+import bitlap.validation.function.LuhnCheckFunction
 
 /**
  * Luhn algorithm checksum validator for scala.
@@ -18,15 +18,8 @@ class LuhnCheckValidatorForOption extends ConstraintValidator[LuhnCheck, Iterabl
   override def initialize(constraintAnnotation: LuhnCheck): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new LuhnCheckFunction(constraintAnnotation)
+
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
-    checkForOption(value) {
-      case Some(x: CharSequence) =>
-        val v = new LuhnCheckValidator
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case None                  =>
-        true
-      case Some(_)               =>
-        throw new IllegalStateException("oops.")
-    }
+    checkForOption(value)(opt => function.check(opt)(context))
 }

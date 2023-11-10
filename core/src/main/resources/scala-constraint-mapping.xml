@@ -70,6 +70,7 @@
       <value>bitlap.validation.SizeValidatorForOption</value>
       <value>bitlap.validation.SizeValidatorForMap</value>
       <value>bitlap.validation.SizeValidatorForSeq</value>
+      <value>bitlap.validation.SizeValidatorForSet</value>
     </validated-by>
   </constraint-definition>
 

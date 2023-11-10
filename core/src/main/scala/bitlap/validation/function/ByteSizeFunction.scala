@@ -1,27 +1,17 @@
-package bitlap.validation
+package bitlap.validation.function
 
 import java.io.UnsupportedEncodingException
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import javax.validation.ConstraintValidatorContext
 
 import org.hibernate.validator.internal.util.logging.{ Log, LoggerFactory }
 
-/**
- * Check that the length of a wrapped value is between min and max.
- */
-class ByteSizeValidator extends ConstraintValidator[ByteSize, Any] {
-  private val log: Log            = LoggerFactory.make
-  private var min: Int            = 0
-  private var max: Int            = 0
-  private var charsetName: String = _
+import bitlap.validation.ByteSize
 
-  override def initialize(constraintAnnotation: ByteSize): Unit = {
-    min = constraintAnnotation.min()
-    max = constraintAnnotation.max()
-    charsetName = constraintAnnotation.charsetName()
-    validateParameters()
-  }
+final class ByteSizeFunction(min: => Int, max: => Int, charsetName: => String) extends CheckFunction[Any, Boolean] {
 
-  override def isValid(value: Any, context: ConstraintValidatorContext): Boolean =
+  private val log: Log = LoggerFactory.make
+
+  override def check(value: Any): ConstraintValidatorContext => Boolean = { ctx =>
     value match {
       case null | None     =>
         true
@@ -34,8 +24,9 @@ class ByteSizeValidator extends ConstraintValidator[ByteSize, Any] {
       case _               =>
         throw new IllegalStateException("oops.")
     }
+  }
 
-  private def validateParameters(): Unit = {
+  def validateParameters(): Unit = {
     if (min < 0) {
       throw log.getMinCannotBeNegativeException
     }

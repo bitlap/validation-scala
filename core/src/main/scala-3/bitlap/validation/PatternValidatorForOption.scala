@@ -3,9 +3,8 @@ package bitlap.validation
 import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import javax.validation.constraints.Pattern
 
-import org.hibernate.validator.internal.constraintvalidators.bv.PatternValidator
-
 import bitlap.validation.Utils._
+import bitlap.validation.function.PatternFunction
 
 /**
  * Check the wrapped string.
@@ -16,15 +15,8 @@ class PatternValidatorForOption extends ConstraintValidator[Pattern, IterableOnc
   override def initialize(constraintAnnotation: Pattern): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new PatternFunction(constraintAnnotation)
+
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
-    checkForOption(value) {
-      case Some(x: CharSequence) =>
-        val v = new PatternValidator
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case None                  =>
-        true
-      case Some(_)               =>
-        throw new IllegalStateException("oops.")
-    }
+    checkForOption(value)(opt => function.check(opt)(context))
 }

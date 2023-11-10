@@ -31,6 +31,11 @@ class SizeValidatorForCollectionOpsSpec extends BaseSpec {
     name: Map[Int, Int]
   )
 
+  private[this] case class TestBeanWithSet(
+    @(Size @field)(min = 1)
+    name: Set[String]
+  )
+
   Seq(
     (TestBeanWithSeq(Seq()), 1),
     (TestBeanWithSeq(Seq("1")), 0),
@@ -41,7 +46,9 @@ class SizeValidatorForCollectionOpsSpec extends BaseSpec {
     (TestBeanWithMap(Map()), 1),
     (TestBeanWithMap(Map(1 -> 1)), 0),
     (TestBeanWithArray(Array()), 1),
-    (TestBeanWithArray(Array("1")), 0)
+    (TestBeanWithArray(Array("1")), 0),
+    (TestBeanWithSet(Set("1")), 0),
+    (TestBeanWithSet(Set("1")), 0)
   ) foreach { case (bean, expected) =>
     s"Check violations count. bean = $bean, count = $expected" >> {
       test(bean, expected)

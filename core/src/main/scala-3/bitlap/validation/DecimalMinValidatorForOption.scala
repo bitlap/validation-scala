@@ -3,12 +3,8 @@ package bitlap.validation
 import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import javax.validation.constraints.DecimalMin
 
-import org.hibernate.validator.internal.constraintvalidators.bv.{
-  DecimalMinValidatorForCharSequence,
-  DecimalMinValidatorForNumber
-}
-
 import bitlap.validation.Utils._
+import bitlap.validation.function.DecimalMinFunction
 
 /**
  * Check that the wrapped character sequence (e.g. Option[String]) and the wrapped number being validated is less than
@@ -20,19 +16,8 @@ class DecimalMinValidatorForOption extends ConstraintValidator[DecimalMin, Itera
   override def initialize(constraintAnnotation: DecimalMin): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new DecimalMinFunction(constraintAnnotation)
+
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
-    checkForOption(value) {
-      case Some(x: CharSequence) =>
-        val v = new DecimalMinValidatorForCharSequence
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case Some(x: Number)       =>
-        val v = new DecimalMinValidatorForNumber
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case None                  =>
-        true
-      case Some(_)               =>
-        throw new IllegalStateException("oops.")
-    }
+    checkForOption(value)(opt => function.check(opt)(context))
 }

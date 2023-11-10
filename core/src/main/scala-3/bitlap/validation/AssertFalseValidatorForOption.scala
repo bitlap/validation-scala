@@ -6,6 +6,7 @@ import javax.validation.constraints.AssertFalse
 import org.hibernate.validator.internal.constraintvalidators.bv.AssertFalseValidator
 
 import bitlap.validation.Utils._
+import bitlap.validation.function.AssertFalseFunction
 
 /**
  * Validates that the wrapped value passed is false
@@ -16,15 +17,8 @@ class AssertFalseValidatorForOption extends ConstraintValidator[AssertFalse, Ite
   override def initialize(constraintAnnotation: AssertFalse): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new AssertFalseFunction(constraintAnnotation)
+
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
-    checkForOption(value) {
-      case Some(x: Boolean) =>
-        val v = new AssertFalseValidator
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case Some(_)          =>
-        throw new ValidationException("Unsupported type.")
-      case None             =>
-        true
-    }
+    checkForOption(value)(opt => function.check(opt)(context))
 }

@@ -6,21 +6,21 @@ import javax.validation.constraints.Size
 import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
-import org.hibernate.validator.internal.constraintvalidators.bv.size.{ SizeValidatorForMap => JSizeValidatorForMap }
+import org.hibernate.validator.internal.constraintvalidators.bv.size.SizeValidatorForCollection
 
 /**
  * Check that the length of a wrapped value is between min and max.
  */
 @nowarn
-class SizeValidatorForMap extends ConstraintValidator[Size, scala.collection.Map[_, _]] {
+class SizeValidatorForSet extends ConstraintValidator[Size, scala.collection.Set[_]] {
   private var constraintAnnotation: Size = _
 
   override def initialize(constraintAnnotation: Size): Unit =
     this.constraintAnnotation = constraintAnnotation
 
-  override def isValid(value: scala.collection.Map[_, _], context: ConstraintValidatorContext): Boolean = {
-    val v = new JSizeValidatorForMap
+  override def isValid(value: scala.collection.Set[_], context: ConstraintValidatorContext): Boolean = {
+    val v = new SizeValidatorForCollection
     v.initialize(constraintAnnotation)
-    v.isValid(value.toMap.asJava, context)
+    v.isValid(value.toSet.asJava, context)
   }
 }

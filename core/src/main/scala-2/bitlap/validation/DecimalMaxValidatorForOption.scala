@@ -3,10 +3,7 @@ package bitlap.validation
 import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import javax.validation.constraints.DecimalMax
 
-import org.hibernate.validator.internal.constraintvalidators.bv.{
-  DecimalMaxValidatorForCharSequence,
-  DecimalMaxValidatorForNumber
-}
+import bitlap.validation.function.DecimalMaxFunction
 
 /**
  * Check that the wrapped character sequence (e.g. Option[String]) and the wrapped number being validated represents a
@@ -18,19 +15,8 @@ class DecimalMaxValidatorForOption extends ConstraintValidator[DecimalMax, Optio
   override def initialize(constraintAnnotation: DecimalMax): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new DecimalMaxFunction(constraintAnnotation)
+
   override def isValid(value: Option[_], context: ConstraintValidatorContext): Boolean =
-    value match {
-      case Some(x: CharSequence) =>
-        val v = new DecimalMaxValidatorForCharSequence
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case Some(x: Number)       =>
-        val v = new DecimalMaxValidatorForNumber
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case None                  =>
-        true
-      case Some(_)               =>
-        throw new IllegalStateException("oops.")
-    }
+    function.check(value)(context)
 }

@@ -3,9 +3,9 @@ package bitlap.validation
 import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 
 import org.hibernate.validator.constraints.Length
-import org.hibernate.validator.internal.constraintvalidators.hv.LengthValidator
 
 import bitlap.validation.Utils._
+import bitlap.validation.function.LengthFunction
 
 /**
  * Check that the wrapped character sequence length is between min and max.
@@ -16,15 +16,8 @@ class LengthValidatorForOption extends ConstraintValidator[Length, IterableOnce[
   override def initialize(constraintAnnotation: Length): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new LengthFunction(constraintAnnotation)
+
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
-    checkForOption(value) {
-      case Some(x: CharSequence) =>
-        val v = new LengthValidator
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case None                  =>
-        true
-      case Some(_)               =>
-        throw new IllegalStateException("oops.")
-    }
+    checkForOption(value)(opt => function.check(opt)(context))
 }

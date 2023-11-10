@@ -3,7 +3,8 @@ package bitlap.validation
 import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 
 import org.hibernate.validator.constraints.Email
-import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator
+
+import bitlap.validation.function.EmailFunction
 
 /**
  * Validates that the wrapped character sequence (e.g. Option[String]) being validated consists of digits, and matches
@@ -15,15 +16,8 @@ class EmailValidatorForOption extends ConstraintValidator[Email, Option[_]] {
   override def initialize(constraintAnnotation: Email): Unit =
     this.constraintAnnotation = constraintAnnotation
 
+  private lazy val function = new EmailFunction(constraintAnnotation)
+
   override def isValid(value: Option[_], context: ConstraintValidatorContext): Boolean =
-    value match {
-      case Some(x: CharSequence) =>
-        val v = new EmailValidator
-        v.initialize(constraintAnnotation)
-        v.isValid(x, context)
-      case None                  =>
-        true
-      case Some(_)               =>
-        throw new IllegalStateException("oops.")
-    }
+    function.check(value)(context)
 }
