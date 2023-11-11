@@ -5,7 +5,7 @@ import javax.validation.constraints.Max
 
 import org.hibernate.validator.internal.constraintvalidators.bv._
 
-final case class MaxFunction(val annotation: Max) extends CheckOptionFunction {
+final case class MaxFunction(annotation: Max) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

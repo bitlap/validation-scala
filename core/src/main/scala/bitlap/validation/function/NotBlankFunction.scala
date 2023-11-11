@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext
 import org.hibernate.validator.constraints.NotBlank
 import org.hibernate.validator.internal.constraintvalidators.hv.NotBlankValidator
 
-final case class NotBlankFunction(val annotation: NotBlank) extends CheckOptionFunction {
+final case class NotBlankFunction(annotation: NotBlank) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

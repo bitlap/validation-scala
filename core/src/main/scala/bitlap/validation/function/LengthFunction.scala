@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.internal.constraintvalidators.hv.{ LengthValidator => JavaLengthValidator }
 
-final case class LengthFunction(val annotation: Length) extends CheckOptionFunction {
+final case class LengthFunction(annotation: Length) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

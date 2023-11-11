@@ -8,7 +8,7 @@ import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.constraintvalidators.bv.size._
 
-final class SizeFunction(val annotation: Size) extends CheckOptionFunction {
+final case class SizeFunction(annotation: Size) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext
 import org.hibernate.validator.constraints.Mod10Check
 import org.hibernate.validator.internal.constraintvalidators.hv.Mod10CheckValidator
 
-final class Mod10CheckFunction(val annotation: Mod10Check) extends CheckOptionFunction {
+final case class Mod10CheckFunction(annotation: Mod10Check) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

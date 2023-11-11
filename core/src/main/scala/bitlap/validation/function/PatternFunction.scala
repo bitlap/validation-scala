@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern
 
 import org.hibernate.validator.internal.constraintvalidators.bv.PatternValidator
 
-final case class PatternFunction(val annotation: Pattern) extends CheckOptionFunction {
+final case class PatternFunction(annotation: Pattern) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

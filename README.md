@@ -1,7 +1,6 @@
 # validation-scala
 
-JSR 303 and 349 Bean Validation for Scala.
-This library enable validation to some Monad. (e.g. `Option`, `Seq`,`Set`, `Map`, etc)
+JSR 303 and 349 Bean Validation for Scala. Supports Scala `3` and `2.13` and Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
 
 [![Project stage][Badge-Stage]][Badge-Stage-Page] ![CI][Badge-CI] [![Nexus (Snapshots)][Badge-Snapshots]][Link-Snapshots] [![Sonatype Nexus (Releases)][Badge-Releases]][Link-Releases]
 
@@ -15,23 +14,18 @@ This library enable validation to some Monad. (e.g. `Option`, `Seq`,`Set`, `Map`
 [Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
 [Link-Releases]: https://oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala_3/
 
-## Getting Started
+## Introduction
 
-Support Scala `3`, `2.13`:
 ```scala
 libraryDependencies ++= Seq(
   "org.bitlap" %% "validation-scala" % "latest version",
-  
-  // zio wrapper
-  // "org.bitlap" %% "validation-scala-fp" % "latest version",
-  
   // NOTE: for use above Java 9, the following dependencies are required.
   // "jakarta.xml.bind"        % "jakarta.xml.bind-api"    % "2.3.2",
   // "org.glassfish.jaxb"      % "jaxb-runtime"            % "2.3.2"
 )
 ```
 
-## How to use
+## Usage Instructions
 
 Step 1. Add annotations to your case class:
 ```scala
@@ -58,7 +52,6 @@ val violations = validator.validate(obj)
 if (violations.nonEmpty) {
   println("Violations found!")
 }
-
 ```
 
 ## Other information
@@ -100,15 +93,6 @@ Original annotations.
 - AssertNone
 - AssertSome
 - ByteSize
-
-### Doesn't support annotations
-
-- NotNull `// What do you think I should do?`
-- Null
-- ModCheck `// Deprecated`
-- ParameterScriptAssert
-- ScriptAssert
-
 
 ## Contribution
 

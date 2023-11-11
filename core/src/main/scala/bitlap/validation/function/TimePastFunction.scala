@@ -8,7 +8,7 @@ import javax.validation.constraints.Past
 import org.hibernate.validator.internal.constraintvalidators.bv.past._
 import org.joda.time.{ ReadableInstant, ReadablePartial }
 
-final class TimePastFunction(val annotation: Past) extends CheckOptionFunction {
+final case class TimePastFunction(annotation: Past) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

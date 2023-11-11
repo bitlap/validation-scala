@@ -5,7 +5,7 @@ import javax.validation.constraints.Digits
 
 import org.hibernate.validator.internal.constraintvalidators.bv._
 
-final class DigitsFunction(val annotation: Digits) extends CheckOptionFunction {
+final case class DigitsFunction(annotation: Digits) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

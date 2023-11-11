@@ -5,7 +5,7 @@ import javax.validation.constraints.DecimalMin
 
 import org.hibernate.validator.internal.constraintvalidators.bv._
 
-final class DecimalMinFunction(val annotation: DecimalMin) extends CheckOptionFunction {
+final case class DecimalMinFunction(annotation: DecimalMin) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

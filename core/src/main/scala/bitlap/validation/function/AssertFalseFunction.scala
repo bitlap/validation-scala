@@ -5,7 +5,7 @@ import javax.validation.constraints.AssertFalse
 
 import org.hibernate.validator.internal.constraintvalidators.bv.AssertFalseValidator
 
-final case class AssertFalseFunction(val annotation: AssertFalse) extends CheckOptionFunction {
+final case class AssertFalseFunction(annotation: AssertFalse) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

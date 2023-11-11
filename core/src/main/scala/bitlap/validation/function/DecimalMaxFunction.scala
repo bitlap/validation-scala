@@ -3,12 +3,9 @@ package bitlap.validation.function
 import javax.validation.ConstraintValidatorContext
 import javax.validation.constraints.DecimalMax
 
-import org.hibernate.validator.internal.constraintvalidators.bv.{
-  DecimalMaxValidatorForCharSequence,
-  DecimalMaxValidatorForNumber
-}
+import org.hibernate.validator.internal.constraintvalidators.bv._
 
-final class DecimalMaxFunction(val annotation: DecimalMax) extends CheckOptionFunction {
+final case class DecimalMaxFunction(annotation: DecimalMax) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

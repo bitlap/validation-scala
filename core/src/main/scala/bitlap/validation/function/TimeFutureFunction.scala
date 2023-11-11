@@ -9,7 +9,7 @@ import javax.validation.constraints.Future
 import org.hibernate.validator.internal.constraintvalidators.bv.future._
 import org.joda.time.{ ReadableInstant, ReadablePartial }
 
-final class TimeFutureFunction(val annotation: Future) extends CheckOptionFunction {
+final case class TimeFutureFunction(annotation: Future) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

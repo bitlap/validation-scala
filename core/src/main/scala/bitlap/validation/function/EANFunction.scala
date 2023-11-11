@@ -6,7 +6,7 @@ import javax.validation.constraints.Digits
 import org.hibernate.validator.constraints.EAN
 import org.hibernate.validator.internal.constraintvalidators.hv.{ EANValidator => JavaEANValidator }
 
-final class EANFunction(val annotation: EAN) extends CheckOptionFunction {
+final case class EANFunction(annotation: EAN) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

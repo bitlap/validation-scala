@@ -5,7 +5,7 @@ import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import org.hibernate.validator.constraints.URL
 import org.hibernate.validator.internal.constraintvalidators.hv.URLValidator
 
-final case class URLFunction(val annotation: URL) extends CheckOptionFunction {
+final case class URLFunction(annotation: URL) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

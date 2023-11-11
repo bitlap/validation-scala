@@ -52,13 +52,13 @@ lazy val root = project
     name           := "validation-scala",
     publish / skip := true
   )
-  .aggregate(fp, core)
+  .aggregate(zio, core)
 
-lazy val fp = project
-  .in(file("fp"))
+lazy val zio = project
+  .in(file("zio"))
   .settings(commonSettings)
   .settings(
-    name := "validation-scala-fp",
+    name := "validation-scala-zio",
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % zioVersion % Provided
     )

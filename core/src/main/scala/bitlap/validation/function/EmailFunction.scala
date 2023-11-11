@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext
 import org.hibernate.validator.constraints.Email
 import org.hibernate.validator.internal.constraintvalidators.hv.{ EmailValidator => JavaEmailValidator }
 
-final class EmailFunction(val annotation: Email) extends CheckOptionFunction {
+final case class EmailFunction(annotation: Email) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

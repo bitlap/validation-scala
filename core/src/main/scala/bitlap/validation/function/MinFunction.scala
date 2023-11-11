@@ -5,7 +5,7 @@ import javax.validation.constraints.Min
 
 import org.hibernate.validator.internal.constraintvalidators.bv._
 
-final case class MinFunction(val annotation: Min) extends CheckOptionFunction {
+final case class MinFunction(annotation: Min) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {

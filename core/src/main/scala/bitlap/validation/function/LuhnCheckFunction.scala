@@ -5,7 +5,7 @@ import javax.validation.ConstraintValidatorContext
 import org.hibernate.validator.constraints.LuhnCheck
 import org.hibernate.validator.internal.constraintvalidators.hv.{ LuhnCheckValidator => JavaLuhnCheckValidator }
 
-final case class LuhnCheckFunction(val annotation: LuhnCheck) extends CheckOptionFunction {
+final case class LuhnCheckFunction(annotation: LuhnCheck) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {
