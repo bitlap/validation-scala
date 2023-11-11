@@ -1,6 +1,6 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
+import jakarta.validation.ConstraintValidatorContext
 
 trait CheckFunction[-I, +O] {
   def check(value: I): ConstraintValidatorContext => O

@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.Max
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.Max
 
 class MaxValidatorForOptionSpec extends BaseSpec {
 

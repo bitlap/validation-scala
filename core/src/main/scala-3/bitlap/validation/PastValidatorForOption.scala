@@ -1,21 +1,28 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
-import javax.validation.constraints.Past
+import org.hibernate.validator.constraintvalidation.{
+  HibernateConstraintValidator,
+  HibernateConstraintValidatorInitializationContext
+}
 
 import bitlap.validation.Utils._
 import bitlap.validation.function.TimePastFunction
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.constraints.Past
+import jakarta.validation.metadata.ConstraintDescriptor
 
 /**
  * Check that the wrapped Calendar, Date and JodaTime classes passed to be validated is in the past.
  */
-class PastValidatorForOption extends ConstraintValidator[Past, IterableOnce[_]] {
-  private var constraintAnnotation: Past = _
+class PastValidatorForOption extends HibernateConstraintValidator[Past, IterableOnce[_]] {
 
-  override def initialize(constraintAnnotation: Past): Unit =
-    this.constraintAnnotation = constraintAnnotation
+  private var function: TimePastFunction = _
 
-  private lazy val function = new TimePastFunction(constraintAnnotation)
+  override def initialize(
+    constraintDescriptor: ConstraintDescriptor[Past],
+    initializationContext: HibernateConstraintValidatorInitializationContext
+  ): Unit =
+    function = new TimePastFunction(constraintDescriptor, initializationContext)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

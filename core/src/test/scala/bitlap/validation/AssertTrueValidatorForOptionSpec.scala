@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.AssertTrue
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.AssertTrue
 
 class AssertTrueValidatorForOptionSpec extends BaseSpec {
 

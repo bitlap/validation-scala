@@ -2,7 +2,7 @@ package bitlap.validation
 
 import scala.annotation.meta.field
 
-import org.hibernate.validator.constraints.Email
+import jakarta.validation.constraints.Email
 
 class EmailValidatorForOptionSpec extends BaseSpec {
 

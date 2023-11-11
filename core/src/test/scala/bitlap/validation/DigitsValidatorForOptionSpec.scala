@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.Digits
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.Digits
 
 class DigitsValidatorForOptionSpec extends BaseSpec {
 

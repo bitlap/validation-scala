@@ -1,11 +1,10 @@
 package bitlap.validation
 
-import javax.validation._
-import javax.validation.executable.ExecutableValidator
-import javax.validation.metadata.BeanDescriptor
-
 import scala.jdk.CollectionConverters._
 
+import jakarta.validation._
+import jakarta.validation.executable.ExecutableValidator
+import jakarta.validation.metadata.BeanDescriptor
 import zio._
 
 /**

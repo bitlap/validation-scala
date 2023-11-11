@@ -3,11 +3,12 @@ package bitlap.validation
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.{ Calendar, Date, Locale }
-import javax.validation.constraints.Past
 
 import scala.annotation.meta.field
 
 import org.joda.time.DateTime
+
+import jakarta.validation.constraints.Past
 
 class PastValidatorForOptionSpec extends BaseSpec {
 

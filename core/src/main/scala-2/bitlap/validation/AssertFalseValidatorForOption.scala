@@ -1,9 +1,8 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
-import javax.validation.constraints.AssertFalse
-
 import bitlap.validation.function._
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.constraints.AssertFalse
 
 /**
  * Validates that the wrapped value passed is false
@@ -11,10 +10,10 @@ import bitlap.validation.function._
 class AssertFalseValidatorForOption extends ConstraintValidator[AssertFalse, Option[Boolean]] {
   private var constraintAnnotation: AssertFalse = _
 
-  override def initialize(constraintAnnotation: AssertFalse): Unit =
-    this.constraintAnnotation = constraintAnnotation
+  private var function: AssertFalseFunction = _
 
-  private lazy val function = AssertFalseFunction(constraintAnnotation)
+  override def initialize(constraintAnnotation: AssertFalse): Unit =
+    function = new AssertFalseFunction(constraintAnnotation)
 
   override def isValid(value: Option[Boolean], context: ConstraintValidatorContext): Boolean =
     function.check(value)(context)

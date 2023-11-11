@@ -1,8 +1,8 @@
 # validation-scala
 
-JSR 303 and 349 Bean Validation for Scala. 
+JSR 303 and 349 Bean Validation for Scala. Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
 
-Supports Scala `3` and `2.13` and Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
+Supports Scala `3` and `2.13`, above Java `11`.
 
 [![Project stage][Badge-Stage]][Badge-Stage-Page] ![CI][Badge-CI] [![Nexus (Snapshots)][Badge-Snapshots]][Link-Snapshots] [![Sonatype Nexus (Releases)][Badge-Releases]][Link-Releases]
 
@@ -20,10 +20,7 @@ Supports Scala `3` and `2.13` and Allows validation of some Scala types: `Option
 
 ```scala
 libraryDependencies ++= Seq(
-  "org.bitlap" %% "validation-scala" % "latest version",
-  // NOTE: for use above Java 9, the following dependencies are required.
-  // "jakarta.xml.bind"        % "jakarta.xml.bind-api"    % "2.3.2",
-  // "org.glassfish.jaxb"      % "jaxb-runtime"            % "2.3.2"
+  "org.bitlap" %% "validation-scala" % "latest version"
 )
 ```
 
@@ -31,7 +28,7 @@ libraryDependencies ++= Seq(
 
 Step 1. Add annotations to your case class:
 ```scala
-import javax.validation.constraints.Size
+import jakarta.validation.constraints.Size
 
 case class Person(
   @(Size @field)(min = 4)
@@ -60,7 +57,7 @@ if (violations.nonEmpty) {
 
 ### Support annotations
 
-`javax.validation.constraints`
+`jakarta.validation.constraints`
 
 - AssertFalse
 - AssertTrue
@@ -73,17 +70,17 @@ if (violations.nonEmpty) {
 - Past
 - Pattern
 - Size
+- Email
+- NotBlank
 
 `org.hibernate.validator.constraints`
 
 - CreditCardNumber
 - EAN
-- Email
 - Length
 - LuhnCheck
 - Mod10Check
 - Mod11Check
-- NotBlank
 - NotEmpty
 - Range
 - URL

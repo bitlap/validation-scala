@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.ConstraintViolation
-import javax.validation.executable.ExecutableValidator
-import javax.validation.metadata.BeanDescriptor
+import jakarta.validation.ConstraintViolation
+import jakarta.validation.executable.ExecutableValidator
+import jakarta.validation.metadata.BeanDescriptor
 
 /**
  * Validator wrapper for scala.

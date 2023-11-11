@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.internal.constraintvalidators.hv.{ LengthValidator => JavaLengthValidator }
+
+import jakarta.validation.ConstraintValidatorContext
 
 final case class LengthFunction(annotation: Length) extends CheckOptionFunction {
 

@@ -1,8 +1,7 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
-
 import bitlap.validation.function.ByteSizeFunction
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 
 /**
  * Check that the length of a wrapped value is between min and max.

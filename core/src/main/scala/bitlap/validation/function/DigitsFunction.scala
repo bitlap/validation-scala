@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.Digits
-
 import org.hibernate.validator.internal.constraintvalidators.bv._
+
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.Digits
 
 final case class DigitsFunction(annotation: Digits) extends CheckOptionFunction {
 

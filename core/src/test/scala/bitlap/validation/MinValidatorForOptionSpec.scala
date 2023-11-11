@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.Min
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.Min
 
 class MinValidatorForOptionSpec extends BaseSpec {
 

@@ -1,6 +1,6 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 
 /**
  * Validates that the wrapped value passed is none

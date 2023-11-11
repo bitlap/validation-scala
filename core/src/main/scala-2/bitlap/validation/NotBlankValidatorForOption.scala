@@ -1,21 +1,17 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
-
-import org.hibernate.validator.constraints.NotBlank
-
 import bitlap.validation.function.NotBlankFunction
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.constraints.NotBlank
 
 /**
  * Check that a wrapped character sequence's (e.g. Option[String]) trimmed length is not empty.
  */
 class NotBlankValidatorForOption extends ConstraintValidator[NotBlank, Option[_]] {
-  private var constraintAnnotation: NotBlank = _
+  private var function: NotBlankFunction = _
 
   override def initialize(constraintAnnotation: NotBlank): Unit =
-    this.constraintAnnotation = constraintAnnotation
-
-  private lazy val function = new NotBlankFunction(constraintAnnotation)
+    function = new NotBlankFunction(constraintAnnotation)
 
   override def isValid(value: Option[_], context: ConstraintValidatorContext): Boolean =
     function.check(value)(context)

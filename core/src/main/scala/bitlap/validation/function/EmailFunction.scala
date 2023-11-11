@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
+import org.hibernate.validator.internal.constraintvalidators.bv.{ EmailValidator => JavaEmailValidator }
 
-import org.hibernate.validator.constraints.Email
-import org.hibernate.validator.internal.constraintvalidators.hv.{ EmailValidator => JavaEmailValidator }
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.Email
 
 final case class EmailFunction(annotation: Email) extends CheckOptionFunction {
 

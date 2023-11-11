@@ -1,15 +1,16 @@
 package bitlap.validation.function
 
 import java.io.UnsupportedEncodingException
-import javax.validation.ConstraintValidatorContext
+import java.lang.invoke.MethodHandles
 
 import org.hibernate.validator.internal.util.logging.{ Log, LoggerFactory }
 
 import bitlap.validation.ByteSize
+import jakarta.validation.ConstraintValidatorContext
 
 final class ByteSizeFunction(min: => Int, max: => Int, charsetName: => String) extends CheckFunction[Any, Boolean] {
 
-  private val log: Log = LoggerFactory.make
+  private val log: Log = LoggerFactory.make(MethodHandles.lookup())
 
   override def check(value: Any): ConstraintValidatorContext => Boolean = { ctx =>
     value match {

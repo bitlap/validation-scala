@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
+import org.hibernate.validator.internal.constraintvalidators.bv.NotBlankValidator
 
-import org.hibernate.validator.constraints.NotBlank
-import org.hibernate.validator.internal.constraintvalidators.hv.NotBlankValidator
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.NotBlank
 
 final case class NotBlankFunction(annotation: NotBlank) extends CheckOptionFunction {
 

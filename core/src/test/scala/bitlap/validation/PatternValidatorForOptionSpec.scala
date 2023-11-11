@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.Pattern
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.Pattern
 
 class PatternValidatorForOptionSpec extends BaseSpec {
 

@@ -1,12 +1,12 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintViolation, Validation, Validator, ValidatorFactory }
-import javax.validation.executable.ExecutableValidator
-import javax.validation.metadata.BeanDescriptor
-
 import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.engine.ConfigurationImpl
+
+import jakarta.validation.{ ConstraintViolation, Validation, Validator, ValidatorFactory }
+import jakarta.validation.executable.ExecutableValidator
+import jakarta.validation.metadata.BeanDescriptor
 
 /**
  * ValidatorFactory for scala.

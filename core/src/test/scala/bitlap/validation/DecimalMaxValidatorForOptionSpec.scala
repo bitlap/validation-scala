@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.DecimalMax
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.DecimalMax
 
 class DecimalMaxValidatorForOptionSpec extends BaseSpec {
 

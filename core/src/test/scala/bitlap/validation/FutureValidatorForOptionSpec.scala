@@ -4,11 +4,12 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.{ Calendar, Date, Locale }
 import java.util.concurrent.TimeUnit
-import javax.validation.constraints.Future
 
 import scala.annotation.meta.field
 
 import org.joda.time.DateTime
+
+import jakarta.validation.constraints.Future
 
 class FutureValidatorForOptionSpec extends BaseSpec {
 

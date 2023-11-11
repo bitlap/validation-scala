@@ -1,10 +1,10 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.Digits
-
 import org.hibernate.validator.constraints.EAN
 import org.hibernate.validator.internal.constraintvalidators.hv.{ EANValidator => JavaEANValidator }
+
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.Digits
 
 final case class EANFunction(annotation: EAN) extends CheckOptionFunction {
 

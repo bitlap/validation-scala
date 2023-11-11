@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.Min
+import org.hibernate.validator.internal.constraintvalidators.bv.number.bound._
 
-import org.hibernate.validator.internal.constraintvalidators.bv._
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.Min
 
 final case class MinFunction(annotation: Min) extends CheckOptionFunction {
 

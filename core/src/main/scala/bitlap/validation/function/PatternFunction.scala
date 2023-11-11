@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.Pattern
-
 import org.hibernate.validator.internal.constraintvalidators.bv.PatternValidator
+
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.Pattern
 
 final case class PatternFunction(annotation: Pattern) extends CheckOptionFunction {
 

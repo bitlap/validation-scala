@@ -1,12 +1,11 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext, ValidationException }
-import javax.validation.constraints.AssertFalse
-
 import org.hibernate.validator.internal.constraintvalidators.bv.AssertFalseValidator
 
 import bitlap.validation.Utils._
 import bitlap.validation.function.AssertFalseFunction
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext, ValidationException }
+import jakarta.validation.constraints.AssertFalse
 
 /**
  * Validates that the wrapped value passed is false

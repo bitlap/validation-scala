@@ -1,9 +1,13 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.DecimalMax
-
 import org.hibernate.validator.internal.constraintvalidators.bv._
+import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal.{
+  DecimalMaxValidatorForCharSequence,
+  DecimalMaxValidatorForNumber
+}
+
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.DecimalMax
 
 final case class DecimalMaxFunction(annotation: DecimalMax) extends CheckOptionFunction {
 

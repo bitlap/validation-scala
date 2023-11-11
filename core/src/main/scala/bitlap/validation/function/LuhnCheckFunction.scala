@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-
 import org.hibernate.validator.constraints.LuhnCheck
 import org.hibernate.validator.internal.constraintvalidators.hv.{ LuhnCheckValidator => JavaLuhnCheckValidator }
+
+import jakarta.validation.ConstraintValidatorContext
 
 final case class LuhnCheckFunction(annotation: LuhnCheck) extends CheckOptionFunction {
 

@@ -2,7 +2,7 @@ package bitlap.validation
 
 import scala.annotation.meta.field
 
-import org.hibernate.validator.constraints.NotBlank
+import jakarta.validation.constraints.NotBlank
 
 class NotBlankValidatorForOptionSpec extends BaseSpec {
 

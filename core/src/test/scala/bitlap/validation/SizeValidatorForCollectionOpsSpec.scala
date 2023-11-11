@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.Size
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.Size
 
 class SizeValidatorForCollectionOpsSpec extends BaseSpec {
 

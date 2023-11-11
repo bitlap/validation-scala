@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.Max
+import org.hibernate.validator.internal.constraintvalidators.bv.number.bound._
 
-import org.hibernate.validator.internal.constraintvalidators.bv._
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.Max
 
 final case class MaxFunction(annotation: Max) extends CheckOptionFunction {
 

@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.AssertFalse
-
 import org.hibernate.validator.internal.constraintvalidators.bv.AssertFalseValidator
+
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.AssertFalse
 
 final case class AssertFalseFunction(annotation: AssertFalse) extends CheckOptionFunction {
 

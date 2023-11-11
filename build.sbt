@@ -5,7 +5,7 @@ val scala2_13Version             = "2.13.12"
 val scalaCollectionCompatVersion = "2.11.0"
 val hibernateVersion             = "5.4.0.Final"
 val validationVersion            = "1.1.0.Final"
-val elVersion                    = "3.0.0"
+val elVersion                    = "5.0.0"
 val jodaConvertVersion           = "2.2.2"
 val jodaTimeVersion              = "2.12.5"
 val specs2Version                = "4.19.2"
@@ -80,11 +80,11 @@ lazy val core = project
       }
     },
     libraryDependencies ++= Seq(
-      "org.hibernate"           % "hibernate-validator"     % hibernateVersion,
-      "javax.validation"        % "validation-api"          % validationVersion,
-      "org.glassfish"           % "javax.el"                % elVersion,
+      "org.hibernate.validator" % "hibernate-validator"     % "8.0.1.Final",
+      "jakarta.validation"      % "jakarta.validation-api"  % "3.0.2",
       "org.joda"                % "joda-convert"            % jodaConvertVersion,
       "joda-time"               % "joda-time"               % jodaTimeVersion,
+      "org.glassfish.expressly" % "expressly"               % elVersion,
 //      "jakarta.xml.bind"        % "jakarta.xml.bind-api"    % "2.3.2",
 //      "org.glassfish.jaxb"      % "jaxb-runtime"            % "2.3.2",
       "org.scala-lang.modules" %% "scala-collection-compat" % scalaCollectionCompatVersion,

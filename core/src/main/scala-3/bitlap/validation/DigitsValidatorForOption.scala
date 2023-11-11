@@ -1,22 +1,19 @@
 package bitlap.validation
 
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
-import javax.validation.constraints.Digits
-
 import bitlap.validation.Utils._
 import bitlap.validation.function.DigitsFunction
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.constraints.Digits
 
 /**
  * Validates that the wrapped character sequence (e.g. Option[String]) being validated consists of digits, and matches
  * the pattern defined in the constraint.
  */
 class DigitsValidatorForOption extends ConstraintValidator[Digits, IterableOnce[_]] {
-  private var constraintAnnotation: Digits = _
+  private var function: DigitsFunction = _
 
   override def initialize(constraintAnnotation: Digits): Unit =
-    this.constraintAnnotation = constraintAnnotation
-
-  private lazy val function = new DigitsFunction(constraintAnnotation)
+    function = new DigitsFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

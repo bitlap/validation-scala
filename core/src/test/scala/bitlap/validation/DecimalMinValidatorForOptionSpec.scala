@@ -1,8 +1,8 @@
 package bitlap.validation
 
-import javax.validation.constraints.DecimalMin
-
 import scala.annotation.meta.field
+
+import jakarta.validation.constraints.DecimalMin
 
 class DecimalMinValidatorForOptionSpec extends BaseSpec {
 

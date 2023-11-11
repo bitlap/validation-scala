@@ -1,8 +1,8 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.AssertFalse
-
 import org.hibernate.validator.internal.constraintvalidators.bv.AssertFalseValidator
+
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.AssertFalse
 
 trait CheckOptionFunction extends CheckFunction[Option[_], Boolean]

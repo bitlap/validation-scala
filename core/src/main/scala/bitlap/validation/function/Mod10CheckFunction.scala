@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-
 import org.hibernate.validator.constraints.Mod10Check
 import org.hibernate.validator.internal.constraintvalidators.hv.Mod10CheckValidator
+
+import jakarta.validation.ConstraintValidatorContext
 
 final case class Mod10CheckFunction(annotation: Mod10Check) extends CheckOptionFunction {
 

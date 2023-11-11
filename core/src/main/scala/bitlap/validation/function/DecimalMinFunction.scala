@@ -1,9 +1,12 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.DecimalMin
+import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal.{
+  DecimalMinValidatorForCharSequence,
+  DecimalMinValidatorForNumber
+}
 
-import org.hibernate.validator.internal.constraintvalidators.bv._
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.DecimalMin
 
 final case class DecimalMinFunction(annotation: DecimalMin) extends CheckOptionFunction {
 

@@ -1,12 +1,13 @@
 package bitlap.validation.function
 
 import java.util
-import javax.validation.{ ConstraintValidator, ConstraintValidatorContext }
-import javax.validation.constraints.Size
 
 import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.constraintvalidators.bv.size._
+
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.constraints.Size
 
 final case class SizeFunction(annotation: Size) extends CheckOptionFunction {
 

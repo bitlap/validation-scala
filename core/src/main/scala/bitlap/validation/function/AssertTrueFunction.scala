@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import javax.validation.ConstraintValidatorContext
-import javax.validation.constraints.AssertTrue
-
 import org.hibernate.validator.internal.constraintvalidators.bv.AssertTrueValidator
+
+import jakarta.validation.ConstraintValidatorContext
+import jakarta.validation.constraints.AssertTrue
 
 final case class AssertTrueFunction(val annotation: AssertTrue) extends CheckOptionFunction {
 
