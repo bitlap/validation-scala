@@ -1,6 +1,8 @@
 # validation-scala
 
-JSR 303 and 349 Bean Validation for Scala. Supports Scala `3` and `2.13` and Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
+JSR 303 and 349 Bean Validation for Scala. 
+
+Supports Scala `3` and `2.13` and Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
 
 [![Project stage][Badge-Stage]][Badge-Stage-Page] ![CI][Badge-CI] [![Nexus (Snapshots)][Badge-Snapshots]][Link-Snapshots] [![Sonatype Nexus (Releases)][Badge-Releases]][Link-Releases]
 
