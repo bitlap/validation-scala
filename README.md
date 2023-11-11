@@ -1,6 +1,6 @@
 # validation-scala
 
-JSR 303 and 349 Bean Validation for Scala. Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
+Jakarta Bean Validation 3.0 for Scala. Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
 
 Supports Scala `3` and `2.13`, above Java `11`.
 
@@ -93,22 +93,6 @@ Original annotations.
 - AssertSome
 - ByteSize
 
-## Contribution
+## Inspired by
 
-I'm seeking your PR!!!
-I'm easy.
-
-For example.
-
-- Bug fix
-- Refactoring the code.
-- Add a new feature, new annotations and others.
-- Fix my odd English texts.
-
-## License
-
-```
-Copyright 2015 - 2017 tsukaby.com
-Copyright 2023 bitlap.org
-MIT License
-```
+[bean-validation-scala](https://github.com/bean-validation-scala/bean-validation-scala), JSR 303 and 349 Bean Validation for Scala.
