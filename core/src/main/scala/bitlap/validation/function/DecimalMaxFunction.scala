@@ -20,7 +20,6 @@ final case class DecimalMaxFunction(annotation: DecimalMax) extends CheckOptionF
         v.isValid(x, ctx)
       case None                  =>
         true
-      case Some(_)               =>
-        throw new IllegalStateException("oops.")
+      case _                     => throw new IllegalStateException("oops.")
     }
 }

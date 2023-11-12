@@ -16,7 +16,7 @@ final case class EANFunction(annotation: EAN) extends CheckOptionFunction {
         v.isValid(x, ctx)
       case None                  =>
         true
-      case Some(_)               =>
+      case _                     =>
         throw new IllegalStateException("oops.")
     }
 }

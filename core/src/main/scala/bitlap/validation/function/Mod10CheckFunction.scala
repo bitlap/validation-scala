@@ -15,7 +15,7 @@ final case class Mod10CheckFunction(annotation: Mod10Check) extends CheckOptionF
         v.isValid(x, ctx)
       case None                  =>
         true
-      case Some(_)               =>
+      case _                     =>
         throw new IllegalStateException("oops.")
     }
 }

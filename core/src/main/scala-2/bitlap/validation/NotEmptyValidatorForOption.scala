@@ -5,7 +5,8 @@ import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.NotEmpty
 
 /**
- * Check that the wrapped CharSequence, Collection, Map, Array, Seq and Set classes passed to be validated is not empty.
+ * Check that the wrapped CharSequence, Collection, Map, Array, Seq and Set classes passed to be validated is not empty
+ * or not null.
  */
 class NotEmptyValidatorForOption extends ConstraintValidator[NotEmpty, Option[_]] {
   private var function: NotEmptyFunction = _

@@ -47,7 +47,6 @@ final case class NotEmptyFunction(annotation: NotEmpty) extends CheckOptionFunct
             x.size > 0
           case _                                     => throw new IllegalStateException("oops.")
         }
-        throw new IllegalStateException("oops.")
       case None                    =>
         true
     }

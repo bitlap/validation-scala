@@ -9,11 +9,17 @@ final case class AssertFalseFunction(annotation: AssertFalse) extends CheckOptio
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {
-      case Some(x: Boolean) =>
+      case Some(x: Boolean)           =>
         val v = new AssertFalseValidator
         v.initialize(annotation)
         v.isValid(x, ctx)
-      case _                =>
+      case Some(x: java.lang.Boolean) =>
+        val v = new AssertFalseValidator
+        v.initialize(annotation)
+        v.isValid(x, ctx)
+      case None                       =>
         true
+      case _                          =>
+        throw new IllegalStateException("oops.")
     }
 }

@@ -19,7 +19,7 @@ final case class DigitsFunction(annotation: Digits) extends CheckOptionFunction 
         v.isValid(x, ctx)
       case None                  =>
         true
-      case Some(_)               =>
+      case _                     =>
         throw new IllegalStateException("oops.")
     }
 }

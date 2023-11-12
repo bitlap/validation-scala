@@ -15,7 +15,7 @@ final case class LuhnCheckFunction(annotation: LuhnCheck) extends CheckOptionFun
         v.isValid(x, ctx)
       case None                  =>
         true
-      case Some(_)               =>
+      case _                     =>
         throw new IllegalStateException("oops.")
     }
 }

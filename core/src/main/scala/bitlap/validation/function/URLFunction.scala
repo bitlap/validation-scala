@@ -15,7 +15,7 @@ final case class URLFunction(annotation: URL) extends CheckOptionFunction {
         v.isValid(x, ctx)
       case None                  =>
         true
-      case Some(_)               =>
+      case _                     =>
         throw new IllegalStateException("oops.")
     }
 }
