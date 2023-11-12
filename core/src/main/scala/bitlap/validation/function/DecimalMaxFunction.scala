@@ -1,10 +1,7 @@
 package bitlap.validation.function
 
 import org.hibernate.validator.internal.constraintvalidators.bv._
-import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal.{
-  DecimalMaxValidatorForCharSequence,
-  DecimalMaxValidatorForNumber
-}
+import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal._
 
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.DecimalMax

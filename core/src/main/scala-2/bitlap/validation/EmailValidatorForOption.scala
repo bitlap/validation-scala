@@ -5,8 +5,8 @@ import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.Email
 
 /**
- * Validates that the wrapped character sequence (e.g. Option[String]) being validated consists of digits, and matches
- * the pattern defined in the constraint.
+ * Validates that the wrapped character sequence (e.g. Option[String]) being validated consists of email, and matches
+ * the regexp defined in the constraint.
  */
 class EmailValidatorForOption extends ConstraintValidator[Email, Option[_]] {
   private var function: EmailFunction = _

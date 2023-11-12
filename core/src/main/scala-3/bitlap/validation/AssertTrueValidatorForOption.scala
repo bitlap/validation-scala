@@ -9,6 +9,7 @@ import jakarta.validation.constraints.AssertTrue
  * Validates that the wrapped value passed is true
  */
 class AssertTrueValidatorForOption extends ConstraintValidator[AssertTrue, IterableOnce[_]] {
+  // the validator obtained `Option` instead of `Option<Object>`, because the generic parameter cannot be obtained.
   private var function: AssertTrueFunction = _
 
   override def initialize(constraintAnnotation: AssertTrue): Unit =

@@ -1,11 +1,13 @@
 package bitlap.validation
 
+import java.time.Clock
+
 import scala.jdk.CollectionConverters._
 
 import jakarta.validation._
 import jakarta.validation.executable.ExecutableValidator
 import jakarta.validation.metadata.BeanDescriptor
-import zio._
+import zio.{ Clock => _, _ }
 
 /**
  * ValidatorFactory for zio.
@@ -15,13 +17,14 @@ object ZioValidatorFactory {
   /**
    * Provide a ValidatorFactory with scala extensions.
    */
-  lazy val validatorFactory: ValidatorFactory = ScalaValidatorFactory.validatorFactory
+  def validatorFactory(clock: Clock = Clock.systemUTC()): ValidatorFactory =
+    ScalaValidatorFactory.validatorFactory(clock)
 
   /**
    * Provide a Validator.
    */
   lazy val zioValidator: GenericeScalaValidator[Task] = {
-    val validator = validatorFactory.getValidator
+    val validator = validatorFactory().getValidator
 
     new GenericeScalaValidator[Task] {
       def validate[T](obj: T, groups: Class[_]*): Task[Set[ConstraintViolation[T]]] =

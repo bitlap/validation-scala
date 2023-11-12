@@ -60,6 +60,10 @@ final case class SizeFunction(annotation: Size) extends CheckOptionFunction {
             val v = new SizeValidatorForCollection
             v.initialize(annotation)
             v.isValid(x, ctx)
+          case x: util.Map[_, _]                     =>
+            val v = new SizeValidatorForMap
+            v.initialize(annotation)
+            v.isValid(x, ctx)
           case x: scala.collection.Map[_, _]         =>
             val v = new SizeValidatorForMap
             v.initialize(annotation)

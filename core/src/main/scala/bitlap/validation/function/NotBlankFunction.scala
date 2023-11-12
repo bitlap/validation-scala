@@ -13,9 +13,9 @@ final case class NotBlankFunction(annotation: NotBlank) extends CheckOptionFunct
         val v = new NotBlankValidator
         v.initialize(annotation)
         v.isValid(x, ctx)
-      case None                  =>
-        true
       case Some(_)               =>
         throw new IllegalStateException("oops.")
+      case None                  =>
+        true
     }
 }

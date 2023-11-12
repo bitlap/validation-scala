@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Past
 import jakarta.validation.metadata.ConstraintDescriptor
 
 /**
- * Check that the wrapped Calendar, Date and JodaTime classes passed to be validated is in the past.
+ * Check that the wrapped Calendar, Date, Instant and JodaTime classes passed to be validated is in the past.
  */
 class PastValidatorForOption extends HibernateConstraintValidator[Past, Option[_]] {
 

@@ -1,9 +1,6 @@
 package bitlap.validation
 
-import org.hibernate.validator.constraintvalidation.{
-  HibernateConstraintValidator,
-  HibernateConstraintValidatorInitializationContext
-}
+import org.hibernate.validator.constraintvalidation._
 
 import bitlap.validation.Utils._
 import bitlap.validation.function.TimePastFunction
@@ -12,7 +9,7 @@ import jakarta.validation.constraints.Past
 import jakarta.validation.metadata.ConstraintDescriptor
 
 /**
- * Check that the wrapped Calendar, Date and JodaTime classes passed to be validated is in the past.
+ * Check that the wrapped Calendar, Date, Instant and JodaTime classes passed to be validated is in the past.
  */
 class PastValidatorForOption extends HibernateConstraintValidator[Past, IterableOnce[_]] {
 

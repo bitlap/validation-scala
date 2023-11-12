@@ -72,6 +72,9 @@ if (violations.nonEmpty) {
 - Size
 - Email
 - NotBlank
+- PastOrPresent
+- FutureOrPresent
+- NotEmpty
 
 `org.hibernate.validator.constraints`
 
@@ -81,7 +84,7 @@ if (violations.nonEmpty) {
 - LuhnCheck
 - Mod10Check
 - Mod11Check
-- NotEmpty
+- NotEmpty `deprecated`
 - Range
 - URL
 

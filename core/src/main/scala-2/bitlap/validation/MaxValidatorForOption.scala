@@ -5,8 +5,8 @@ import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.Max
 
 /**
- * Check that the wrapped character sequence (e.g. Option[String]) and the number validated represents a number, and has
- * a value less than or equal to the maximum value specified.
+ * Check that the wrapped character sequence (e.g. Option[String]) and the number being validated represents a number,
+ * and has a value less than or equal to the maximum value specified.
  */
 class MaxValidatorForOption extends ConstraintValidator[Max, Option[_]] {
   private var function: MaxFunction = _

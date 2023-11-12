@@ -7,7 +7,7 @@ import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
  * Validates that the wrapped value passed is none
  */
 class AssertNoneValidator extends ConstraintValidator[AssertNone, IterableOnce[_]] {
-  // because the generic parameter cannot be obtained, the validator sees Option instead of Option<Object>
+  // the validator obtained `Option` instead of `Option<Object>`, because the generic parameter cannot be obtained.
 
   override def initialize(constraintAnnotation: AssertNone): Unit = {}
 

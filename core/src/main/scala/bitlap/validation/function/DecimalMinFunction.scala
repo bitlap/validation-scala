@@ -1,9 +1,6 @@
 package bitlap.validation.function
 
-import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal.{
-  DecimalMinValidatorForCharSequence,
-  DecimalMinValidatorForNumber
-}
+import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal._
 
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.DecimalMin

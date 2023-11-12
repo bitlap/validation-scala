@@ -1,10 +1,12 @@
 package bitlap.validation
 
+import java.time.Clock
+
 import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.engine.ConfigurationImpl
 
-import jakarta.validation.{ ConstraintViolation, Validation, Validator, ValidatorFactory }
+import jakarta.validation.{ ClockProvider, ConstraintViolation, Validation, Validator, ValidatorFactory }
 import jakarta.validation.executable.ExecutableValidator
 import jakarta.validation.metadata.BeanDescriptor
 
@@ -16,7 +18,7 @@ object ScalaValidatorFactory {
   /**
    * Provide a ValidatorFactory with scala extensions.
    */
-  lazy val validatorFactory: ValidatorFactory = {
+  def validatorFactory(clock: Clock = Clock.systemDefaultZone()): ValidatorFactory = {
     val stream = getClass.getClassLoader.getResourceAsStream("scala-constraint-mapping.xml")
 
     val validatorFactory = Validation
@@ -24,6 +26,9 @@ object ScalaValidatorFactory {
       .configure()
       .addMapping(stream)
       .asInstanceOf[ConfigurationImpl]
+      .clockProvider(new ClockProvider {
+        override def getClock: Clock = clock
+      })
       .buildValidatorFactory()
 
     validatorFactory
@@ -32,8 +37,8 @@ object ScalaValidatorFactory {
   /**
    * Provide a Validator.
    */
-  lazy val scalaValidator: GenericeScalaValidator[Identity] = {
-    val validator = validatorFactory.getValidator
+  def scalaValidator(clock: Clock = Clock.systemDefaultZone()): GenericeScalaValidator[Identity] = {
+    val validator = validatorFactory(clock).getValidator
 
     new GenericeScalaValidator[Identity] {
 
