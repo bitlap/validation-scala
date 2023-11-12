@@ -23,8 +23,8 @@ object ZioValidatorFactory {
   /**
    * Provide a Validator.
    */
-  lazy val zioValidator: GenericeScalaValidator[Task] = {
-    val validator = validatorFactory().getValidator
+  def zioValidator(clock: Clock = Clock.systemUTC()): GenericeScalaValidator[Task] = {
+    val validator = validatorFactory(clock).getValidator
 
     new GenericeScalaValidator[Task] {
       def validate[T](obj: T, groups: Class[_]*): Task[Set[ConstraintViolation[T]]] =
