@@ -15,7 +15,7 @@ val supportCrossVersionList = Seq(scala3_Version, scala2_13Version)
 
 inThisBuild(
   List(
-    scalaVersion           := scala2_13Version,
+    scalaVersion           := scala3_Version,
     organization           := "org.bitlap",
     sonatypeCredentialHost := "s01.oss.sonatype.org",
     sonatypeRepository     := "https://s01.oss.sonatype.org/service/local",

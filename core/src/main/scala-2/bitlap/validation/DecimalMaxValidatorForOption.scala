@@ -5,7 +5,7 @@ import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.DecimalMax
 
 /**
- * Check that the wrapped character sequence (e.g. Option[String]). The annotated element must be a number whose value
+ * Check that the wrapped value (e.g. Option[String]). The element must be a number whose value
  * must be lower or equal to the specified maximum.
  */
 class DecimalMaxValidatorForOption extends ConstraintValidator[DecimalMax, Option[_]] {
