@@ -40,7 +40,7 @@ Step 2. Create validator by our library:
 ```scala
 import bitlap.validation.ScalaValidatorFactory
 
-val validator = ScalaValidatorFactory.scalaValidator
+val validator = ScalaValidatorFactory.scalaValidator()
 ```
 
 Step 3. Validate a case class object:
