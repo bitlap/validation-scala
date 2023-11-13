@@ -59,6 +59,9 @@ if (violations.nonEmpty) {
 
 `jakarta.validation.constraints`
 
+> `Option(null)` and `None` are considered valid, while `Some(null)` is considered invalid. Some (null) is a bad habit. 
+> Only `NotEmpty` and `NotBlank` in this library will be compatible with `Some(null)`, and all other annotations will throw exceptions `IllegalStateException("oops.")`
+
 - AssertFalse
 - AssertTrue
 - DecimalMax

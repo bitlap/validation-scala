@@ -12,6 +12,7 @@ class NotBlankValidatorForOptionSpec extends BaseSpec {
   )
 
   Seq(
+    (TestBean(Some(null)), 1),
     (TestBean(Some("")), 1),
     (TestBean(Some(" ")), 1),
     (TestBean(Some("a")), 0)

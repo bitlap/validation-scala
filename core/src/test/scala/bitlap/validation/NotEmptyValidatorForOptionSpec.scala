@@ -17,6 +17,7 @@ class NotEmptyValidatorForOptionSpec extends BaseSpec {
   )
 
   Seq(
+    (TestBeanWithOptionStringForNotEmpty(Some(null)), 1),
     (TestBeanWithOptionStringForNotEmpty(Some("")), 1),
     (TestBeanWithOptionStringForNotEmpty(Some(" ")), 0),
     (TestBeanWithOptionStringForNotEmpty(None), 0) // should be true?

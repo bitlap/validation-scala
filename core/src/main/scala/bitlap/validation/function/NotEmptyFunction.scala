@@ -53,8 +53,8 @@ final case class NotEmptyFunction(annotation: NotEmpty) extends CheckOptionFunct
         v.initialize(annotation)
         v.isValid(x, ctx)
       case Some(x)                 =>
-        // collection or seq
         x match {
+          case null                                  => false
           case x: java.util.Collection[_]            =>
             val v = new NotEmptyValidatorForCollection
             v.initialize(annotation)
