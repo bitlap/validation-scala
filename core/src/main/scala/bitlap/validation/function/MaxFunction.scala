@@ -12,7 +12,7 @@ final case class MaxFunction(annotation: Max) extends CheckOptionFunction {
       case Some(x) =>
         // collection or seq
         x match {
-          case x: CharSequence =>
+          case x: CharSequence         =>
             val v = new MaxValidatorForCharSequence
             v.initialize(annotation)
             v.isValid(x, ctx)

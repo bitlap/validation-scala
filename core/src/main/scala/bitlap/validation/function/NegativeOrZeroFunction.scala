@@ -1,8 +1,9 @@
 package bitlap.validation.function
 
+import org.hibernate.validator.internal.constraintvalidators.bv.number.sign._
+
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.NegativeOrZero
-import org.hibernate.validator.internal.constraintvalidators.bv.number.sign._
 
 final case class NegativeOrZeroFunction(annotation: NegativeOrZero) extends CheckOptionFunction {
 
@@ -10,35 +11,35 @@ final case class NegativeOrZeroFunction(annotation: NegativeOrZero) extends Chec
     value match {
       case Some(x) =>
         x match {
-          case x: CharSequence =>
+          case x: CharSequence         =>
             val v = new NegativeOrZeroValidatorForCharSequence
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Byte =>
+          case x: Byte                 =>
             val v = new NegativeOrZeroValidatorForByte
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Float =>
+          case x: Float                =>
             val v = new NegativeOrZeroValidatorForFloat
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Double =>
+          case x: Double               =>
             val v = new NegativeOrZeroValidatorForDouble
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Short =>
+          case x: Short                =>
             val v = new NegativeOrZeroValidatorForShort
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Int =>
+          case x: Int                  =>
             val v = new NegativeOrZeroValidatorForInteger
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Long =>
+          case x: Long                 =>
             val v = new NegativeOrZeroValidatorForLong
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: BigDecimal =>
+          case x: BigDecimal           =>
             val v = new NegativeOrZeroValidatorForBigDecimal
             v.initialize(annotation)
             v.isValid(x.underlying(), ctx)
@@ -50,9 +51,9 @@ final case class NegativeOrZeroFunction(annotation: NegativeOrZero) extends Chec
             val v = new NegativeOrZeroValidatorForBigInteger
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case _ => throw new IllegalStateException("oops.")
+          case _                       => throw new IllegalStateException("oops.")
         }
-      case None =>
+      case None    =>
         true
     }
 }

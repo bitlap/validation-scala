@@ -1,6 +1,7 @@
 package bitlap.validation
 
 import scala.annotation.meta.field
+
 import jakarta.validation.constraints.Positive
 
 class PositiveValidatorForOptionSpec extends BaseSpec {

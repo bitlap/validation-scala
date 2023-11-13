@@ -75,6 +75,10 @@ if (violations.nonEmpty) {
 - PastOrPresent
 - FutureOrPresent
 - NotEmpty
+- Negative
+- NegativeOrZer
+- Positive
+- PositiveOrZero
 
 `org.hibernate.validator.constraints`
 

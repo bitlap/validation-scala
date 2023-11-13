@@ -9,13 +9,13 @@ final case class AssertTrueFunction(val annotation: AssertTrue) extends CheckOpt
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {
-      case Some(x: Boolean)           =>
+      case Some(x: Boolean) =>
         val v = new AssertTrueValidator
         v.initialize(annotation)
         v.isValid(x, ctx)
-      case None                       =>
+      case None             =>
         true
-      case _                          =>
+      case _                =>
         throw new IllegalStateException("oops.")
     }
 }

@@ -7,7 +7,7 @@ import scala.jdk.CollectionConverters._
 import org.hibernate.validator.internal.constraintvalidators.bv.number.sign._
 
 import jakarta.validation.ConstraintValidatorContext
-import jakarta.validation.constraints.{ Positive, Size }
+import jakarta.validation.constraints.Positive
 
 final case class PositiveFunction(annotation: Positive) extends CheckOptionFunction {
 
@@ -27,7 +27,7 @@ final case class PositiveFunction(annotation: Positive) extends CheckOptionFunct
             val v = new PositiveValidatorForFloat
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Double =>
+          case x: Double               =>
             val v = new PositiveValidatorForDouble
             v.initialize(annotation)
             v.isValid(x, ctx)
@@ -39,7 +39,7 @@ final case class PositiveFunction(annotation: Positive) extends CheckOptionFunct
             val v = new PositiveValidatorForInteger
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: Long =>
+          case x: Long                 =>
             val v = new PositiveValidatorForLong
             v.initialize(annotation)
             v.isValid(x, ctx)
@@ -51,11 +51,11 @@ final case class PositiveFunction(annotation: Positive) extends CheckOptionFunct
             val v = new PositiveValidatorForBigDecimal
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: java.math.BigInteger           =>
+          case x: java.math.BigInteger =>
             val v = new PositiveValidatorForBigInteger
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case _ => throw new IllegalStateException("oops.")
+          case _                       => throw new IllegalStateException("oops.")
         }
       case None    =>
         true

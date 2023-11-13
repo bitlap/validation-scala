@@ -1,9 +1,10 @@
 package bitlap.validation.function
 
 import org.hibernate.validator.internal.constraintvalidators.bv.number.bound._
+import org.hibernate.validator.internal.constraintvalidators.bv.number.sign.PositiveValidatorForCharSequence
+
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.Min
-import org.hibernate.validator.internal.constraintvalidators.bv.number.sign.PositiveValidatorForCharSequence
 
 final case class MinFunction(annotation: Min) extends CheckOptionFunction {
 
@@ -12,7 +13,7 @@ final case class MinFunction(annotation: Min) extends CheckOptionFunction {
       case Some(x) =>
         // collection or seq
         x match {
-          case x: CharSequence =>
+          case x: CharSequence         =>
             val v = new MinValidatorForCharSequence
             v.initialize(annotation)
             v.isValid(x, ctx)
