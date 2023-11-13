@@ -4,8 +4,6 @@ package ext
 
 trait FieldChecker {
   self =>
-  @inline def check(): Boolean = Validator.validate(self)
-
-  check()
+  Validator.validate(self)
 
 }
