@@ -2,6 +2,8 @@ package bitlap.validation
 
 import scala.annotation.meta.field
 
+import bitlap.validation.constraints.ByteSize
+
 class ByteSizeValidatorSpec extends BaseSpec {
 
   private[this] case class TestBeanWithString(

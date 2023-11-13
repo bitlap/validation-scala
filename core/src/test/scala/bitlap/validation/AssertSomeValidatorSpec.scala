@@ -2,6 +2,8 @@ package bitlap.validation
 
 import scala.annotation.meta.field
 
+import bitlap.validation.constraints.AssertSome
+
 class AssertSomeValidatorSpec extends BaseSpec {
 
   private[this] case class TestBean(

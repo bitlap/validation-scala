@@ -1,4 +1,4 @@
-package bitlap.validation;
+package bitlap.validation.constraints;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,16 +10,16 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * The annotated element must be none.
+ * The annotated element must be some.
  * Supported types are Option[_].
  */
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
-public @interface AssertNone {
+public @interface AssertSome {
 
-    String message() default "{bitlap.validation.AssertNone.message}";
+    String message() default "{bitlap.validation.AssertSome.message}";
 
     Class<?>[] groups() default {};
 
@@ -30,6 +30,6 @@ public @interface AssertNone {
     @Documented
     @interface List {
 
-        AssertNone[] value();
+        AssertSome[] value();
     }
 }

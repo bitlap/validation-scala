@@ -1,6 +1,7 @@
 package bitlap.validation
 
 import bitlap.validation.Utils._
+import bitlap.validation.constraints.AssertSome
 import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 
 /**

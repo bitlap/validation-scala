@@ -5,7 +5,7 @@ import java.lang.invoke.MethodHandles
 
 import org.hibernate.validator.internal.util.logging.{ Log, LoggerFactory }
 
-import bitlap.validation.ByteSize
+import bitlap.validation.constraints.ByteSize
 import jakarta.validation.ConstraintValidatorContext
 
 final class ByteSizeFunction(min: => Int, max: => Int, charsetName: => String) extends CheckFunction[Any, Boolean] {

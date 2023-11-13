@@ -172,19 +172,19 @@
     </constraint-definition>
 
     <!-- Original annotations -->
-    <constraint-definition annotation="bitlap.validation.AssertNone">
+    <constraint-definition annotation="bitlap.validation.constraints.AssertNone">
         <validated-by>
             <value>bitlap.validation.AssertNoneValidator</value>
         </validated-by>
     </constraint-definition>
 
-    <constraint-definition annotation="bitlap.validation.AssertSome">
+    <constraint-definition annotation="bitlap.validation.constraints.AssertSome">
         <validated-by>
             <value>bitlap.validation.AssertSomeValidator</value>
         </validated-by>
     </constraint-definition>
 
-    <constraint-definition annotation="bitlap.validation.ByteSize">
+    <constraint-definition annotation="bitlap.validation.constraints.ByteSize">
         <validated-by>
             <value>bitlap.validation.ByteSizeValidator</value>
         </validated-by>

@@ -2,6 +2,8 @@ package bitlap.validation
 
 import scala.annotation.meta.field
 
+import bitlap.validation.constraints.AssertNone
+
 class AssertNoneValidatorSpec extends BaseSpec {
 
   private[this] case class TestBean(

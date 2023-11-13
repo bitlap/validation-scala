@@ -92,7 +92,7 @@ if (violations.nonEmpty) {
 - Range
 - URL
 
-`bitlap.validation`
+`bitlap.validation.constraints`
 
 Original annotations.
 

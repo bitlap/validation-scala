@@ -1,5 +1,6 @@
 package bitlap.validation
 
+import bitlap.validation.constraints.ByteSize
 import bitlap.validation.function.ByteSizeFunction
 import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 
