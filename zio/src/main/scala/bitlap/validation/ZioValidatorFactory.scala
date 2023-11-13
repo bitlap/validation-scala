@@ -51,5 +51,4 @@ object ZioValidatorFactory {
         ZIO.attempt(validator.getConstraintsForClass(clazz))
     }
   }
-
 }
