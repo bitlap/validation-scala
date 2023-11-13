@@ -52,16 +52,14 @@ lazy val root = project
     name           := "validation-scala",
     publish / skip := true
   )
-  .aggregate(zio, core)
+  .aggregate(ext, core)
 
-lazy val zio = project
-  .in(file("zio"))
+lazy val ext = project
+  .in(file("ext"))
   .settings(commonSettings)
   .settings(
-    name := "validation-scala-zio",
-    libraryDependencies ++= Seq(
-      "dev.zio" %% "zio" % zioVersion % Provided
-    )
+    name         := "validation-scala-ext",
+    scalaVersion := scala3_Version
   )
   .dependsOn(core)
 
@@ -69,7 +67,8 @@ lazy val core = project
   .in(file("core"))
   .settings(commonSettings)
   .settings(
-    name := "validation-scala",
+    name         := "validation-scala",
+    scalaVersion := scala3_Version,
     Compile / doc / scalacOptions ++= {
       // Work around 2.12 bug which prevents javadoc in nested java classes from compiling.
       CrossVersion.partialVersion(scalaVersion.value) match {
