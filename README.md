@@ -11,10 +11,10 @@ Supports Scala `3` and `2.13`, above Java `11`.
 
 [Badge-CI]: https://github.com/bitlap/validation-scala/actions/workflows/scala.yml/badge.svg
 [Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Snapshots]: https://oss.sonatype.org/content/repositories/snapshots/org/bitlap/validation-scala_3/
+[Link-Snapshots]: https://s01.oss.sonatype.org/content/repositories/snapshots/org/bitlap/validation-scala_3/
 
 [Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Releases]: https://oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala_3/
+[Link-Releases]: https://s01.oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala_3/
 
 ## Introduction
 
