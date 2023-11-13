@@ -1,9 +1,9 @@
 package bitlap.validation.function
 
-import java.util
+import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.constraintvalidators.bv.NotBlankValidator
-import org.hibernate.validator.internal.constraintvalidators.bv.size._
+import org.hibernate.validator.internal.constraintvalidators.bv.notempty._
 
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.NotEmpty
@@ -13,38 +13,68 @@ final case class NotEmptyFunction(annotation: NotEmpty) extends CheckOptionFunct
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {
       case Some(x: Array[AnyRef])  =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArray
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Boolean]) =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfBoolean
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Byte])    =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfByte
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Char])    =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfChar
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Double])  =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfDouble
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Float])   =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfFloat
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Int])     =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfInt
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Long])    =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfLong
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: Array[Short])   =>
-        x.size > 0
+        val v = new NotEmptyValidatorForArraysOfShort
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x: CharSequence)   =>
-        x.length() > 0
+        val v = new NotEmptyValidatorForCharSequence
+        v.initialize(annotation)
+        v.isValid(x, ctx)
       case Some(x)                 =>
         // collection or seq
         x match {
-          case x: util.Collection[_]                 =>
-            x.size() > 0
-          case x: util.Map[_, _]                     =>
-            x.size() > 0
+          case x: java.util.Collection[_]                 =>
+            val v = new NotEmptyValidatorForCollection
+            v.initialize(annotation)
+            v.isValid(x, ctx)
+          case x: java.util.Map[_, _]                     =>
+            val v = new NotEmptyValidatorForMap
+            v.initialize(annotation)
+            v.isValid(x, ctx)
           case x: scala.collection.Map[_, _]         =>
-            x.size > 0
-          case x: scala.collection.Seq[_] @unchecked =>
-            x.size > 0
+            val v = new NotEmptyValidatorForMap
+            v.initialize(annotation)
+            v.isValid(x.asJava, ctx)
+          case x: scala.collection.Seq[_]            =>
+            val v = new NotEmptyValidatorForCollection
+            v.initialize(annotation)
+            v.isValid(x.asJava, ctx)
           case x: scala.collection.Set[_] @unchecked =>
-            x.size > 0
+            val v = new NotEmptyValidatorForCollection
+            v.initialize(annotation)
+            v.isValid(x.asJava, ctx)
           case _                                     => throw new IllegalStateException("oops.")
         }
       case None                    =>

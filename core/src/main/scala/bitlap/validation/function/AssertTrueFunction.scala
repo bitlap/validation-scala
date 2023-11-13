@@ -13,10 +13,6 @@ final case class AssertTrueFunction(val annotation: AssertTrue) extends CheckOpt
         val v = new AssertTrueValidator
         v.initialize(annotation)
         v.isValid(x, ctx)
-      case Some(x: java.lang.Boolean) =>
-        val v = new AssertTrueValidator
-        v.initialize(annotation)
-        v.isValid(x, ctx)
       case None                       =>
         true
       case _                          =>

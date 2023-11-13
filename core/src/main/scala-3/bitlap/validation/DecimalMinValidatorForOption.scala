@@ -6,8 +6,8 @@ import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.DecimalMin
 
 /**
- * Check that the wrapped value (e.g. Option[String]). The element must be a number whose value must be higher or equal
- * to the specified minimum.
+ * Check that the wrapped character sequence (e.g. Option[String]) and the number being validated represents a number,
+ * and has a value more than or equal to the minimum value specified.
  */
 class DecimalMinValidatorForOption extends ConstraintValidator[DecimalMin, IterableOnce[_]] {
   private var function: DecimalMinFunction = _

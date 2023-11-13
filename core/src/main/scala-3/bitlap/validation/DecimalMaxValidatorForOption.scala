@@ -6,8 +6,8 @@ import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.DecimalMax
 
 /**
- * Check that the wrapped value (e.g. Option[String]). The element must be a number whose value must be lower or equal
- * to the specified maximum.
+ * Check that the wrapped character sequence (e.g. Option[String]) and the number being validated represents a number,
+ * and has a value less than or equal to the maximum value specified.
  */
 class DecimalMaxValidatorForOption extends ConstraintValidator[DecimalMax, IterableOnce[_]] {
   private var function: DecimalMaxFunction = _

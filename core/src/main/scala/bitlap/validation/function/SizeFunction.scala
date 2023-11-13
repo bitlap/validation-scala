@@ -1,7 +1,5 @@
 package bitlap.validation.function
 
-import java.util
-
 import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.constraintvalidators.bv.size._
@@ -29,12 +27,12 @@ final case class SizeFunction(annotation: Size) extends CheckOptionFunction {
         val v = new SizeValidatorForArraysOfChar
         v.initialize(annotation)
         v.isValid(x, ctx)
-      case Some(x: Array[Double])  =>
-        val v = new SizeValidatorForArraysOfDouble
-        v.initialize(annotation)
-        v.isValid(x, ctx)
       case Some(x: Array[Float])   =>
         val v = new SizeValidatorForArraysOfFloat
+        v.initialize(annotation)
+        v.isValid(x, ctx)
+      case Some(x: Array[Double])  =>
+        val v = new SizeValidatorForArraysOfDouble
         v.initialize(annotation)
         v.isValid(x, ctx)
       case Some(x: Array[Int])     =>
@@ -56,27 +54,27 @@ final case class SizeFunction(annotation: Size) extends CheckOptionFunction {
       case Some(x)                 =>
         // collection or seq
         x match {
-          case x: util.Collection[_]                 =>
+          case x: java.util.Collection[_]    =>
             val v = new SizeValidatorForCollection
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: util.Map[_, _]                     =>
+          case x: java.util.Map[_, _]        =>
             val v = new SizeValidatorForMap
             v.initialize(annotation)
             v.isValid(x, ctx)
-          case x: scala.collection.Map[_, _]         =>
+          case x: scala.collection.Map[_, _] =>
             val v = new SizeValidatorForMap
             v.initialize(annotation)
             v.isValid(x.asJava, ctx)
-          case x: scala.collection.Seq[_] @unchecked =>
+          case x: scala.collection.Seq[_]    =>
             val v = new SizeValidatorForCollection
             v.initialize(annotation)
             v.isValid(x.toSeq.asJava, ctx)
-          case x: scala.collection.Set[_] @unchecked =>
+          case x: scala.collection.Set[_]    =>
             val v = new SizeValidatorForCollection
             v.initialize(annotation)
             v.isValid(x.toSet.asJava, ctx)
-          case _                                     => throw new IllegalStateException("oops.")
+          case _                             => throw new IllegalStateException("oops.")
         }
       case None                    =>
         true

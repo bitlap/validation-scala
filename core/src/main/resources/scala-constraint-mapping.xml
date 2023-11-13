@@ -105,7 +105,31 @@
             <value>bitlap.validation.NotEmptyValidatorForOption</value>
         </validated-by>
     </constraint-definition>
+    
+    <constraint-definition annotation="jakarta.validation.constraints.Positive">
+        <validated-by include-existing-validators="true">
+            <value>bitlap.validation.PositiveValidatorForOption</value>
+        </validated-by>
+    </constraint-definition>
+    
+    <constraint-definition annotation="jakarta.validation.constraints.PositiveOrZero">
+        <validated-by include-existing-validators="true">
+            <value>bitlap.validation.PositiveOrZeroValidatorForOption</value>
+        </validated-by>
+    </constraint-definition>
 
+    <constraint-definition annotation="jakarta.validation.constraints.Negative">
+        <validated-by include-existing-validators="true">
+            <value>bitlap.validation.NegativeValidatorForOption</value>
+        </validated-by>
+    </constraint-definition>
+    
+    <constraint-definition annotation="jakarta.validation.constraints.NegativeOrZero">
+        <validated-by include-existing-validators="true">
+            <value>bitlap.validation.NegativeOrZeroValidatorForOption</value>
+        </validated-by>
+    </constraint-definition>
+    
     <!-- hibernate annotations -->
 
     <!-- CreditCardNumber is combined annotation. -->

@@ -1,54 +1,53 @@
 package bitlap.validation.function
 
-import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal._
-
 import jakarta.validation.ConstraintValidatorContext
-import jakarta.validation.constraints.DecimalMin
+import jakarta.validation.constraints.NegativeOrZero
+import org.hibernate.validator.internal.constraintvalidators.bv.number.sign._
 
-final case class DecimalMinFunction(annotation: DecimalMin) extends CheckOptionFunction {
+final case class NegativeOrZeroFunction(annotation: NegativeOrZero) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {
       case Some(x) =>
         x match {
           case x: CharSequence =>
-            val v = new DecimalMinValidatorForCharSequence
+            val v = new NegativeOrZeroValidatorForCharSequence
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: Byte =>
-            val v = new DecimalMinValidatorForByte
+            val v = new NegativeOrZeroValidatorForByte
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: Float =>
-            val v = new DecimalMinValidatorForFloat
+            val v = new NegativeOrZeroValidatorForFloat
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: Double =>
-            val v = new DecimalMinValidatorForDouble
+            val v = new NegativeOrZeroValidatorForDouble
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: Short =>
-            val v = new DecimalMinValidatorForShort
+            val v = new NegativeOrZeroValidatorForShort
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: Int =>
-            val v = new DecimalMinValidatorForInteger
+            val v = new NegativeOrZeroValidatorForInteger
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: Long =>
-            val v = new DecimalMinValidatorForLong
+            val v = new NegativeOrZeroValidatorForLong
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: BigDecimal =>
-            val v = new DecimalMinValidatorForBigDecimal
+            val v = new NegativeOrZeroValidatorForBigDecimal
             v.initialize(annotation)
             v.isValid(x.underlying(), ctx)
           case x: java.math.BigDecimal =>
-            val v = new DecimalMinValidatorForBigDecimal
+            val v = new NegativeOrZeroValidatorForBigDecimal
             v.initialize(annotation)
             v.isValid(x, ctx)
           case x: java.math.BigInteger =>
-            val v = new DecimalMinValidatorForBigInteger
+            val v = new NegativeOrZeroValidatorForBigInteger
             v.initialize(annotation)
             v.isValid(x, ctx)
           case _ => throw new IllegalStateException("oops.")
