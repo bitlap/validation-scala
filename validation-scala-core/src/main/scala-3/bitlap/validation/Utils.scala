@@ -6,7 +6,8 @@ object Utils {
     iterableOnce match {
       case option: Option[T] =>
         opt(option)
-      case _                 => true
+      case _                 =>
+        throw ValidationException("Only Option type is supported")
     }
 
 }
