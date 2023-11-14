@@ -43,17 +43,17 @@ lazy val commonSettings = Seq(
   )
 )
 
-lazy val root = project
+lazy val `validation-scala` = project
   .in(file("."))
   .settings(commonSettings)
   .settings(
     name           := "validation-scala",
     publish / skip := true
   )
-  .aggregate(ext, core, plugin)
+  .aggregate(`validation-scala-ext`, `validation-scala-core`, `validation-scala-plugin`)
 
-lazy val ext = project
-  .in(file("ext"))
+lazy val `validation-scala-ext` = project
+  .in(file("validation-scala-ext"))
   .settings(commonSettings)
   .settings(
     crossScalaVersions := supportCrossVersionList,
@@ -61,9 +61,9 @@ lazy val ext = project
     name               := "validation-scala-ext",
     scalaVersion       := scala3_Version
   )
-  .dependsOn(core)
+  .dependsOn(`validation-scala-core`)
 
-lazy val `plugin` = (project in file("plugin"))
+lazy val `validation-scala-plugin` = (project in file("validation-scala-plugin"))
   .settings(
     commonSettings,
     name               := "validation-scala-plugin",
@@ -74,11 +74,11 @@ lazy val `plugin` = (project in file("plugin"))
     )
   )
 
-lazy val core = project
-  .in(file("core"))
+lazy val `validation-scala-core` = project
+  .in(file("validation-scala-core"))
   .settings(commonSettings)
   .settings(
-    name               := "validation-scala",
+    name               := "validation-scala-core",
     crossScalaVersions := supportCrossVersionList,
     scalaVersion       := scala3_Version,
     Compile / doc / scalacOptions ++= {

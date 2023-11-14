@@ -10,17 +10,17 @@ Supports Scala `3` and `2.13`, above Java `11`.
 [Badge-Stage-Page]: https://github.com/bitlap/bitlap/wiki/Project-Stages
 
 [Badge-CI]: https://github.com/bitlap/validation-scala/actions/workflows/scala.yml/badge.svg
-[Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Snapshots]: https://s01.oss.sonatype.org/content/repositories/snapshots/org/bitlap/validation-scala_3/
+[Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/validation-scala-core_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Snapshots]: https://s01.oss.sonatype.org/content/repositories/snapshots/org/bitlap/validation-scala-core_3/
 
-[Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/validation-scala_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Releases]: https://s01.oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala_3/
+[Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/validation-scala-core_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Releases]: https://s01.oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala-core_3/
 
 ## Introduction
 
 ```scala
 libraryDependencies ++= Seq(
-  "org.bitlap" %% "validation-scala" % "latest version"
+  "org.bitlap" %% "validation-scala-core" % "latest version"
 )
 ```
 

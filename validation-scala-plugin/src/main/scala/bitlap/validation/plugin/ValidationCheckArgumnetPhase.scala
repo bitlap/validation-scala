@@ -35,8 +35,7 @@ final class ValidationCheckArgumnetPhase extends PluginPhase:
     val annotedParams = annotats.map { case (field, ans) =>
       val existAnnot = ans.collect {
         case a @ Apply(Select(New(Ident(an)), _), Nil) if an.asSimpleName == AnnotationClass.name.asSimpleName =>
-          report.debugwarn(
-            s"Validation found param: ${field.name.show} in ${tree.name.show}")
+          report.debugwarn(s"Validation found param: ${field.name.show} in ${tree.name.show}")
           a
       }
       if (existAnnot.nonEmpty) Some(field) else None
@@ -59,6 +58,5 @@ final class ValidationCheckArgumnetPhase extends PluginPhase:
       tree.rhs
     )
     val newDef = DefDef(tree.symbol.asTerm, tree.termParamss.map(_.map(_.symbol)), tree.tpe, rhs)
-    report.debugwarn(
-      s"Validation updated method: ${newDef.show}")
+    report.debugwarn(s"Validation updated method: ${newDef.show}")
     newDef
