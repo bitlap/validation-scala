@@ -103,6 +103,33 @@ Original annotations.
 - AssertSome
 - ByteSize
 
+## Scala3 Plugin
+
+Add the following code to `build.sbt`:
+```scala
+libraryDependencies ++= Seq(
+"org.bitlap" %% "validation-scala-ext" % "latest version",
+),
+autoCompilerPlugins := true,
+addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
+```
+
+Add `@checkArgument` on method paramemter:
+```scala
+import bitlap.validation.ext.checkArgument
+def update(@checkArgument persion1: Persion, persion2: Persion) = {
+  /// ...
+}
+```
+
+The following code is the expanded code of the compiler plugin:
+```scala
+def update(@checkArgument persion1: Persion, @checkArgument persion2: Persion) = {
+  bitlap.validation.ext.ValidationRuntimeUtil.checkArgument(persion1, persion2)
+  /// ...
+}
+```
+
 ## Inspired by
 
 [bean-validation-scala](https://github.com/bean-validation-scala/bean-validation-scala), JSR 303 and 349 Bean Validation for Scala.

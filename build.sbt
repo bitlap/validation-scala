@@ -35,7 +35,6 @@ addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 addCommandAlias("check", "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck")
 
 lazy val commonSettings = Seq(
-  crossScalaVersions := supportCrossVersionList,
   // Add warnings
   scalacOptions ++= Seq(
     "-feature",
@@ -51,23 +50,37 @@ lazy val root = project
     name           := "validation-scala",
     publish / skip := true
   )
-  .aggregate(ext, core)
+  .aggregate(ext, core, plugin)
 
 lazy val ext = project
   .in(file("ext"))
   .settings(commonSettings)
   .settings(
-    name         := "validation-scala-ext",
-    scalaVersion := scala3_Version
+    crossScalaVersions := supportCrossVersionList,
+    scalaVersion       := scala3_Version,
+    name               := "validation-scala-ext",
+    scalaVersion       := scala3_Version
   )
   .dependsOn(core)
+
+lazy val `plugin` = (project in file("plugin"))
+  .settings(
+    commonSettings,
+    name               := "validation-scala-plugin",
+    scalaVersion       := scala3_Version,
+    crossScalaVersions := Nil,
+    libraryDependencies ++= List(
+      "org.scala-lang" %% "scala3-compiler" % scala3_Version % Provided
+    )
+  )
 
 lazy val core = project
   .in(file("core"))
   .settings(commonSettings)
   .settings(
-    name         := "validation-scala",
-    scalaVersion := scala3_Version,
+    name               := "validation-scala",
+    crossScalaVersions := supportCrossVersionList,
+    scalaVersion       := scala3_Version,
     Compile / doc / scalacOptions ++= {
       // Work around 2.12 bug which prevents javadoc in nested java classes from compiling.
       CrossVersion.partialVersion(scalaVersion.value) match {
