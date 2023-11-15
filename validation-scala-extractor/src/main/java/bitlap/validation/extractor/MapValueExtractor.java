@@ -6,6 +6,9 @@ import scala.Tuple2;
 import scala.collection.Iterator;
 import scala.collection.Map;
 
+/**
+ * Cannot verify both key and value due to hibernate-validator limitations. Register key extractor by default.
+ */
 public class MapValueExtractor implements ValueExtractor<Map<?, @ExtractedValue ?>> {
 
     @Override

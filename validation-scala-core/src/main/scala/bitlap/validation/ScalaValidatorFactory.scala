@@ -18,7 +18,7 @@ object ScalaValidatorFactory {
   /**
    * Provide a ValidatorFactory with scala extensions.
    */
-  def validatorFactory(clock: Clock = Clock.systemDefaultZone()): ValidatorFactory = {
+  def validatorFactory(clock: ClockProvider): ValidatorFactory = {
     val stream = getClass.getClassLoader.getResourceAsStream("scala-constraint-mapping.xml")
 
     val validatorFactory = Validation
@@ -26,9 +26,7 @@ object ScalaValidatorFactory {
       .configure()
       .addMapping(stream)
       .asInstanceOf[ConfigurationImpl]
-      .clockProvider(new ClockProvider {
-        override def getClock: Clock = clock
-      })
+      .clockProvider(clock)
       .buildValidatorFactory()
 
     validatorFactory
@@ -37,7 +35,7 @@ object ScalaValidatorFactory {
   /**
    * Provide a Validator.
    */
-  def scalaValidator(clock: Clock = Clock.systemDefaultZone()): GenericeScalaValidator[Identity] = {
+  def scalaValidator(clock: ClockProvider): GenericeScalaValidator[Identity] = {
     val validator = validatorFactory(clock).getValidator
 
     new GenericeScalaValidator[Identity] {

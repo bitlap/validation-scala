@@ -1,9 +1,11 @@
 package bitlap.validation
 
 import scala.annotation.meta.field
+import scala.annotation.nowarn
 
 import org.hibernate.validator.constraints.{ CreditCardNumber, NotEmpty, Range => RangeAnnotation }
 
+@nowarn
 class CombinedAnnotationSpec extends BaseSpec {
 
   private[this] case class TestBeanForCreditCardNumber(

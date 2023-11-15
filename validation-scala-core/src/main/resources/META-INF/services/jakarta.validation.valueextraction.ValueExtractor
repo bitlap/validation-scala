@@ -1,5 +1,5 @@
+bitlap.validation.extractor.IterableExtractor
 bitlap.validation.extractor.MapValueExtractor
-bitlap.validation.extractor.OptionExtractor
 bitlap.validation.extractor.SeqExtractor
 bitlap.validation.extractor.SetExtractor
-bitlap.validation.extractor.IterableExtractor
+bitlap.validation.extractor.OptionExtractor

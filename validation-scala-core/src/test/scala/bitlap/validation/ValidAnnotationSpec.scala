@@ -1,6 +1,6 @@
 package bitlap.validation
 
-import scala.annotation.meta.field
+import scala.annotation.meta.{ beanGetter, beanSetter, field }
 
 import org.hibernate.validator.constraints.Length
 
@@ -98,6 +98,25 @@ class ValidAnnotationSpec extends BaseSpec {
   Seq(
     (MyBeanWithArray(Array(InnerBeanWithArray("1"))), 0),
     (MyBeanWithArray(Array(InnerBeanWithArray("123"))), 1)
+  ) foreach { case (bean, expected) =>
+    s"Check violations count. bean = $bean, count = $expected" >> {
+      test(bean, expected)
+    }
+  }
+
+  case class MyBeanWithIterable(
+    @(Valid @field)
+    seq: Iterable[InnerBeanWithIterable]
+  )
+
+  case class InnerBeanWithIterable(
+    @(Length @field)(max = 2)
+    name: String
+  )
+
+  Seq(
+    (MyBeanWithIterable(Iterable.single(InnerBeanWithIterable("1"))), 0),
+    (MyBeanWithIterable(Iterable.single(InnerBeanWithIterable("123"))), 1)
   ) foreach { case (bean, expected) =>
     s"Check violations count. bean = $bean, count = $expected" >> {
       test(bean, expected)

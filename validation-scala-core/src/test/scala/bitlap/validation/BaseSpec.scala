@@ -24,7 +24,8 @@ trait BaseSpec extends Specification {
   val nowJodaInstant       = Instant.parse((nowStr))
   val yesterdayJodaInstant = Instant.parse(pastStr)
 
-  val validator = ScalaValidatorFactory.scalaValidator(Clock.fixed(now, ZoneId.systemDefault()))
+  val fixClock  = new ScalaClockProvider(Clock.fixed(now, ZoneId.systemDefault()))
+  val validator = ScalaValidatorFactory.scalaValidator(fixClock)
 
   def targetClassName =
     this.getClass.getSimpleName.replaceAll("Spec$", "")

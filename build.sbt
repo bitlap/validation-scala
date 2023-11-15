@@ -3,8 +3,8 @@ import sbt.Keys.crossScalaVersions
 val scala3_Version               = "3.3.1"
 val scala2_13Version             = "2.13.12"
 val scalaCollectionCompatVersion = "2.11.0"
-val hibernateVersion             = "5.4.0.Final"
-val validationVersion            = "1.1.0.Final"
+val hibernateVersion             = "8.0.1.Final"
+val jakartaVersion               = "3.0.2"
 val elVersion                    = "5.0.0"
 val jodaConvertVersion           = "2.2.2"
 val jodaTimeVersion              = "2.12.5"
@@ -50,7 +50,7 @@ lazy val `validation-scala` = project
     name           := "validation-scala",
     publish / skip := true
   )
-  .aggregate(`validation-scala-ext`, `validation-scala-core`, `validation-scala-plugin`)
+  .aggregate(`validation-scala-ext`, `validation-scala-core`, `validation-scala-plugin`, `validation-scala-extractor`)
 
 lazy val `validation-scala-ext` = project
   .in(file("validation-scala-ext"))
@@ -73,12 +73,23 @@ lazy val `validation-scala-plugin` = (project in file("validation-scala-plugin")
     )
   )
 
+lazy val `validation-scala-extractor` = project
+  .in(file("validation-scala-extractor"))
+  .settings(commonSettings)
+  .settings(
+    name               := "validation-scala-extractor",
+    crossScalaVersions := Nil,
+    scalaVersion       := scala3_Version,
+    libraryDependencies ++= Seq(
+      "jakarta.validation" % "jakarta.validation-api" % jakartaVersion
+    )
+  )
+
 lazy val `validation-scala-core` = project
   .in(file("validation-scala-core"))
   .settings(commonSettings)
   .settings(
     name               := "validation-scala-core",
-    compileOrder       := CompileOrder.JavaThenScala,
     crossScalaVersions := supportCrossVersionList,
     scalaVersion       := scala3_Version,
     Compile / doc / scalacOptions ++= {
@@ -91,14 +102,12 @@ lazy val `validation-scala-core` = project
       }
     },
     libraryDependencies ++= Seq(
-      "org.hibernate.validator" % "hibernate-validator"     % "8.0.1.Final",
-      "jakarta.validation"      % "jakarta.validation-api"  % "3.0.2",
+      "org.hibernate.validator" % "hibernate-validator"     % hibernateVersion,
       "org.joda"                % "joda-convert"            % jodaConvertVersion,
       "joda-time"               % "joda-time"               % jodaTimeVersion,
       "org.glassfish.expressly" % "expressly"               % elVersion,
-//      "jakarta.xml.bind"        % "jakarta.xml.bind-api"    % "2.3.2",
-//      "org.glassfish.jaxb"      % "jaxb-runtime"            % "2.3.2",
       "org.scala-lang.modules" %% "scala-collection-compat" % scalaCollectionCompatVersion,
       "org.specs2"             %% "specs2-core"             % specs2Version % Test
     )
   )
+  .dependsOn(`validation-scala-extractor`)
