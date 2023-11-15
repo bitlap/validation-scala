@@ -83,4 +83,23 @@ class ValidAnnotationSpec extends BaseSpec {
       test(bean, expected)
     }
   }
+
+  case class MyBeanWithArray(
+    @(Valid @field)
+    seq: Array[InnerBeanWithArray]
+  )
+
+  case class InnerBeanWithArray(
+    @(Length @field)(max = 2)
+    name: String
+  )
+
+  Seq(
+    (MyBeanWithArray(Array(InnerBeanWithArray("1"))), 0),
+    (MyBeanWithArray(Array(InnerBeanWithArray("123"))), 1)
+  ) foreach { case (bean, expected) =>
+    s"Check violations count. bean = $bean, count = $expected" >> {
+      test(bean, expected)
+    }
+  }
 }
