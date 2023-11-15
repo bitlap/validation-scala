@@ -13,7 +13,7 @@ class MinValidatorForOption extends ConstraintValidator[Min, IterableOnce[_]] {
   private var function: MinFunction = _
 
   override def initialize(constraintAnnotation: Min): Unit =
-    function = new MinFunction(constraintAnnotation)
+    function = MinFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

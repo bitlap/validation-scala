@@ -13,7 +13,7 @@ class EANValidatorForOption extends ConstraintValidator[EAN, IterableOnce[_]] {
   private var function: EANFunction = _
 
   override def initialize(constraintAnnotation: EAN): Unit =
-    function = new EANFunction(constraintAnnotation)
+    function = EANFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

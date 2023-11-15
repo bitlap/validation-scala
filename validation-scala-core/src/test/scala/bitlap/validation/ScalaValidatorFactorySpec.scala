@@ -1,7 +1,5 @@
 package bitlap.validation
 
-import java.time.{ Clock, ZoneId }
-
 class ScalaValidatorFactorySpec extends BaseSpec {
 
   "ScalaValidatorFactory#validatorFactory" >> {

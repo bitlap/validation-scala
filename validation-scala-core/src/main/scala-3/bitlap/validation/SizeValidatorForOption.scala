@@ -1,7 +1,5 @@
 package bitlap.validation
 
-import java.util
-
 import bitlap.validation.Utils._
 import bitlap.validation.function.SizeFunction
 import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
@@ -14,7 +12,7 @@ class SizeValidatorForOption extends ConstraintValidator[Size, IterableOnce[_]] 
   private var function: SizeFunction = _
 
   override def initialize(constraintAnnotation: Size): Unit =
-    function = new SizeFunction(constraintAnnotation)
+    function = SizeFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

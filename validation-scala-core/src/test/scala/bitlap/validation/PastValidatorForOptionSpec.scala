@@ -1,8 +1,7 @@
 package bitlap.validation
 
 import java.time.Instant
-import java.time.temporal.ChronoUnit
-import java.util.{ Calendar, Date, Locale }
+import java.util._
 
 import scala.annotation.meta.field
 

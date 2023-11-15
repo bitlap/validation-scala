@@ -20,7 +20,7 @@ class PastOrPresentValidatorForOption extends HibernateConstraintValidator[PastO
     constraintDescriptor: ConstraintDescriptor[PastOrPresent],
     initializationContext: HibernateConstraintValidatorInitializationContext
   ): Unit =
-    function = new TimePastOrPresentFunction(constraintDescriptor, initializationContext)
+    function = TimePastOrPresentFunction(constraintDescriptor, initializationContext)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

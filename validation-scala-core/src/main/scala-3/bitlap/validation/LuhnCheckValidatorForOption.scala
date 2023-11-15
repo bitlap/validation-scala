@@ -15,7 +15,7 @@ class LuhnCheckValidatorForOption extends ConstraintValidator[LuhnCheck, Iterabl
   private var function: LuhnCheckFunction = _
 
   override def initialize(constraintAnnotation: LuhnCheck): Unit =
-    function = new LuhnCheckFunction(constraintAnnotation)
+    function = LuhnCheckFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

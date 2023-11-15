@@ -13,7 +13,7 @@ class LengthValidatorForOption extends ConstraintValidator[Length, IterableOnce[
   private var function: LengthFunction = _
 
   override def initialize(constraintAnnotation: Length): Unit =
-    function = new LengthFunction(constraintAnnotation)
+    function = LengthFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

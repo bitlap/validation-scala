@@ -13,7 +13,7 @@ class EmailValidatorForOption extends ConstraintValidator[Email, IterableOnce[_]
   private var function: EmailFunction = _
 
   override def initialize(constraintAnnotation: Email): Unit =
-    function = new EmailFunction(constraintAnnotation)
+    function = EmailFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

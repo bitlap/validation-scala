@@ -13,7 +13,7 @@ class NotEmptyValidatorForOption extends ConstraintValidator[NotEmpty, IterableO
   private var function: NotEmptyFunction = _
 
   override def initialize(constraintAnnotation: NotEmpty): Unit =
-    function = new NotEmptyFunction(constraintAnnotation)
+    function = NotEmptyFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

@@ -13,7 +13,7 @@ class DecimalMaxValidatorForOption extends ConstraintValidator[DecimalMax, Itera
   private var function: DecimalMaxFunction = _
 
   override def initialize(constraintAnnotation: DecimalMax): Unit =
-    function = new DecimalMaxFunction(constraintAnnotation)
+    function = DecimalMaxFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))
