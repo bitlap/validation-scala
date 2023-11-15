@@ -1,11 +1,12 @@
 package bitlap.validation
 
-import scala.annotation.meta.{ beanGetter, beanSetter, field }
+import scala.annotation.meta.field
+import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.constraints.Length
 
 import jakarta.validation.Valid
-import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.{ NotBlank, NotNull, Positive, Size }
 
 class ValidAnnotationSpec extends BaseSpec {
 
@@ -117,6 +118,25 @@ class ValidAnnotationSpec extends BaseSpec {
   Seq(
     (MyBeanWithIterable(Iterable.single(InnerBeanWithIterable("1"))), 0),
     (MyBeanWithIterable(Iterable.single(InnerBeanWithIterable("123"))), 1)
+  ) foreach { case (bean, expected) =>
+    s"Check violations count. bean = $bean, count = $expected" >> {
+      test(bean, expected)
+    }
+  }
+
+  case class MyBeanWithJavaList(
+    @(Valid @field)
+    seq: java.util.List[InnerBeanWithJavaList]
+  )
+
+  case class InnerBeanWithJavaList(
+    @(Length @field)(max = 2)
+    name: String
+  )
+
+  Seq(
+    (MyBeanWithJavaList(List(InnerBeanWithJavaList("1")).asJava), 0),
+    (MyBeanWithJavaList(List(InnerBeanWithJavaList("123")).asJava), 1)
   ) foreach { case (bean, expected) =>
     s"Check violations count. bean = $bean, count = $expected" >> {
       test(bean, expected)

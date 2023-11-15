@@ -17,7 +17,7 @@ public class MapKeyExtractor implements ValueExtractor<Map<@ExtractedValue ?, ?>
         Iterator<?> iterator = originalValue.keysIterator();
         while (iterator.hasNext()) {
             Object key = iterator.next();
-            receiver.keyedValue("<scala map key>", key, key);
+            receiver.keyedValue("<map key>", key, key);
         }
     }
 }
