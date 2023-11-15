@@ -77,7 +77,7 @@ def update(@validateArg persion1: Persion, persion2: Persion) = {
 The following code is the expanded code of the compiler plugin:
 ```scala
 def update(@validateArg persion1: Persion, persion2: Persion) = {
-  // throw IllegalArgumentException if found errors
+  // It will throw an IllegalArgumentException if it finds errors.
   bitlap.validation.ext.Preconditions.validateArg(persion1)
   /// ...
 }
