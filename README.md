@@ -39,8 +39,9 @@ case class Person(
 Step 2. Create validator by our library:
 ```scala
 import bitlap.validation.ScalaValidatorFactory
+import bitlap.validation.ScalaClockProvider
 
-val validator = ScalaValidatorFactory.scalaValidator()
+val validator = ScalaValidatorFactory.scalaValidator(new ScalaClockProvider)
 ```
 
 Step 3. Validate a case class object:
@@ -53,7 +54,7 @@ if (violations.nonEmpty) {
 }
 ```
 
-### Use it like springboot 
+### Use it like SpringBoot 
 
 > It does not support annotations with group parameters and only supports scala 3!
 
