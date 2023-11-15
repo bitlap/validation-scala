@@ -13,7 +13,7 @@ class NegativeOrZeroValidatorForOption extends ConstraintValidator[NegativeOrZer
   private var function: NegativeOrZeroFunction = _
 
   override def initialize(constraintAnnotation: NegativeOrZero): Unit =
-    function = new NegativeOrZeroFunction(constraintAnnotation)
+    function = NegativeOrZeroFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

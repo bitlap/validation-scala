@@ -1,12 +1,11 @@
 package bitlap.validation
 
-import java.time.{ Instant, ZoneOffset }
-import java.time.temporal.ChronoUnit
+import java.time.Instant
 import java.util._
 
 import scala.annotation.meta.field
 
-import org.joda.time.{ DateTime, DateTimeZone }
+import org.joda.time.DateTime
 
 import jakarta.validation.constraints.FutureOrPresent
 

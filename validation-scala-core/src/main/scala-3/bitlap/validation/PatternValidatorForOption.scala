@@ -12,7 +12,7 @@ class PatternValidatorForOption extends ConstraintValidator[Pattern, IterableOnc
   private var function: PatternFunction = _
 
   override def initialize(constraintAnnotation: Pattern): Unit =
-    function = new PatternFunction(constraintAnnotation)
+    function = PatternFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

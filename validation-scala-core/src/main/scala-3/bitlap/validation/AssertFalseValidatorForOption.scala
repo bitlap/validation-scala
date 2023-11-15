@@ -1,10 +1,8 @@
 package bitlap.validation
 
-import org.hibernate.validator.internal.constraintvalidators.bv.AssertFalseValidator
-
 import bitlap.validation.Utils._
 import bitlap.validation.function.AssertFalseFunction
-import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext, ValidationException }
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.AssertFalse
 
 /**
@@ -16,7 +14,7 @@ class AssertFalseValidatorForOption extends ConstraintValidator[AssertFalse, Ite
   override def initialize(constraintAnnotation: AssertFalse): Unit =
     this.constraintAnnotation = constraintAnnotation
 
-  private lazy val function = new AssertFalseFunction(constraintAnnotation)
+  private lazy val function = AssertFalseFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

@@ -13,7 +13,7 @@ class DecimalMinValidatorForOption extends ConstraintValidator[DecimalMin, Itera
   private var function: DecimalMinFunction = _
 
   override def initialize(constraintAnnotation: DecimalMin): Unit =
-    function = new DecimalMinFunction(constraintAnnotation)
+    function = DecimalMinFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

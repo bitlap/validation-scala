@@ -12,7 +12,7 @@ class DigitsValidatorForOption extends ConstraintValidator[Digits, IterableOnce[
   private var function: DigitsFunction = _
 
   override def initialize(constraintAnnotation: Digits): Unit =
-    function = new DigitsFunction(constraintAnnotation)
+    function = DigitsFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

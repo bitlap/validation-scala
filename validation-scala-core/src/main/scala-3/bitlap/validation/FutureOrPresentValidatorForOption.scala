@@ -20,7 +20,7 @@ class FutureOrPresentValidatorForOption extends HibernateConstraintValidator[Fut
     constraintDescriptor: ConstraintDescriptor[FutureOrPresent],
     initializationContext: HibernateConstraintValidatorInitializationContext
   ): Unit =
-    function = new TimeFutureOrPresentFunction(constraintDescriptor, initializationContext)
+    function = TimeFutureOrPresentFunction(constraintDescriptor, initializationContext)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

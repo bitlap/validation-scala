@@ -13,7 +13,7 @@ class URLValidatorForOption extends ConstraintValidator[URL, IterableOnce[_]] {
   private var function: URLFunction = _
 
   override def initialize(constraintAnnotation: URL): Unit =
-    function = new URLFunction(constraintAnnotation)
+    function = URLFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

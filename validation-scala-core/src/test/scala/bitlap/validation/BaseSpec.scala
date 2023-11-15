@@ -1,7 +1,6 @@
 package bitlap.validation
 
 import java.time.{ Clock, ZoneId }
-import java.time.temporal.ChronoUnit
 
 import org.joda.time.{ DateTime, Instant }
 import org.specs2.mutable.Specification

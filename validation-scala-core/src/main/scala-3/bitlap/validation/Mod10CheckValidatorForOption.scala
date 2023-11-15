@@ -15,7 +15,7 @@ class Mod10CheckValidatorForOption extends ConstraintValidator[Mod10Check, Itera
   private var function: Mod10CheckFunction = _
 
   override def initialize(constraintAnnotation: Mod10Check): Unit =
-    function = new Mod10CheckFunction(constraintAnnotation)
+    function = Mod10CheckFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))

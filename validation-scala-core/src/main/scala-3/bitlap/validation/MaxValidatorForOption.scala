@@ -13,7 +13,7 @@ class MaxValidatorForOption extends ConstraintValidator[Max, IterableOnce[_]] {
   private var function: MaxFunction = _
 
   override def initialize(constraintAnnotation: Max): Unit =
-    function = new MaxFunction(constraintAnnotation)
+    function = MaxFunction(constraintAnnotation)
 
   override def isValid(value: IterableOnce[_], context: ConstraintValidatorContext): Boolean =
     checkForOption(value)(opt => function.check(opt)(context))
