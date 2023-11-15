@@ -6,7 +6,7 @@ import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.engine.ConfigurationImpl
 
-import jakarta.validation.{ ClockProvider, ConstraintViolation, Validation, Validator, ValidatorFactory }
+import jakarta.validation._
 import jakarta.validation.executable.ExecutableValidator
 import jakarta.validation.metadata.BeanDescriptor
 

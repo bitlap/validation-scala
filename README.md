@@ -122,6 +122,7 @@ def update(
 - NegativeOrZer
 - Positive
 - PositiveOrZero
+- Valid
 
 `org.hibernate.validator.constraints`
 
