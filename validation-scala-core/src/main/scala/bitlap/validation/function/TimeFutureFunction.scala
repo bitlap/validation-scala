@@ -7,7 +7,6 @@ import org.hibernate.validator.constraintvalidation.HibernateConstraintValidator
 import org.hibernate.validator.internal.constraintvalidators.bv.time.future._
 import org.joda.time.{ ReadableInstant, ReadablePartial }
 
-import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.Future
 import jakarta.validation.metadata.ConstraintDescriptor

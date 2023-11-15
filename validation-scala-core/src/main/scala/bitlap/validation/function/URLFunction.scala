@@ -3,7 +3,7 @@ package bitlap.validation.function
 import org.hibernate.validator.constraints.URL
 import org.hibernate.validator.internal.constraintvalidators.hv.URLValidator
 
-import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.ConstraintValidatorContext
 
 final case class URLFunction(annotation: URL) extends CheckOptionFunction {
 

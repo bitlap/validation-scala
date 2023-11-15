@@ -4,7 +4,7 @@ import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.constraintvalidators.bv.size._
 
-import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.Size
 
 final case class SizeFunction(annotation: Size) extends CheckOptionFunction {

@@ -1,9 +1,5 @@
 package bitlap.validation.function
 
-import java.util
-
-import scala.jdk.CollectionConverters._
-
 import org.hibernate.validator.internal.constraintvalidators.bv.number.sign._
 
 import jakarta.validation.ConstraintValidatorContext

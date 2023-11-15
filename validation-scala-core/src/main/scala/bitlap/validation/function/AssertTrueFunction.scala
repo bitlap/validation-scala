@@ -5,7 +5,7 @@ import org.hibernate.validator.internal.constraintvalidators.bv.AssertTrueValida
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.AssertTrue
 
-final case class AssertTrueFunction(val annotation: AssertTrue) extends CheckOptionFunction {
+final case class AssertTrueFunction(annotation: AssertTrue) extends CheckOptionFunction {
 
   override def check(value: Option[_]): ConstraintValidatorContext => Boolean = ctx =>
     value match {
