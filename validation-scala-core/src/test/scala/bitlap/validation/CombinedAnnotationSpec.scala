@@ -66,10 +66,10 @@ class CombinedAnnotationSpec extends BaseSpec {
     }
   }
 
-  // not support cascad
+//   not support wrapped cascade
 //  case class MyBean(
 //    @(Valid @field)
-//    list: Seq[InnerBean]
+//    list: Option[InnerBean]
 //  )
 //
 //  case class InnerBean(
@@ -78,8 +78,8 @@ class CombinedAnnotationSpec extends BaseSpec {
 //  )
 //
 //  Seq(
-//    (MyBean(Seq(InnerBean("1"))), 0),
-//    (MyBean(Seq(InnerBean("123"))), 1)
+//    (MyBean(Some(InnerBean("1"))), 0),
+//    (MyBean(Some(InnerBean("123"))), 1)
 //  ) foreach { case (bean, expected) =>
 //    s"Check violations count. bean = $bean, count = $expected" >> {
 //      test(bean, expected)

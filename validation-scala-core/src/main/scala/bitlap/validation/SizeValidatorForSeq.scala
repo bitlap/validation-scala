@@ -1,6 +1,5 @@
 package bitlap.validation
 
-import scala.annotation.nowarn
 import scala.collection.immutable.{ Seq => _ }
 import scala.jdk.CollectionConverters._
 
@@ -12,7 +11,6 @@ import jakarta.validation.constraints.Size
 /**
  * Check that the length of a wrapped value is between min and max.
  */
-@nowarn
 class SizeValidatorForSeq extends ConstraintValidator[Size, scala.collection.Seq[_]] {
   private var constraintAnnotation: Size = _
 

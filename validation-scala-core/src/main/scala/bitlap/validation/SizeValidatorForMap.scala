@@ -1,6 +1,5 @@
 package bitlap.validation
 
-import scala.annotation.nowarn
 import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.constraintvalidators.bv.size.{ SizeValidatorForMap => JSizeValidatorForMap }
@@ -11,7 +10,6 @@ import jakarta.validation.constraints.Size
 /**
  * Check that the length of a wrapped value is between min and max.
  */
-@nowarn
 class SizeValidatorForMap extends ConstraintValidator[Size, scala.collection.Map[_, _]] {
   private var constraintAnnotation: Size = _
 
