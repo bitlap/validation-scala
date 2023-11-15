@@ -78,6 +78,7 @@ lazy val `validation-scala-core` = project
   .settings(commonSettings)
   .settings(
     name               := "validation-scala-core",
+    compileOrder       := CompileOrder.JavaThenScala,
     crossScalaVersions := supportCrossVersionList,
     scalaVersion       := scala3_Version,
     Compile / doc / scalacOptions ++= {

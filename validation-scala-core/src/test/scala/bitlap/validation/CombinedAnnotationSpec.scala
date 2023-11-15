@@ -1,13 +1,9 @@
 package bitlap.validation
 
 import scala.annotation.meta.field
-import scala.annotation.nowarn
 
-import org.hibernate.validator.constraints.{ CreditCardNumber, Length, NotEmpty, Range => RangeAnnotation }
+import org.hibernate.validator.constraints.{ CreditCardNumber, NotEmpty, Range => RangeAnnotation }
 
-import jakarta.validation.Valid
-
-@nowarn
 class CombinedAnnotationSpec extends BaseSpec {
 
   private[this] case class TestBeanForCreditCardNumber(
@@ -66,23 +62,4 @@ class CombinedAnnotationSpec extends BaseSpec {
     }
   }
 
-//   not support wrapped cascade
-//  case class MyBean(
-//    @(Valid @field)
-//    list: Option[InnerBean]
-//  )
-//
-//  case class InnerBean(
-//    @(Length @field)(max = 2)
-//    name: String
-//  )
-//
-//  Seq(
-//    (MyBean(Some(InnerBean("1"))), 0),
-//    (MyBean(Some(InnerBean("123"))), 1)
-//  ) foreach { case (bean, expected) =>
-//    s"Check violations count. bean = $bean, count = $expected" >> {
-//      test(bean, expected)
-//    }
-//  }
 }
