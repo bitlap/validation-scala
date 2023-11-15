@@ -69,7 +69,10 @@ addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
 Add `@Validated` to method parameter:
 ```scala
 import bitlap.validation.ext.Validated
-def update(@Validated person1: Person, @Validated person2: Person) = {
+def update(
+  @Validated person1: Person, 
+  @Validated person2: Person
+) = {
   /// ...
 }
 ```
@@ -85,8 +88,9 @@ def update(
   @ValidBinding persion2: Person,
   // The plugin captures the binding parameters based on the type, so the name doesn't matter
   bind: BindingResult = BindingResult.default
-) =
+) = {
   // It will put all violations into the bind parameter.
+}
 ```
 
 ## Other information
