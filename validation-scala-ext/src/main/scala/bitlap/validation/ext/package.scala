@@ -6,7 +6,7 @@ package object ext {
 
   implicit final class ValidationExt(val genericValidator: GenericeScalaValidator[Identity]) extends AnyVal {
 
-    def checkArgument[T](obj: T, groups: Class[_]*): Identity[Boolean] = {
+    def checkArgs[T](obj: T, groups: Class[_]*): Identity[Boolean] = {
       val errors = genericValidator
         .validate(obj)
         .map(violation => (violation.getPropertyPath.toString, violation.getMessage, violation.getInvalidValue))

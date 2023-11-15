@@ -15,7 +15,7 @@ import dotty.tools.dotc.plugins.PluginPhase
 import dotty.tools.dotc.report
 import dotty.tools.dotc.transform.*
 
-final class ValidationCheckArgumnetPhase extends PluginPhase:
+final class ValidationArgsPhase extends PluginPhase:
 
   override val phaseName: String       = ValidationCompilerPlugin.name
   override val description: String     = ValidationCompilerPlugin.description
@@ -23,11 +23,11 @@ final class ValidationCheckArgumnetPhase extends PluginPhase:
   override val runsBefore: Set[String] = Set(PickleQuotes.name)
 
   @threadUnsafe private lazy val AnnotationClass: Context ?=> ClassSymbol = requiredClass(
-    "bitlap.validation.ext.checkArgument"
+    "bitlap.validation.ext.validateArg"
   )
 
   @threadUnsafe private lazy val RuntimeClass: Context ?=> TermSymbol = requiredModule(
-    "bitlap.validation.ext.ValidationRuntimeUtil"
+    "bitlap.validation.ext.Preconditions"
   )
 
   override def transformDefDef(tree: DefDef)(using Context): Tree = {
@@ -49,7 +49,7 @@ final class ValidationCheckArgumnetPhase extends PluginPhase:
 
     val params = annotedParams.map(a => untpd.Ident(a.name).withType(a.tpe))
 
-    val body = ref(RuntimeClass.requiredMethod("checkArgument"))
+    val body = ref(RuntimeClass.requiredMethod("validateArgs"))
       .withSpan(ctx.owner.span.focus)
       .appliedToVarargs(params, TypeTree(defn.AnyType, false))
 

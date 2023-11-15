@@ -68,16 +68,16 @@ addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
 
 Add `@checkArgument` on method paramemter:
 ```scala
-import bitlap.validation.ext.checkArgument
-def update(@checkArgument persion1: Persion, persion2: Persion) = {
+import bitlap.validation.ext.validateArg
+def update(@validateArg persion1: Persion, persion2: Persion) = {
   /// ...
 }
 ```
 
 The following code is the expanded code of the compiler plugin:
 ```scala
-def update(@checkArgument persion1: Persion, @checkArgument persion2: Persion) = {
-  bitlap.validation.ext.ValidationRuntimeUtil.checkArgument(persion1, persion2)
+def update(@validateArg persion1: Persion, persion2: Persion) = {
+  bitlap.validation.ext.Preconditions.validateArg(persion1)
   /// ...
 }
 ```
