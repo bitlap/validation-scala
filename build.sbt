@@ -57,7 +57,6 @@ lazy val `validation-scala-ext` = project
   .settings(commonSettings)
   .settings(
     crossScalaVersions := supportCrossVersionList,
-    scalaVersion       := scala3_Version,
     name               := "validation-scala-ext",
     scalaVersion       := scala3_Version
   )
