@@ -4,9 +4,9 @@ import jakarta.validation.ConstraintViolation
 
 package object ext {
 
-  lazy val Validator: GenericeScalaValidator[Identity] = ScalaValidatorFactory.scalaValidator(new ScalaClockProvider)
+  lazy val Validator: GenericScalaValidator[Identity] = ScalaValidatorFactory.scalaValidator(new ScalaClockProvider)
 
-  implicit final class ValidationExt(val genericValidator: GenericeScalaValidator[Identity]) extends AnyVal {
+  implicit final class ValidationExt(val genericValidator: GenericScalaValidator[Identity]) extends AnyVal {
 
     def checkArgsBinding[T](obj: T, groups: Class[_]*): List[ConstraintViolation[T]] =
       genericValidator

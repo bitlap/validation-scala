@@ -10,7 +10,7 @@ import jakarta.validation.metadata.BeanDescriptor
  * @param validator
  *   delegate.
  */
-trait GenericeScalaValidator[F[_]] {
+trait GenericScalaValidator[F[_]] {
 
   def validate[T](obj: T, groups: Class[_]*): F[Set[ConstraintViolation[T]]]
 

@@ -35,10 +35,10 @@ object ScalaValidatorFactory {
   /**
    * Provide a Validator.
    */
-  def scalaValidator(clock: ClockProvider): GenericeScalaValidator[Identity] = {
+  def scalaValidator(clock: ClockProvider): GenericScalaValidator[Identity] = {
     val validator = validatorFactory(clock).getValidator
 
-    new GenericeScalaValidator[Identity] {
+    new GenericScalaValidator[Identity] {
 
       def validate[T](obj: T, groups: Class[_]*): Identity[Set[ConstraintViolation[T]]] =
         validator.validate(obj, groups: _*).asScala.toSet
