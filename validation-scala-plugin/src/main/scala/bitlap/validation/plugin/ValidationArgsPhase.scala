@@ -22,19 +22,27 @@ final class ValidationArgsPhase extends PluginPhase:
   override val runsAfter: Set[String]  = Set(Staging.name)
   override val runsBefore: Set[String] = Set(PickleQuotes.name)
 
-  @threadUnsafe private lazy val AnnotationClass: Context ?=> ClassSymbol = requiredClass(
-    "bitlap.validation.ext.validateArg"
+  @threadUnsafe private lazy val ValidatedAnnotationClass: Context ?=> ClassSymbol = requiredClass(
+    "bitlap.validation.ext.Validated"
+  )
+
+  @threadUnsafe private lazy val ValidBindingAnnotationClass: Context ?=> ClassSymbol = requiredClass(
+    "bitlap.validation.ext.ValidBinding"
   )
 
   @threadUnsafe private lazy val RuntimeClass: Context ?=> TermSymbol = requiredModule(
     "bitlap.validation.ext.Preconditions"
   )
 
+  private val bindingClassName = "bitlap.validation.ext.BindingResult"
+
   override def transformDefDef(tree: DefDef)(using Context): Tree = {
     val annotats      = tree.termParamss.flatten.map(p => p -> p.mods.annotations)
     val annotedParams = annotats.map { case (field, ans) =>
       val existAnnot = ans.collect {
-        case a @ Apply(Select(New(Ident(an)), _), Nil) if an.asSimpleName == AnnotationClass.name.asSimpleName =>
+        case a @ Apply(Select(New(Ident(an)), _), Nil)
+            if an.asSimpleName == ValidatedAnnotationClass.name.asSimpleName ||
+              an.asSimpleName == ValidBindingAnnotationClass.name.asSimpleName =>
           report.debugwarn(s"Validation found param: ${field.name.show} in ${tree.name.show}")
           a
       }
@@ -42,16 +50,30 @@ final class ValidationArgsPhase extends PluginPhase:
     }.collect { case Some(value) =>
       value
     }
-    if (annotedParams.isEmpty) tree else mapDefDef(annotedParams, tree)
+    val bindingOpt    =
+      tree.termParamss.flatten.filter(_.tpt.symbol.showFullName == bindingClassName).headOption
+    if (annotedParams.isEmpty) tree else mapDefDef(annotedParams, tree, bindingOpt)
   }
 
-  private def mapDefDef(annotedParams: List[ValDef[Type]], tree: DefDef)(using ctx: Context): DefDef =
+  private def mapDefDef(annotedParams: List[ValDef[Type]], tree: DefDef, bindingOpt: Option[ValDef[Type]])(using
+    ctx: Context
+  ): DefDef =
+    // ignore if user add @ValidBinding on BindingResult
+    val params = annotedParams
+      .filterNot(_.tpt.symbol.fullName.asTypeName.toString == bindingClassName)
+      .map(a => untpd.Ident(a.name).withType(a.tpe))
 
-    val params = annotedParams.map(a => untpd.Ident(a.name).withType(a.tpe))
-
-    val body = ref(RuntimeClass.requiredMethod("validateArgs"))
-      .withSpan(ctx.owner.span.focus)
-      .appliedToVarargs(params, TypeTree(defn.AnyType, false))
+    val body = bindingOpt.fold {
+      ref(RuntimeClass.requiredMethod("validateArgs"))
+        .withSpan(ctx.owner.span.focus)
+        .appliedToVarargs(params, TypeTree(defn.AnyType, false))
+    } { binding =>
+      val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
+      ref(RuntimeClass.requiredMethod("validateArgsBinding"))
+        .withSpan(ctx.owner.span.focus)
+        .appliedToArgs(List(bindTerm))
+        .appliedToVarargs(params, TypeTree(defn.AnyType, false))
+    }
 
     val rhs    = Block(
       List(body),

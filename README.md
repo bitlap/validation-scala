@@ -53,7 +53,7 @@ if (violations.nonEmpty) {
 }
 ```
 
-### Scala 3 Compiler Plugin
+### Use it like springboot 
 
 > It does not support annotations with group parameters and only supports scala 3!
 
@@ -66,21 +66,27 @@ autoCompilerPlugins := true,
 addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
 ```
 
-Add `@checkArgument` on method paramemter:
+Add `@Validated` to method parameter:
 ```scala
-import bitlap.validation.ext.validateArg
-def update(@validateArg persion1: Persion, persion2: Persion) = {
+import bitlap.validation.ext.Validated
+def update(@Validated person1: Person, @Validated person2: Person) = {
   /// ...
 }
 ```
+Then, checking code will be automatically inserted during compilation and may throw an `IllegalArgumentException` if the constraint checking fails.
 
-The following code is the expanded code of the compiler plugin:
+If you do not wish to throw an exception directly, you should use `@ValidBinding`.
+
+Just need to add `@ValidBinding` to method parameter, and add a binding parameter to method:
 ```scala
-def update(@validateArg persion1: Persion, persion2: Persion) = {
-  // It will throw an IllegalArgumentException if it finds errors.
-  bitlap.validation.ext.Preconditions.validateArg(persion1)
-  /// ...
-}
+import bitlap.validation.ext.ValidBinding
+def update(
+  @ValidBinding persion1: Person,
+  @ValidBinding persion2: Person,
+  // The plugin captures the binding parameters based on the type, so the name doesn't matter
+  bind: BindingResult = BindingResult.default
+) =
+  // It will put all violations into the bind parameter.
 ```
 
 ## Other information

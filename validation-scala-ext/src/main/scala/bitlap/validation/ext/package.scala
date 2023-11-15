@@ -1,10 +1,17 @@
 package bitlap.validation
 
+import jakarta.validation.ConstraintViolation
+
 package object ext {
 
   lazy val Validator: GenericeScalaValidator[Identity] = ScalaValidatorFactory.scalaValidator()
 
   implicit final class ValidationExt(val genericValidator: GenericeScalaValidator[Identity]) extends AnyVal {
+
+    def checkArgsBinding[T](obj: T, groups: Class[_]*): List[ConstraintViolation[T]] =
+      genericValidator
+        .validate(obj)
+        .toList
 
     def checkArgs[T](obj: T, groups: Class[_]*): Identity[Boolean] = {
       val errors = genericValidator
