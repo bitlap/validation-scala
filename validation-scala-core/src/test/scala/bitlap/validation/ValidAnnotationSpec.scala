@@ -5,6 +5,7 @@ import scala.annotation.meta.field
 import org.hibernate.validator.constraints.Length
 
 import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
 
 class ValidAnnotationSpec extends BaseSpec {
 
@@ -71,13 +72,13 @@ class ValidAnnotationSpec extends BaseSpec {
   )
 
   case class InnerBeanWithMap(
-    @(Length @field)(max = 2)
+    @(NotBlank @field)
     name: String
   )
 
   Seq(
     (MyBeanWithMap(Map("1" -> InnerBeanWithMap("1"))), 0),
-    (MyBeanWithMap(Map("2" -> InnerBeanWithMap("123"))), 1)
+    (MyBeanWithMap(Map("2" -> InnerBeanWithMap(""))), 1)
   ) foreach { case (bean, expected) =>
     s"Check violations count. bean = $bean, count = $expected" >> {
       test(bean, expected)

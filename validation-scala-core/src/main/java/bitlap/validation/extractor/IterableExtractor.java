@@ -2,17 +2,17 @@ package bitlap.validation.extractor;
 
 import jakarta.validation.valueextraction.ExtractedValue;
 import jakarta.validation.valueextraction.ValueExtractor;
+import scala.collection.Iterable;
 import scala.collection.Iterator;
-import scala.collection.Set;
 
-public class SetExtractor implements ValueExtractor<Set<@ExtractedValue ?>> {
+public class IterableExtractor implements ValueExtractor<Iterable<@ExtractedValue ?>> {
 
     @Override
-    public void extractValues(Set<?> originalValue, ValueReceiver receiver) {
+    public void extractValues(Iterable<?> originalValue, ValueReceiver receiver) {
         Iterator<?> iterator = originalValue.iterator();
         while (iterator.hasNext()) {
-            Object a = iterator.next();
-            receiver.iterableValue("<set element>", a);
+            Object o = iterator.next();
+            receiver.iterableValue("<iterable element>", o);
         }
     }
 }
