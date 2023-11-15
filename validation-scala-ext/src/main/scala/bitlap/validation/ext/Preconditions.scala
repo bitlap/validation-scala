@@ -4,7 +4,7 @@ import bitlap.validation.Identity
 
 object Preconditions {
 
-  def validateArgs(objs: Any*): Identity[Boolean] =
-    objs.forall(o => Validator.checkArgs(o))
+  def validateArgs(objs: Any*): Identity[Unit] =
+    objs.foreach(o => Validator.checkArgs(o))
 
 }

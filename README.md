@@ -55,7 +55,7 @@ if (violations.nonEmpty) {
 
 ### Scala 3 Compiler Plugin
 
-> It only supports scala 3!
+> It does not support annotations with group parameters and only supports scala 3!
 
 Add the following code to `build.sbt`:
 ```scala
@@ -77,6 +77,7 @@ def update(@validateArg persion1: Persion, persion2: Persion) = {
 The following code is the expanded code of the compiler plugin:
 ```scala
 def update(@validateArg persion1: Persion, persion2: Persion) = {
+  // throw IllegalArgumentException if found errors
   bitlap.validation.ext.Preconditions.validateArg(persion1)
   /// ...
 }
