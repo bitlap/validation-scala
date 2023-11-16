@@ -1,6 +1,6 @@
 # validation-scala
 
-Jakarta Bean Validation 3.0 for Scala. Allows validation of some Scala types: `Option`, `Seq`, `Set`, `Map`.
+Jakarta Bean Validation 3.0 for Scala. Allows validation of some Scala types (e.g. `Option`, `Seq`, `Set`, `Map`, etc).
 
 Supports Scala `3` and `2.13`, above Java `11`.
 
