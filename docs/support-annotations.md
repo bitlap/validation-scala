@@ -1,5 +1,7 @@
 ## Support Annotations
 
+Validation of annotation constraints on generic parameters is not supported because types in scala are erased.
+
 ## `jakarta.validation.constraints`
 
 > `Option(null)` and `None` are considered valid, while `Some(null)` is considered invalid. Some (null) is a bad habit.
@@ -29,8 +31,6 @@
 ## `jakarta.validation`
 
 - Valid 
-
-> Validation of annotation constraints on generic parameters is not supported because types in scala are erased.
 
 ## `org.hibernate.validator.constraints`
 
