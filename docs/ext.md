@@ -6,8 +6,8 @@ Add the following code to `build.sbt`:
 ```scala
 libraryDependencies ++= Seq(
 "org.bitlap" %% "validation-scala-ext" % "latest version",
-),
-autoCompilerPlugins := true,
+)
+autoCompilerPlugins := true
 addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
 ```
 
@@ -16,12 +16,8 @@ addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
 Add `@Validated` to method parameter:
 ```scala
 import bitlap.validation.ext.Validated
-def update(
-  @Validated person1: Person, 
-  @Validated person2: Person
-) = {
-  /// ...
-}
+
+def update(@Validated person1: Person, @Validated person2: Person)
 ```
 Then, checking code will be automatically inserted during compilation and may throw an `IllegalArgumentException` if the constraint checking fails.
 
@@ -32,13 +28,8 @@ If you do not wish to throw an exception directly, you should use `@ValidBinding
 Just need to add `@ValidBinding` to method parameter, and add a `bind: BindingResult` parameter to method:
 ```scala
 import bitlap.validation.ext.ValidBinding
-def update(
-  @ValidBinding person1: Person,
-  @ValidBinding person2: Person,
-  bind: BindingResult = BindingResult.default
-) = {
-  /// ...
-}
+
+def update(@ValidBinding person1: Person, @ValidBinding person2: Person, bind: BindingResult = BindingResult.default)
 ```
 
 The plugin captures the `bind` parameters based on the type, so the name doesn't matter.
