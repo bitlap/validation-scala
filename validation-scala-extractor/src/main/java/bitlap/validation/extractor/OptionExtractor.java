@@ -7,7 +7,7 @@ import scala.Option;
 public class OptionExtractor implements ValueExtractor<Option<@ExtractedValue ?>> {
 
     @Override
-    public void extractValues(Option<?> originalValue, ValueReceiver receiver) {
+    public void extractValues(Option<@ExtractedValue ?> originalValue, ValueReceiver receiver) {
         receiver.value(null, originalValue.isDefined() ? originalValue.get() : null);
     }
 }

@@ -12,7 +12,7 @@ import scala.collection.Map;
 public class MapValueExtractor implements ValueExtractor<Map<?, @ExtractedValue ?>> {
 
     @Override
-    public void extractValues(Map<?, ?> originalValue, ValueReceiver receiver) {
+    public void extractValues(Map<?, @ExtractedValue ?> originalValue, ValueReceiver receiver) {
         Iterator<? extends Tuple2<?, ?>> iterator = originalValue.iterator();
         while (iterator.hasNext()) {
             Tuple2<?, ?> tuple2 = iterator.next();

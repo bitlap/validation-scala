@@ -1,8 +1,9 @@
 package bitlap.validation
 
 import jakarta.validation.ConstraintViolation
-import jakarta.validation.executable.ExecutableValidator
 import jakarta.validation.metadata.BeanDescriptor
+
+import java.lang.reflect.{Constructor, Method}
 
 /**
  * Validator wrapper for scala.
@@ -17,7 +18,7 @@ trait GenericScalaValidator[F[_]] {
   def validateValue[T](
     beanType: Class[T],
     propertyName: String,
-    value: scala.Any,
+    value: Any,
     groups: Class[_]*
   ): F[Set[ConstraintViolation[T]]]
 
@@ -25,7 +26,31 @@ trait GenericScalaValidator[F[_]] {
 
   def unwrap[T](t: Class[T]): F[T]
 
-  def forExecutables(): F[ExecutableValidator]
-
   def getConstraintsForClass(clazz: Class[_]): F[BeanDescriptor]
+
+  def validateParameters[T](
+    obj: T,
+    method: Method,
+    parameterValues: Array[AnyRef],
+    groups: Class[_]*
+  ): F[Set[ConstraintViolation[T]]]
+
+  def validateReturnValue[T](
+    obj: T,
+    method: Method,
+    returnValue: Any,
+    groups: Class[_]*
+  ): F[Set[ConstraintViolation[T]]]
+
+  def validateConstructorParameters[T](
+    constructor: Constructor[T],
+    parameterValues: Array[AnyRef],
+    groups: Class[_]*
+  ): F[Set[ConstraintViolation[T]]]
+
+  def validateConstructorReturnValue[T](
+    constructor: Constructor[T],
+    createdObject: T,
+    groups: Class[_]*
+  ): F[Set[ConstraintViolation[T]]]
 }

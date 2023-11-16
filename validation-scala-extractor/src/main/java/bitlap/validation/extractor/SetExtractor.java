@@ -8,7 +8,7 @@ import scala.collection.Set;
 public class SetExtractor implements ValueExtractor<Set<@ExtractedValue ?>> {
 
     @Override
-    public void extractValues(Set<?> originalValue, ValueReceiver receiver) {
+    public void extractValues(Set<@ExtractedValue ?> originalValue, ValueReceiver receiver) {
         Iterator<?> iterator = originalValue.iterator();
         while (iterator.hasNext()) {
             Object a = iterator.next();

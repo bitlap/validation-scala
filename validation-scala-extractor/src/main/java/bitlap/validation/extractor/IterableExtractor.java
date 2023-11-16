@@ -8,7 +8,7 @@ import scala.collection.Iterator;
 public class IterableExtractor implements ValueExtractor<Iterable<@ExtractedValue ?>> {
 
     @Override
-    public void extractValues(Iterable<?> originalValue, ValueReceiver receiver) {
+    public void extractValues(Iterable<@ExtractedValue ?> originalValue, ValueReceiver receiver) {
         Iterator<?> iterator = originalValue.iterator();
         while (iterator.hasNext()) {
             Object o = iterator.next();

@@ -1,8 +1,9 @@
 package bitlap.validation
 
-import java.time.{ Clock, ZoneId }
+import jakarta.validation.executable.ExecutableValidator
 
-import org.joda.time.{ DateTime, Instant }
+import java.time.{Clock, ZoneId}
+import org.joda.time.{DateTime, Instant}
 import org.specs2.mutable.Specification
 
 /**

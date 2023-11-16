@@ -7,7 +7,7 @@ import scala.collection.Seq;
 public class SeqExtractor implements ValueExtractor<Seq<@ExtractedValue ?>> {
 
     @Override
-    public void extractValues(Seq<?> originalValue, ValueReceiver receiver) {
+    public void extractValues(Seq<@ExtractedValue ?> originalValue, ValueReceiver receiver) {
         for (int i = 0; i < originalValue.size(); i++) {
             receiver.indexedValue("<list element>", i, originalValue.apply(i));
         }
