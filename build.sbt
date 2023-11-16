@@ -9,8 +9,8 @@ val elVersion                    = "5.0.0"
 val jodaConvertVersion           = "2.2.3"
 val jodaTimeVersion              = "2.12.5"
 val specs2Version                = "4.20.3"
-
-val supportCrossVersionList = Seq(scala3_Version, scala2_13Version)
+val zioVersion                   = "2.0.16"
+val supportCrossVersionList      = Seq(scala3_Version, scala2_13Version)
 
 inThisBuild(
   List(
@@ -50,7 +50,26 @@ lazy val `validation-scala` = project
     name           := "validation-scala",
     publish / skip := true
   )
-  .aggregate(`validation-scala-ext`, `validation-scala-core`, `validation-scala-plugin`, `validation-scala-extractor`)
+  .aggregate(
+    `validation-scala-ext`,
+    `validation-scala-core`,
+    `validation-scala-plugin`,
+    `validation-scala-extractor`,
+    `validation-scala-ext-zio`
+  )
+
+lazy val `validation-scala-ext-zio` = project
+  .in(file("validation-scala-ext-zio"))
+  .settings(commonSettings)
+  .settings(
+    crossScalaVersions := supportCrossVersionList,
+    name               := "validation-scala-ext-zio",
+    libraryDependencies ++= List(
+      "dev.zio" %% "zio" % zioVersion % Provided
+    ),
+    scalaVersion       := scala3_Version
+  )
+  .dependsOn(`validation-scala-ext`)
 
 lazy val `validation-scala-ext` = project
   .in(file("validation-scala-ext"))

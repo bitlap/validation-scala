@@ -6,6 +6,8 @@ Add the following code to `build.sbt`:
 ```scala
 libraryDependencies ++= Seq(
 "org.bitlap" %% "validation-scala-ext" % "latest version",
+// If the method returns a zio
+// "org.bitlap" %% "validation-scala-ext-zio" % "latest version"
 )
 autoCompilerPlugins := true
 addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")

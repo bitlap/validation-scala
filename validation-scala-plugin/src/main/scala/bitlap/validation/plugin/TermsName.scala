@@ -9,4 +9,7 @@ private[plugin] object TermsName {
   final val validateArgs_Method        = "validateArgs"
   final val validateArgsBinding_Method = "validateArgsBinding"
 
+  final val ZPreconditions_Class = "bitlap.validation.ext.z.ZioPreconditions"
+  final val Zio_Class            = "zio.ZIO"
+
 }
