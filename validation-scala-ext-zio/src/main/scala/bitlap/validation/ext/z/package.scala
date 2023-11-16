@@ -36,7 +36,7 @@ package object z {
 
           if (errors.nonEmpty) {
             ZIO.fail(
-              throw new IllegalArgumentException(
+              new IllegalArgumentException(
                 errors
                   .map(pathMessageValue =>
                     s"""Illegal argument ${pathMessageValue._3}, ${pathMessageValue._1} ${pathMessageValue._2}"""
