@@ -23,18 +23,16 @@ final class ValidationArgsPhase extends PluginPhase:
   override val runsBefore: Set[String] = Set(PickleQuotes.name)
 
   @threadUnsafe private lazy val ValidatedAnnotationClass: Context ?=> ClassSymbol = requiredClass(
-    "bitlap.validation.ext.Validated"
+    TermsName.Validated_Annotation
   )
 
   @threadUnsafe private lazy val ValidBindingAnnotationClass: Context ?=> ClassSymbol = requiredClass(
-    "bitlap.validation.ext.ValidBinding"
+    TermsName.ValidBinding_Annotation
   )
 
-  @threadUnsafe private lazy val RuntimeClass: Context ?=> TermSymbol = requiredModule(
-    "bitlap.validation.ext.Preconditions"
+  @threadUnsafe private lazy val PreconditionsClass: Context ?=> TermSymbol = requiredModule(
+    TermsName.Preconditions_Class
   )
-
-  private val bindingClassName = "bitlap.validation.ext.BindingResult"
 
   override def transformDefDef(tree: DefDef)(using Context): Tree = {
     val annotats      = tree.termParamss.flatten.map(p => p -> p.mods.annotations)
@@ -51,7 +49,7 @@ final class ValidationArgsPhase extends PluginPhase:
       value
     }
     val bindingOpt    =
-      tree.termParamss.flatten.filter(_.tpt.symbol.showFullName == bindingClassName).headOption
+      tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
     if (annotedParams.isEmpty) tree else mapDefDef(annotedParams, tree, bindingOpt)
   }
 
@@ -60,16 +58,16 @@ final class ValidationArgsPhase extends PluginPhase:
   ): DefDef =
     // ignore if user add @ValidBinding on BindingResult
     val params = annotedParams
-      .filterNot(_.tpt.symbol.fullName.asTypeName.toString == bindingClassName)
+      .filterNot(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
       .map(a => untpd.Ident(a.name).withType(a.tpe))
 
     val body = bindingOpt.fold {
-      ref(RuntimeClass.requiredMethod("validateArgs"))
+      ref(PreconditionsClass.requiredMethod(TermsName.validateArgs_Method))
         .withSpan(ctx.owner.span.focus)
         .appliedToVarargs(params, TypeTree(defn.AnyType, false))
     } { binding =>
       val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
-      ref(RuntimeClass.requiredMethod("validateArgsBinding"))
+      ref(PreconditionsClass.requiredMethod(TermsName.validateArgsBinding_Method))
         .withSpan(ctx.owner.span.focus)
         .appliedToArgs(List(bindTerm))
         .appliedToVarargs(params, TypeTree(defn.AnyType, false))
