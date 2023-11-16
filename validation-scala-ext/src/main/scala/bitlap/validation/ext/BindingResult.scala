@@ -10,5 +10,5 @@ final case class BindingResult(
 )
 
 object BindingResult {
-  lazy val default = BindingResult()
+  lazy val default: BindingResult = BindingResult()
 }

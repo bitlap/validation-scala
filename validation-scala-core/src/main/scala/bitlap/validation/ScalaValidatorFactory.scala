@@ -22,6 +22,7 @@ object ScalaValidatorFactory {
       .byDefaultProvider()
       .configure()
       .asInstanceOf[ConfigurationImpl]
+      .failFast(true)
       .getterPropertySelectionStrategy(new ScalaGetterPropertySelectionStrategy)
       .clockProvider(clock)
       .buildValidatorFactory()
