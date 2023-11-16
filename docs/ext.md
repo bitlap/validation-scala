@@ -11,6 +11,8 @@ autoCompilerPlugins := true,
 addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
 ```
 
+## `@Validated`
+
 Add `@Validated` to method parameter:
 ```scala
 import bitlap.validation.ext.Validated
@@ -25,15 +27,30 @@ Then, checking code will be automatically inserted during compilation and may th
 
 If you do not wish to throw an exception directly, you should use `@ValidBinding`.
 
-Just need to add `@ValidBinding` to method parameter, and add a binding parameter to method:
+## `@ValidBinding`
+
+Just need to add `@ValidBinding` to method parameter, and add a `bind: BindingResult = BindingResult.default` parameter to method:
 ```scala
 import bitlap.validation.ext.ValidBinding
 def update(
-  @ValidBinding persion1: Person,
-  @ValidBinding persion2: Person,
-  // The plugin captures the binding parameters based on the type, so the name doesn't matter
+  @ValidBinding person1: Person,
+  @ValidBinding person2: Person,
   bind: BindingResult = BindingResult.default
 ) = {
-  // It will put all violations into the bind parameter.
+  /// ...
 }
+```
+
+The plugin captures the `bind` parameters based on the type, so the name doesn't matter.
+
+## Limitation
+
+1. Support only object types
+2. The constraints on the parameters are not supported at the moment, for examples:
+```scala
+def update(@ValidBinding @NotNull person1: Person) // the constraint @NotNull will not be used  
+def update(@ValidBinding @Positive num: Int) // the constraint @Positive will not be used
+
+def update(@Validated @NotNull person1: Person) // the constraint @NotNull will not be used
+def update(@Validated @Positive num: Int) // the constraint @Positive will not be used
 ```
