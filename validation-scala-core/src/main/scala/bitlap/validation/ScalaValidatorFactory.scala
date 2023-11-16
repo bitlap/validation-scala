@@ -58,7 +58,7 @@ object ScalaValidatorFactory {
       def getConstraintsForClass(clazz: Class[_]): Identity[BeanDescriptor] =
         validator.getConstraintsForClass(clazz)
 
-      override def validateParameters[T](
+      def validateParameters[T](
         obj: T,
         method: Method,
         parameterValues: Array[AnyRef],
@@ -66,7 +66,7 @@ object ScalaValidatorFactory {
       ): Identity[Set[ConstraintViolation[T]]] =
         forExecutables.validateParameters(obj, method, parameterValues, groups: _*).asScala.toSet
 
-      override def validateReturnValue[T](
+      def validateReturnValue[T](
         obj: T,
         method: Method,
         returnValue: Any,
@@ -74,14 +74,14 @@ object ScalaValidatorFactory {
       ): Identity[Set[ConstraintViolation[T]]] =
         forExecutables.validateReturnValue(obj, method, returnValue, groups: _*).asScala.toSet
 
-      override def validateConstructorParameters[T](
+      def validateConstructorParameters[T](
         constructor: Constructor[T],
         parameterValues: Array[AnyRef],
         groups: Class[_]*
       ): Identity[Set[ConstraintViolation[T]]] =
         forExecutables.validateConstructorParameters(constructor, parameterValues, groups: _*).asScala.toSet
 
-      override def validateConstructorReturnValue[T](
+      def validateConstructorReturnValue[T](
         constructor: Constructor[T],
         createdObject: T,
         groups: Class[_]*
