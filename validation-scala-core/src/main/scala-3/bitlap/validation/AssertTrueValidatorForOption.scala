@@ -2,8 +2,8 @@ package bitlap.validation
 
 import bitlap.validation.Utils._
 import bitlap.validation.function.AssertTrueFunction
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.AssertTrue
-import jakarta.validation.{ConstraintValidator, ConstraintValidatorContext}
 
 /**
  * Validates that the wrapped value passed is true

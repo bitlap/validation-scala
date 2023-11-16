@@ -31,6 +31,7 @@ Step 1. Add annotations to your case class:
 import jakarta.validation.constraints.Size
 
 case class Person(
+  // @(Size @getter)(min = 4) also supports the getter method
   @(Size @field)(min = 4)
   name: Option[String]
 )

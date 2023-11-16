@@ -1,0 +1,36 @@
+bitlap.validation.AssertFalseValidatorForOption
+bitlap.validation.AssertTrueValidatorForOption
+bitlap.validation.DecimalMaxValidatorForOption
+bitlap.validation.DecimalMinValidatorForOption
+bitlap.validation.DigitsValidatorForOption
+bitlap.validation.FutureOrPresentValidatorForOption
+bitlap.validation.FutureValidatorForOption
+bitlap.validation.MaxValidatorForOption
+bitlap.validation.MinValidatorForOption
+bitlap.validation.PastValidatorForOption
+bitlap.validation.PastOrPresentValidatorForOption
+bitlap.validation.PatternValidatorForOption
+bitlap.validation.SizeValidatorForOption
+bitlap.validation.SizeValidatorForMap
+bitlap.validation.SizeValidatorForSeq
+bitlap.validation.SizeValidatorForSet
+bitlap.validation.EmailValidatorForOption
+bitlap.validation.NotBlankValidatorForOption
+bitlap.validation.NotEmptyValidatorForOption
+bitlap.validation.PositiveValidatorForOption
+bitlap.validation.PositiveOrZeroValidatorForOption
+bitlap.validation.NegativeValidatorForOption
+bitlap.validation.NegativeOrZeroValidatorForOption
+bitlap.validation.URLValidatorForOption
+
+# hibernate annotations
+bitlap.validation.EANValidatorForOption
+bitlap.validation.LengthValidatorForOption
+bitlap.validation.LuhnCheckValidatorForOption
+bitlap.validation.Mod10CheckValidatorForOption
+bitlap.validation.Mod11CheckValidatorForOption
+        
+# Original annotations
+bitlap.validation.AssertNoneValidator
+bitlap.validation.AssertSomeValidator
+bitlap.validation.ByteSizeValidator

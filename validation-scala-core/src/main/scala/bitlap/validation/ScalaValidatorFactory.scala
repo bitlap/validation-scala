@@ -17,13 +17,11 @@ object ScalaValidatorFactory {
    * Provide a ValidatorFactory with scala extensions.
    */
   def validatorFactory(clock: ClockProvider): ValidatorFactory = {
-    val stream = getClass.getClassLoader.getResourceAsStream("scala-constraint-mapping.xml")
-
     val validatorFactory = Validation
       .byDefaultProvider()
       .configure()
-      .addMapping(stream)
       .asInstanceOf[ConfigurationImpl]
+      .getterPropertySelectionStrategy(new ScalaGetterPropertySelectionStrategy)
       .clockProvider(clock)
       .buildValidatorFactory()
 
