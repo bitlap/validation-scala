@@ -29,7 +29,7 @@ If you do not wish to throw an exception directly, you should use `@ValidBinding
 
 ## `@ValidBinding`
 
-Just need to add `@ValidBinding` to method parameter, and add a `bind: BindingResult = BindingResult.default` parameter to method:
+Just need to add `@ValidBinding` to method parameter, and add a `bind: BindingResult` parameter to method:
 ```scala
 import bitlap.validation.ext.ValidBinding
 def update(
@@ -54,3 +54,9 @@ def update(@ValidBinding @Positive num: Int) // the constraint @Positive will no
 def update(@Validated @NotNull person1: Person) // the constraint @NotNull will not be used
 def update(@Validated @Positive num: Int) // the constraint @Positive will not be used
 ```
+
+## TODO 
+
+Add scala 3 annotations:
+- `@ValidatedParameters`        Support for validating all parameters of a method and throwing `IllegalArgumentException` on demand
+- `@ValidBindingParameters`     Support for validating all parameters of a method and catching errors in the `bind: BindingResult` parameter
