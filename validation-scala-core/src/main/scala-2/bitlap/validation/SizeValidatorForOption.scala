@@ -1,7 +1,5 @@
 package bitlap.validation
 
-import java.util
-
 import bitlap.validation.function.SizeFunction
 import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.Size

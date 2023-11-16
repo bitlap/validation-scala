@@ -2,7 +2,6 @@ package bitlap.validation.function
 
 import scala.jdk.CollectionConverters._
 
-import org.hibernate.validator.internal.constraintvalidators.bv.NotBlankValidator
 import org.hibernate.validator.internal.constraintvalidators.bv.notempty._
 
 import jakarta.validation.ConstraintValidatorContext

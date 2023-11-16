@@ -1,6 +1,6 @@
 package bitlap.validation
 
-import bitlap.validation.function.{ PatternFunction, PositiveFunction }
+import bitlap.validation.function.PositiveFunction
 import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.Positive
 

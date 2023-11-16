@@ -8,12 +8,10 @@ import jakarta.validation.constraints.AssertFalse
  * Validates that the wrapped value passed is false
  */
 class AssertFalseValidatorForOption extends ConstraintValidator[AssertFalse, Option[Boolean]] {
-  private var constraintAnnotation: AssertFalse = _
-
   private var function: AssertFalseFunction = _
 
   override def initialize(constraintAnnotation: AssertFalse): Unit =
-    function = new AssertFalseFunction(constraintAnnotation)
+    function = AssertFalseFunction(constraintAnnotation)
 
   override def isValid(value: Option[Boolean], context: ConstraintValidatorContext): Boolean =
     function.check(value)(context)

@@ -3,7 +3,7 @@ package bitlap.validation
 import org.hibernate.validator.constraintvalidation._
 
 import bitlap.validation.function.TimePastFunction
-import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
+import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.constraints.Past
 import jakarta.validation.metadata.ConstraintDescriptor
 

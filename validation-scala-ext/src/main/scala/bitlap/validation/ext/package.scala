@@ -20,9 +20,9 @@ package object ext {
         .toList
       if (errors.nonEmpty) {
         throw new IllegalArgumentException(
-          errors
+          errors.headOption
             .map(pathMessageValue => s"""${pathMessageValue._1}=${pathMessageValue._3}, error=${pathMessageValue._2}""")
-            .mkString(" and ")
+            .getOrElse("Illegal Argument")
         )
       } else true
     }

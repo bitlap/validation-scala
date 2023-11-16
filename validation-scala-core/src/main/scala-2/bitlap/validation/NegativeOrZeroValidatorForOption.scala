@@ -1,8 +1,8 @@
 package bitlap.validation
 
 import bitlap.validation.function.NegativeOrZeroFunction
+import jakarta.validation.{ ConstraintValidator, ConstraintValidatorContext }
 import jakarta.validation.constraints.NegativeOrZero
-import jakarta.validation.{ConstraintValidator, ConstraintValidatorContext}
 
 /**
  * Validates that the wrapped value passed is a negative number or zero.

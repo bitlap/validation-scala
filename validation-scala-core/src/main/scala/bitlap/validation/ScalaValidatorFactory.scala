@@ -1,7 +1,5 @@
 package bitlap.validation
 
-import java.time.Clock
-
 import scala.jdk.CollectionConverters._
 
 import org.hibernate.validator.internal.engine.ConfigurationImpl
