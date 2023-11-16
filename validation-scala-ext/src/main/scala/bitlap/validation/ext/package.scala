@@ -1,5 +1,7 @@
 package bitlap.validation
 
+import scala.jdk.CollectionConverters._
+
 import jakarta.validation.ConstraintViolation
 
 package object ext {
@@ -10,19 +12,24 @@ package object ext {
 
     def checkArgsBinding[T](obj: T, groups: Class[_]*): List[ConstraintViolation[T]] =
       genericValidator
-        .validate(obj)
+        .validate(obj, groups: _*)
         .toList
 
     def checkArgs[T](obj: T, groups: Class[_]*): Identity[Boolean] = {
       val errors = genericValidator
-        .validate(obj)
-        .map(violation => (violation.getPropertyPath.toString, violation.getMessage, violation.getInvalidValue))
+        .validate(obj, groups: _*)
+        .map { violation =>
+          val path = violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("/")
+          (path, violation.getMessage, violation.getInvalidValue)
+        }
         .toList
       if (errors.nonEmpty) {
         throw new IllegalArgumentException(
           errors.headOption
-            .map(pathMessageValue => s"""${pathMessageValue._1}=${pathMessageValue._3}, error=${pathMessageValue._2}""")
-            .getOrElse("Illegal Argument")
+            .map(pathMessageValue =>
+              s"""Illegal argument ${pathMessageValue._3}, ${pathMessageValue._1} ${pathMessageValue._2}"""
+            )
+            .getOrElse("Illegal argument")
         )
       } else true
     }
