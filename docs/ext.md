@@ -39,6 +39,9 @@ The plugin captures the `bind` parameters based on the type, so the name doesn't
 1. Support only object types
 2. The constraints on the parameters are not supported at the moment, for examples:
 ```scala
+import bitlap.validation.ext.Validated
+import bitlap.validation.ext.ValidBinding
+
 def update(@ValidBinding @NotNull person1: Person, bind: BindingResult = BindingResult.default) // the constraint @NotNull will not be used  
 def update(@ValidBinding @Positive num: Int, bind: BindingResult = BindingResult.default) // the constraint @Positive will not be used
 
