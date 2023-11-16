@@ -1,9 +1,9 @@
 package bitlap.validation
 
+import java.lang.reflect.{ Constructor, Method }
+
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.metadata.BeanDescriptor
-
-import java.lang.reflect.{Constructor, Method}
 
 /**
  * Validator wrapper for scala.

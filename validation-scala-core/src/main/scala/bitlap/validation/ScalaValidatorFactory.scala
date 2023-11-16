@@ -1,11 +1,13 @@
 package bitlap.validation
 
-import jakarta.validation._
-import jakarta.validation.metadata.BeanDescriptor
+import java.lang.reflect.{ Constructor, Method }
+
+import scala.jdk.CollectionConverters._
+
 import org.hibernate.validator.internal.engine.ConfigurationImpl
 
-import java.lang.reflect.{Constructor, Method}
-import scala.jdk.CollectionConverters._
+import jakarta.validation._
+import jakarta.validation.metadata.BeanDescriptor
 
 /**
  * ValidatorFactory for scala.
