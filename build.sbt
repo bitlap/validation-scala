@@ -8,7 +8,7 @@ val jakartaVersion               = "3.0.2"
 val elVersion                    = "5.0.0"
 val jodaConvertVersion           = "2.2.3"
 val jodaTimeVersion              = "2.12.5"
-val specs2Version                = "4.19.2"
+val specs2Version                = "4.20.3"
 
 val supportCrossVersionList = Seq(scala3_Version, scala2_13Version)
 
