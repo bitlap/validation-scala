@@ -1,5 +1,10 @@
 import sbt.Keys.crossScalaVersions
 
+ThisBuild / resolvers ++= Seq(
+  "Sonatype OSS Snapshots" at "https://s01.oss.sonatype.org/content/repositories/snapshots",
+  "Sonatype OSS Releases" at "https://s01.oss.sonatype.org/content/repositories/releases"
+)
+
 val scala3_Version               = "3.3.1"
 val scala2_13Version             = "2.13.12"
 val scalaCollectionCompatVersion = "2.11.0"
@@ -10,6 +15,7 @@ val jodaConvertVersion           = "2.2.3"
 val jodaTimeVersion              = "2.12.5"
 val specs2Version                = "4.20.3"
 val zioVersion                   = "2.0.16"
+val `example-dependency-version` = "0.0.0+85-3ad931b5-SNAPSHOT"
 val supportCrossVersionList      = Seq(scala3_Version, scala2_13Version)
 
 inThisBuild(
@@ -54,7 +60,27 @@ lazy val `validation-scala` = project
     `validation-scala-ext`,
     `validation-scala-core`,
     `validation-scala-plugin`,
-    `validation-scala-extractor`
+    `validation-scala-extractor`,
+    `examples`
+  )
+
+lazy val `examples` = (project in file("examples"))
+  .settings(
+    commonSettings,
+    publish / skip      := true,
+    scalaVersion        := scala3_Version,
+    crossScalaVersions  := Nil,
+    name                := "examples",
+    autoCompilerPlugins := true,
+    scalacOptions ++= Seq(
+      "-Ydebug"
+    ),
+    addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % `example-dependency-version`),
+    libraryDependencies ++= Seq(
+      "org.bitlap" %% "validation-scala-core" % `example-dependency-version`,
+      "org.bitlap" %% "validation-scala-ext"  % `example-dependency-version`,
+      "dev.zio"    %% "zio"                   % zioVersion
+    )
   )
 
 lazy val `validation-scala-ext` = project
