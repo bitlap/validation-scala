@@ -79,13 +79,13 @@ final class ValidationArgsPhase extends PluginPhase:
     if (tree.tpt.symbol.showFullName == TermsName.Zio_Class && typeParams.size == 3) {
       report.debugwarn(s"Validation apply zio method: ${tree.name.show}")
       val body = bindingOpt.fold {
-        ref(ZioPreconditionsClass.requiredMethod(TermsName.validateObject_Method))
+        ref(ZioPreconditionsClass.requiredMethod(TermsName.ValidateObject_Method))
           .withSpan(ctx.owner.span.focus)
           .appliedToArgs(List(tree.rhs))
           .appliedToArgs(input)
       } { binding =>
         val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
-        ref(ZioPreconditionsClass.requiredMethod(TermsName.validateObjectBinding_Method))
+        ref(ZioPreconditionsClass.requiredMethod(TermsName.ValidateObjectBinding_Method))
           .withSpan(ctx.owner.span.focus)
           .appliedToArgs(List(bindTerm))
           .appliedToArgs(List(tree.rhs))
@@ -99,12 +99,12 @@ final class ValidationArgsPhase extends PluginPhase:
     } else {
       report.debugwarn(s"Validation apply normal method: ${tree.name.show}")
       val body = bindingOpt.fold {
-        ref(PreconditionsClass.requiredMethod(TermsName.validateObject_Method))
+        ref(PreconditionsClass.requiredMethod(TermsName.ValidateObject_Method))
           .withSpan(ctx.owner.span.focus)
           .appliedToArgs(input)
       } { binding =>
         val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
-        ref(PreconditionsClass.requiredMethod(TermsName.validateObjectBinding_Method))
+        ref(PreconditionsClass.requiredMethod(TermsName.ValidateObjectBinding_Method))
           .withSpan(ctx.owner.span.focus)
           .appliedToArgs(List(bindTerm))
           .appliedToArgs(input)
