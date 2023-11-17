@@ -2,11 +2,11 @@ package bitlap.validation.extension
 
 object Preconditions {
 
-  def validateArgs(objs: List[Any]): Unit =
-    objs.foreach(o => Validator.checkArgs(o))
+  def validateObject(objs: List[Any]): Unit =
+    objs.foreach(o => Validator.checkObject(o))
 
-  def validateArgsBinding(bind: BindingResult)(objs: List[Any]): BindingResult = {
-    val violations = objs.flatMap(o => Validator.checkArgsBinding(o))
+  def validateObjectBinding(bind: BindingResult)(objs: List[Any]): BindingResult = {
+    val violations = objs.flatMap(o => Validator.checkObjectBinding(o))
     bind.hasErrors = violations.nonEmpty
     bind.violations.addAll(violations)
     bind

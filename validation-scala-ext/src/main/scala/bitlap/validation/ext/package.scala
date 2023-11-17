@@ -13,12 +13,12 @@ package object ext {
 
   implicit final class ValidationExtZio(val genericValidator: GenericScalaValidator[Task]) extends AnyVal {
 
-    def checkArgsBinding[T](obj: T, groups: Class[_]*): Task[List[ConstraintViolation[T]]] =
+    def checkObjectBinding[T](obj: T, groups: Class[_]*): Task[List[ConstraintViolation[T]]] =
       genericValidator
         .validate(obj, groups: _*)
         .map(_.toList)
 
-    def checkArgs[T](obj: T, groups: Class[_]*): Task[Boolean] =
+    def checkObject[T](obj: T, groups: Class[_]*): Task[Boolean] =
       genericValidator
         .validate(obj, groups: _*)
         .flatMap { vs =>

@@ -17,5 +17,5 @@ end ValidationCompilerPlugin
 
 object ValidationCompilerPlugin:
   val name        = "ValidationCompilerPlugin"
-  val description = "Validation Compiler Plugin"
+  val description = "Dotty Compiler Plugin for Validation Scala"
 end ValidationCompilerPlugin
