@@ -3,36 +3,43 @@ package bitlap.validation
 import scala.jdk.CollectionConverters._
 
 import jakarta.validation.ConstraintViolation
+import zio._
 
 package object ext {
 
-  lazy val Validator: GenericScalaValidator[Identity] = ScalaValidatorFactory.scalaValidator(new ScalaClockProvider)
+  lazy val ZioValidator: GenericScalaValidator[Task] = new ZioScalaValidator(
+    ScalaValidatorFactory.validatorFactory(new ScalaClockProvider()).getValidator
+  )
 
-  implicit final class ValidationExt(val genericValidator: GenericScalaValidator[Identity]) extends AnyVal {
+  implicit final class ValidationExtZio(val genericValidator: GenericScalaValidator[Task]) extends AnyVal {
 
-    def checkArgsBinding[T](obj: T, groups: Class[_]*): List[ConstraintViolation[T]] =
+    def checkArgsBinding[T](obj: T, groups: Class[_]*): Task[List[ConstraintViolation[T]]] =
       genericValidator
         .validate(obj, groups: _*)
-        .toList
+        .map(_.toList)
 
-    def checkArgs[T](obj: T, groups: Class[_]*): Identity[Boolean] = {
-      val errors = genericValidator
+    def checkArgs[T](obj: T, groups: Class[_]*): Task[Boolean] =
+      genericValidator
         .validate(obj, groups: _*)
-        .map { violation =>
-          val path = violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("/")
-          (path, violation.getMessage, violation.getInvalidValue)
-        }
-        .toList
-      if (errors.nonEmpty) {
-        throw new IllegalArgumentException(
-          errors.headOption
-            .map(pathMessageValue =>
-              s"""Illegal argument ${pathMessageValue._3}, ${pathMessageValue._1} ${pathMessageValue._2}"""
+        .flatMap { vs =>
+
+          val errors = vs.headOption.map { violation =>
+            val path = violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("/")
+            (path, violation.getMessage, violation.getInvalidValue)
+          }
+
+          if (errors.nonEmpty) {
+            ZIO.fail(
+              new IllegalArgumentException(
+                errors
+                  .map(pathMessageValue =>
+                    s"""Illegal argument ${pathMessageValue._3}, ${pathMessageValue._1} ${pathMessageValue._2}"""
+                  )
+                  .getOrElse("Illegal argument")
+              )
             )
-            .getOrElse("Illegal argument")
-        )
-      } else true
-    }
+          } else ZIO.succeed(true)
+        }
 
   }
 }

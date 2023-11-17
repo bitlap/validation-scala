@@ -1,6 +1,6 @@
-package bitlap.validation.ext.z
+package bitlap.validation.ext
 
-import bitlap.validation.ext.BindingResult
+import bitlap.validation.extension.BindingResult
 import zio._
 
 object ZioPreconditions {

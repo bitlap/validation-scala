@@ -6,7 +6,7 @@ import scala.jdk.CollectionConverters._
 import org.hibernate.validator.constraints.Length
 
 import jakarta.validation.Valid
-import jakarta.validation.constraints.{ NotBlank, NotNull, Positive, Size }
+import jakarta.validation.constraints.NotBlank
 
 class ValidAnnotationSpec extends BaseSpec {
 

@@ -1,4 +1,4 @@
-package bitlap.validation.ext.z
+package bitlap.validation.ext
 
 import java.lang.reflect.{ Constructor, Method }
 

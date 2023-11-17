@@ -1,4 +1,4 @@
-package bitlap.validation.ext
+package bitlap.validation.extension
 
 import scala.collection.mutable.ListBuffer
 

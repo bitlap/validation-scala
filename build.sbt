@@ -54,32 +54,19 @@ lazy val `validation-scala` = project
     `validation-scala-ext`,
     `validation-scala-core`,
     `validation-scala-plugin`,
-    `validation-scala-extractor`,
-    `validation-scala-ext-zio`
+    `validation-scala-extractor`
   )
-
-lazy val `validation-scala-ext-zio` = project
-  .in(file("validation-scala-ext-zio"))
-  .settings(commonSettings)
-  .settings(
-    crossScalaVersions := supportCrossVersionList,
-    name               := "validation-scala-ext-zio",
-    libraryDependencies ++= List(
-      "dev.zio" %% "zio" % zioVersion % Provided
-    ),
-    scalaVersion       := scala3_Version
-  )
-  .dependsOn(`validation-scala-ext`)
 
 lazy val `validation-scala-ext` = project
   .in(file("validation-scala-ext"))
   .settings(commonSettings)
   .settings(
-    crossScalaVersions := supportCrossVersionList,
-    name               := "validation-scala-ext",
-    scalaVersion       := scala3_Version
+    crossScalaVersions               := supportCrossVersionList,
+    name                             := "validation-scala-ext",
+    scalaVersion                     := scala3_Version,
+    libraryDependencies += "dev.zio" %% "zio" % zioVersion % Provided
   )
-  .dependsOn(`validation-scala-core`)
+  .dependsOn(`validation-scala-core` % "compile->compile;test->test")
 
 lazy val `validation-scala-plugin` = (project in file("validation-scala-plugin"))
   .settings(

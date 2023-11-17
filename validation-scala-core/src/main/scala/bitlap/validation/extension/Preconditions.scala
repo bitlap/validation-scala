@@ -1,4 +1,4 @@
-package bitlap.validation.ext
+package bitlap.validation.extension
 
 object Preconditions {
 
