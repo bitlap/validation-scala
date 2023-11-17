@@ -36,8 +36,7 @@ The plugin captures the `bind` parameters based on the type, so the name doesn't
 
 ## Limitation
 
-1. Support only object types
-2. The constraints on the parameters are not supported at the moment, for examples:
+The constraints on the parameters are not supported at the moment, for examples:
 ```scala
 import bitlap.validation.extension.Validated
 import bitlap.validation.extension.ValidBinding
