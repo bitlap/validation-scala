@@ -9,6 +9,7 @@ import dotty.tools.dotc.core.*
 import dotty.tools.dotc.core.Contexts.Context
 import dotty.tools.dotc.core.Flags.*
 import dotty.tools.dotc.core.Names.*
+import dotty.tools.dotc.core.StdNames.nme
 import dotty.tools.dotc.core.Symbols.*
 import dotty.tools.dotc.core.Types.*
 import dotty.tools.dotc.plugins.PluginPhase
@@ -73,6 +74,7 @@ final class ValidationArgsPhase extends PluginPhase:
       .filterNot(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
       .map(a => untpd.Ident(a.name).withType(a.tpe))
 
+    val input      = List(mkList(params, TypeTree(defn.AnyType, false)))
     val typeParams = tree.tpt.symbol.typeParams.map(_.show)
     if (tree.tpt.symbol.showFullName == TermsName.Zio_Class && typeParams.size == 3) {
       report.debugwarn(s"Validation apply zio method: ${tree.name.show}")
@@ -80,13 +82,14 @@ final class ValidationArgsPhase extends PluginPhase:
         ref(ZioPreconditionsClass.requiredMethod(TermsName.validateArgs_Method))
           .withSpan(ctx.owner.span.focus)
           .appliedToArgs(List(tree.rhs))
-          .appliedToVarargs(params, TypeTree(defn.AnyType, false))
+          .appliedToArgs(input)
       } { binding =>
         val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
         ref(ZioPreconditionsClass.requiredMethod(TermsName.validateArgsBinding_Method))
           .withSpan(ctx.owner.span.focus)
-          .appliedToArgss(List(List(bindTerm), List(tree.rhs)))
-          .appliedToVarargs(params, TypeTree(defn.AnyType, false))
+          .appliedToArgs(List(bindTerm))
+          .appliedToArgs(List(tree.rhs))
+          .appliedToArgs(input)
       }
 
       Block(
@@ -98,13 +101,13 @@ final class ValidationArgsPhase extends PluginPhase:
       val body = bindingOpt.fold {
         ref(PreconditionsClass.requiredMethod(TermsName.validateArgs_Method))
           .withSpan(ctx.owner.span.focus)
-          .appliedToVarargs(params, TypeTree(defn.AnyType, false))
+          .appliedToArgs(input)
       } { binding =>
         val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
         ref(PreconditionsClass.requiredMethod(TermsName.validateArgsBinding_Method))
           .withSpan(ctx.owner.span.focus)
           .appliedToArgs(List(bindTerm))
-          .appliedToVarargs(params, TypeTree(defn.AnyType, false))
+          .appliedToArgs(input)
       }
       Block(
         List(body),

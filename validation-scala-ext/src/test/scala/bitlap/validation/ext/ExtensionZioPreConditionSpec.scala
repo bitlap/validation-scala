@@ -20,12 +20,12 @@ class ExtensionZioPreConditionSpec extends Specification {
   )
 
   def catchError(b: TestBean): ZIO[Any, Any, Any] =
-    ZioPreconditions.validateArgs(ZIO.succeed(b))(b).isSuccess
+    ZioPreconditions.validateArgs(ZIO.succeed(b))(List(b)).isSuccess
 
   def bindError(b: TestBean, bean: BindingResult = BindingResult.default): ZIO[Any, Any, Any] =
     ZioPreconditions.validateArgsBinding(bean)({
       ZIO.succeed(b) *> ZIO.attempt(bean.hasErrors)
-    })(b)
+    })(List(b))
 
   s"Check ZioPreconditions" >> {
     unsafeRun(catchError(TestBean(Option("1")))) mustEqual true

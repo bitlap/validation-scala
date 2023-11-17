@@ -5,11 +5,11 @@ import zio._
 
 object ZioPreconditions {
 
-  def validateArgs(action: ZIO[Any, Any, Any])(objs: Any*): ZIO[Any, Any, Any] =
+  def validateArgs(action: ZIO[Any, Any, Any])(objs: List[Any]): ZIO[Any, Any, Any] =
     ZIO.foreachDiscard(objs)(o => ZioValidator.checkArgs(o)) *> action
 
   def validateArgsBinding(bind: BindingResult)(action: ZIO[Any, Any, Any])(
-    objs: Any*
+    objs: List[Any]
   ): ZIO[Any, Any, Any] = {
     val check = for {
       bindRef    <- Ref.make(bind)

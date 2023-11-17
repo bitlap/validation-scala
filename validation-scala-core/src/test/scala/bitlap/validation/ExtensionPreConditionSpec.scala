@@ -17,7 +17,7 @@ class ExtensionPreConditionSpec extends Specification {
 
   def catchError(b: TestBean): Option[TestBean] = {
     try
-      Preconditions.validateArgs(b)
+      Preconditions.validateArgs(List(b))
     catch {
       case NonFatal(e) =>
         return None
@@ -26,7 +26,7 @@ class ExtensionPreConditionSpec extends Specification {
   }
 
   def bindError(b: TestBean, bean: BindingResult = BindingResult.default): Boolean =
-    Preconditions.validateArgsBinding(bean)(b).hasErrors
+    Preconditions.validateArgsBinding(bean)(List(b)).hasErrors
 
   s"Check Preconditions" >> {
     catchError(TestBean(Option("1"))).must_==(Some(TestBean(Option("1"))))
