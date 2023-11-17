@@ -42,15 +42,12 @@ The plugin captures the `bind` parameters based on the type, so the name doesn't
 import bitlap.validation.extension.Validated
 import bitlap.validation.extension.ValidBinding
 
-def update(@ValidBinding @NotNull person1: Person, bind: BindingResult = BindingResult.default) // the constraint @NotNull will not be used  
-def update(@ValidBinding @Positive num: Int, bind: BindingResult = BindingResult.default) // the constraint @Positive will not be used
-
-def update(@Validated @NotNull person1: Person) // the constraint @NotNull will not be used
-def update(@Validated @Positive num: Int) // the constraint @Positive will not be used
+// Not Supported: the constraint @NotNull will not be used
+def update(@ValidBinding @NotNull person1: Person, bind: BindingResult = BindingResult.default)
+// Not Supported: the constraint @Positive will not be used
+def update(@ValidBinding @Positive num: Int, bind: BindingResult = BindingResult.default)
+// Not Supported: the constraint @NotNull will not be used
+def update(@Validated @NotNull person1: Person)
+// Not Supported: the constraint @Positive will not be used
+def update(@Validated @Positive num: Int)
 ```
-
-## TODO 
-
-Add scala 3 annotations:
-- `@ValidatedParameters`        Support for validating all parameters of a method and throwing `IllegalArgumentException` on demand
-- `@ValidBindingParameters`     Support for validating all parameters of a method and catching errors in the `bind: BindingResult` parameter
