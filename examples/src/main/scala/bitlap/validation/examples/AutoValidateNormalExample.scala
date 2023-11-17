@@ -1,9 +1,10 @@
 package bitlap.validation.examples
 
+import scala.annotation.meta._
+
 import bitlap.validation.extension.*
 import bitlap.validation.extension.BindingResult
 import jakarta.validation.Valid
-import scala.annotation.meta._
 
 object AutoValidateNormalExample extends App {
 
