@@ -21,7 +21,7 @@ final class PersonZioService {
     ZIO.succeed(s"${person1.name}")
 
   // cascade
-  @ValidBinding
+  @Validated
   def zioValidatedBindParam(
     @Valid person1: Person,
     bindingError: BindingResult = BindingResult.default

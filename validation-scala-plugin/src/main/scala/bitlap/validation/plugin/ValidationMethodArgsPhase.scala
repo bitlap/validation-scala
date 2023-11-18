@@ -29,10 +29,6 @@ final class ValidationMethodArgsPhase extends PluginPhase:
     TermsName.Validated_Annotation
   )
 
-  @threadUnsafe private lazy val ValidBindingAnnotationClass: Context ?=> ClassSymbol = requiredClass(
-    TermsName.ValidBinding_Annotation
-  )
-
   @threadUnsafe private lazy val PreconditionsClass: Context ?=> TermSymbol = requiredModule(
     TermsName.Preconditions_Class
   )
@@ -59,20 +55,14 @@ final class ValidationMethodArgsPhase extends PluginPhase:
     }
 
     // to determine if there are main scala annotations
-    val optAnnotations: Option[(Boolean, ClassSymbol)] = tree.symbol.annotations.collectFirst {
-      case annotation if annotation.symbol.name.asSimpleName == ValidatedAnnotationClass.name.asSimpleName    =>
+    val optAnnotations = tree.symbol.annotations.collectFirst {
+      case annotation if annotation.symbol.name.asSimpleName == ValidatedAnnotationClass.name.asSimpleName =>
         report.debugwarn(s"Validation found: ${TermsName.Validated_Annotation} on method: ${tree.name.show}")
-        false -> ValidatedAnnotationClass
-      case annotation if annotation.symbol.name.asSimpleName == ValidBindingAnnotationClass.name.asSimpleName =>
-        report.debugwarn(s"Validation found binding: ${TermsName.ValidBinding_Annotation} on method: ${tree.name.show}")
-        true -> ValidBindingAnnotationClass
+        ValidatedAnnotationClass
     }
     if optAnnotations.isEmpty then return tree
+    val bindOpt        = tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
 
-    val bindOpt =
-      if (optAnnotations.exists(_._1))
-        tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
-      else None
     mapDefDef(tree, bindOpt)
   }
 
@@ -83,7 +73,6 @@ final class ValidationMethodArgsPhase extends PluginPhase:
     newDef
 
   private def getMethodBody(tree: DefDef, bindingOpt: Option[ValDef[Type]]): Context ?=> Block = {
-    // ignore if user add @ValidBinding on BindingResult
     val params          = tree.termParamss.flatten.map(a => untpd.Ident(a.name).withType(a.tpe))
     val obj             = This(tree.symbol.enclosingClass.asClass)
     val method          =

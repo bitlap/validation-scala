@@ -17,7 +17,7 @@ final class PersonNormalService {
     s"${person1.name}"
 
   // cascade
-  @ValidBinding
+  @Validated
   def validatedBindParams(@Valid person1: Person, bindingError: BindingResult = BindingResult.default): String =
     s"${person1.name} - violationsCount: ${bindingError.violations.map(_.getMessage)}"
 

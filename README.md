@@ -79,15 +79,11 @@ import bitlap.validation.extension.Validated
 ```
 Then, checking code will be automatically inserted during compilation and may throw an `IllegalArgumentException` if the constraint checking fails.
 
-If you do not wish to throw an exception directly, you should use `@ValidBinding`.
-
-### `@ValidBinding`
-
-Just need to add `@ValidBinding` to method, and add a `bind: BindingResult` parameter to method:
+If you do not wish to throw an exception directly, you should add a `bind: BindingResult` parameter to method:.
 ```scala
-import bitlap.validation.extension.ValidBinding
+import bitlap.validation.extension.Validated
 
-@ValidBinding def update(person1: Person, person2: Person, bind: BindingResult = BindingResult.default)
+@Validated def update(person1: Person, person2: Person, bind: BindingResult = BindingResult.default)
 ```
 
 The plugin captures the `bind` parameters based on the type, so the name doesn't matter.
@@ -97,14 +93,13 @@ The plugin captures the `bind` parameters based on the type, so the name doesn't
 ```scala
 import jakarta.validation.Valid
 import bitlap.validation.extension.Validated
-import bitlap.validation.extension.ValidBinding
 import jakarta.validation.constraints.NotNull
 
 @Validated def validatedTwoParams(@Valid person1: Person, @Valid person2: Person): String
 
 @Validated def validatedOneParams(@Valid person1: Person): String
 
-@ValidBinding def validatedBindParams(@Valid person1: Person, bindingError: BindingResult = BindingResult.default): String
+@Validated def validatedBindParams(@Valid person1: Person, bindingError: BindingResult = BindingResult.default): String
 
 @Validated def validatedNotNullParams(@Valid @NotNull person1: Person): String
 ```
