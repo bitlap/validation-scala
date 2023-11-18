@@ -15,8 +15,6 @@ object AutoValidateNormalExample extends App {
   private val personService = new PersonNormalService
   private val illegalPerson = Person(Some(""))
 
-  callMethod(personService.validatedOneParam(illegalPerson))
-
   println(callMethod(personService.validatedOneParam(illegalPerson)))
 
   println(callMethod(personService.validatedTwoParams(illegalPerson, illegalPerson)))

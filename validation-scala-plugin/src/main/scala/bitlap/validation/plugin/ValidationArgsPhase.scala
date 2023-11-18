@@ -54,17 +54,21 @@ final class ValidationArgsPhase extends PluginPhase:
     }
 
     // to determine if there are main scala annotations
-    val existAnnot = tree.symbol.annotations.collectFirst {
+    val optAnnotations: Option[(Boolean, ClassSymbol)] = tree.symbol.annotations.collectFirst {
       case annotation if annotation.symbol.name.asSimpleName == ValidatedAnnotationClass.name.asSimpleName    =>
         report.debugwarn(s"Validation found: ${TermsName.Validated_Annotation} on method: ${tree.name.show}")
-        ValidatedAnnotationClass
+        false -> ValidatedAnnotationClass
       case annotation if annotation.symbol.name.asSimpleName == ValidBindingAnnotationClass.name.asSimpleName =>
         report.debugwarn(s"Validation found binding: ${TermsName.ValidBinding_Annotation} on method: ${tree.name.show}")
-        ValidBindingAnnotationClass
+        true -> ValidBindingAnnotationClass
     }
-    val bindingOpt =
-      tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
-    if (existAnnot.isEmpty) tree else mapDefDef(tree, bindingOpt)
+    if optAnnotations.nonEmpty then return tree
+
+    val bindOpt =
+      if (optAnnotations.exists(_._1))
+        tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
+      else None
+    mapDefDef(tree, bindOpt)
   }
 
   private def mapDefDef(tree: DefDef, bindingOpt: Option[ValDef[Type]]): Context ?=> DefDef =
