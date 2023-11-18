@@ -27,8 +27,8 @@ object AutoValidateZioExample extends App {
     }
   }
 
-  println(callMethod(personService.zioValidatedNotNullParam(illegalPerson)))
+  println(callMethod(personService.zioValidatedNotNullParam(null)))
 
-  println(callMethod(personService.zioValidatedNotEmptyParam(null)))
+  println(callMethod(personService.zioValidatedNotEmptyParam("")))
 
 }

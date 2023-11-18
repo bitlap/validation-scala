@@ -49,7 +49,12 @@ final class ValidationArgsPhase extends PluginPhase:
 
   override def transformDefDef(tree: DefDef)(using Context): Tree = {
     // only public methods of classes are supported
-    if (!tree.symbol.owner.isClass || tree.symbol.isStatic || tree.symbol.isPrivate) {
+    if (
+      tree.symbol.isClassConstructor ||
+      tree.symbol.is(Flags.Synthetic) ||
+      tree.symbol.isStatic ||
+      tree.symbol.isPrivate
+    ) {
       return tree
     }
 
@@ -62,7 +67,7 @@ final class ValidationArgsPhase extends PluginPhase:
         report.debugwarn(s"Validation found binding: ${TermsName.ValidBinding_Annotation} on method: ${tree.name.show}")
         true -> ValidBindingAnnotationClass
     }
-    if optAnnotations.nonEmpty then return tree
+    if optAnnotations.isEmpty then return tree
 
     val bindOpt =
       if (optAnnotations.exists(_._1))
@@ -80,7 +85,7 @@ final class ValidationArgsPhase extends PluginPhase:
   private def getMethodBody(tree: DefDef, bindingOpt: Option[ValDef[Type]]): Context ?=> Block = {
     // ignore if user add @ValidBinding on BindingResult
     val params          = tree.termParamss.flatten.map(a => untpd.Ident(a.name).withType(a.tpe))
-    val obj             = This(tree.symbol.owner.asClass)
+    val obj             = This(tree.symbol.enclosingClass.asClass)
     val method          =
       ref(MethodIdentityClass).select(nme.apply).appliedToArgs(List(const(tree.name.show), const(params.size)))
     val parameterValues = mkList(params, TypeTree(defn.AnyType, false))
