@@ -61,7 +61,6 @@ lazy val `validation-scala` = project
     `validation-scala-core`,
     `validation-scala-plugin`,
     `validation-scala-extractor`,
-    `examples`
   )
 
 lazy val `examples` = (project in file("examples"))
