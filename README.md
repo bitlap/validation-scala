@@ -95,6 +95,11 @@ The plugin captures the `bind` parameters based on the type, so the name doesn't
 ### Cascade Validation
 
 ```scala
+import jakarta.validation.Valid
+import bitlap.validation.extension.Validated
+import bitlap.validation.extension.ValidBinding
+import jakarta.validation.constraints.NotNull
+
 @Validated def validatedTwoParams(@Valid person1: Person, @Valid person2: Person): String
 
 @Validated def validatedOneParams(@Valid person1: Person): String
@@ -107,6 +112,9 @@ The plugin captures the `bind` parameters based on the type, so the name doesn't
 ### Non-Cascade Validation
 
 ```scala
+import bitlap.validation.extension.Validated
+import jakarta.validation.constraints.{ NotBlank, NotNull }
+
 @Validated def validatedNotNullParams(@NotNull person1: Person): String
 
 @Validated def validatedNotEmptyParam(@NotBlank name: String): String
