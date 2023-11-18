@@ -1,5 +1,7 @@
 package bitlap.validation
 
+import java.lang.reflect.Method
+
 import scala.jdk.CollectionConverters._
 
 import jakarta.validation.ConstraintViolation
@@ -13,18 +15,28 @@ package object ext {
 
   implicit final class ValidationExtZio(val genericValidator: GenericScalaValidator[Task]) extends AnyVal {
 
-    def checkObjectBinding[T](obj: T, groups: Class[_]*): Task[List[ConstraintViolation[T]]] =
+    def checkMethodArgsBinding[T](
+      obj: T,
+      method: Method,
+      parameterValues: Array[AnyRef],
+      groups: Class[_]*
+    ): Task[List[ConstraintViolation[T]]] =
       genericValidator
-        .validate(obj, groups: _*)
+        .validateParameters(obj, method, parameterValues, groups: _*)
         .map(_.toList)
 
-    def checkObject[T](obj: T, groups: Class[_]*): Task[Boolean] =
+    def checkMethodArgs[T](
+      obj: T,
+      method: Method,
+      parameterValues: Array[AnyRef],
+      groups: Class[_]*
+    ): Task[Boolean] =
       genericValidator
-        .validate(obj, groups: _*)
+        .validateParameters(obj, method, parameterValues, groups: _*)
         .flatMap { vs =>
 
           val errors = vs.headOption.map { violation =>
-            val path = violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("/")
+            val path = violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("#")
             (path, violation.getMessage, violation.getInvalidValue)
           }
 

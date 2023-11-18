@@ -5,13 +5,15 @@ import scala.annotation.threadUnsafe
 import dotty.tools.dotc.ast.{ tpd, untpd }
 import dotty.tools.dotc.ast.Trees.ValDef
 import dotty.tools.dotc.ast.tpd.*
+import dotty.tools.dotc.cc.CaptureAnnotation
 import dotty.tools.dotc.core.*
+import dotty.tools.dotc.core.Constants.Constant
 import dotty.tools.dotc.core.Contexts.Context
 import dotty.tools.dotc.core.Flags.*
 import dotty.tools.dotc.core.Names.*
 import dotty.tools.dotc.core.StdNames.nme
 import dotty.tools.dotc.core.Symbols.*
-import dotty.tools.dotc.core.Types.*
+import dotty.tools.dotc.core.Types.{ Type, * }
 import dotty.tools.dotc.plugins.PluginPhase
 import dotty.tools.dotc.report
 import dotty.tools.dotc.transform.*
@@ -39,59 +41,62 @@ final class ValidationArgsPhase extends PluginPhase:
     TermsName.ZioPreconditions_Class
   )
 
+  @threadUnsafe private lazy val MethodIdentityClass: Context ?=> TermSymbol = requiredModule(
+    TermsName.MethodIdentity_Class
+  )
+
+  private inline def const(any: Any): Context ?=> tpd.Tree = Literal(Constant(any))
+
   override def transformDefDef(tree: DefDef)(using Context): Tree = {
-    val annotats      = tree.termParamss.flatten.map(p => p -> p.mods.annotations)
-    val annotedParams = annotats.map { case (field, ans) =>
-      val existAnnot = ans.collect {
-        case a @ Apply(Select(New(Ident(an)), _), Nil)
-            if an.asSimpleName == ValidatedAnnotationClass.name.asSimpleName ||
-              an.asSimpleName == ValidBindingAnnotationClass.name.asSimpleName =>
-          report.debugwarn(s"Validation found param: ${field.name.show} in ${tree.name.show}")
-          a
-      }
-      if (existAnnot.nonEmpty) Some(field) else None
-    }.collect { case Some(value) =>
-      value
+    // only public methods of classes are supported
+    if (!tree.symbol.owner.isClass || tree.symbol.isStatic || tree.symbol.isPrivate) {
+      return tree
     }
-    val bindingOpt    =
+
+    // to determine if there are main scala annotations
+    val existAnnot = tree.symbol.annotations.collectFirst {
+      case annotation if annotation.symbol.name.asSimpleName == ValidatedAnnotationClass.name.asSimpleName    =>
+        report.debugwarn(s"Validation found: ${TermsName.Validated_Annotation} on method: ${tree.name.show}")
+        ValidatedAnnotationClass
+      case annotation if annotation.symbol.name.asSimpleName == ValidBindingAnnotationClass.name.asSimpleName =>
+        report.debugwarn(s"Validation found binding: ${TermsName.ValidBinding_Annotation} on method: ${tree.name.show}")
+        ValidBindingAnnotationClass
+    }
+    val bindingOpt =
       tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
-    if (annotedParams.isEmpty) tree else mapDefDef(annotedParams, tree, bindingOpt)
+    if (existAnnot.isEmpty) tree else mapDefDef(tree, bindingOpt)
   }
 
-  private def mapDefDef(annotedParams: List[ValDef[Type]], tree: DefDef, bindingOpt: Option[ValDef[Type]])(using
-    ctx: Context
-  ): DefDef =
-    val rhs    = getMethodBody(annotedParams, tree, bindingOpt)
+  private def mapDefDef(tree: DefDef, bindingOpt: Option[ValDef[Type]]): Context ?=> DefDef =
+    val rhs    = getMethodBody(tree, bindingOpt)
     val newDef = DefDef(tree.symbol.asTerm, tree.termParamss.map(_.map(_.symbol)), tree.tpe, rhs)
     report.debugwarn(s"Validation updated method: ${newDef.show}")
     newDef
 
-  private def getMethodBody(annotedParams: List[ValDef[Type]], tree: DefDef, bindingOpt: Option[ValDef[Type]])(using
-    ctx: Context
-  ) = {
+  private def getMethodBody(tree: DefDef, bindingOpt: Option[ValDef[Type]]): Context ?=> Block = {
     // ignore if user add @ValidBinding on BindingResult
-    val params = annotedParams
-      .filterNot(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
-      .map(a => untpd.Ident(a.name).withType(a.tpe))
+    val params          = tree.termParamss.flatten.map(a => untpd.Ident(a.name).withType(a.tpe))
+    val obj             = This(tree.symbol.owner.asClass)
+    val method          =
+      ref(MethodIdentityClass).select(nme.apply).appliedToArgs(List(const(tree.name.show), const(params.size)))
+    val parameterValues = mkList(params, TypeTree(defn.AnyType, false))
+    val input           = List(obj, method, parameterValues)
 
-    val input      = List(mkList(params, TypeTree(defn.AnyType, false)))
     val typeParams = tree.tpt.symbol.typeParams.map(_.show)
     if (tree.tpt.symbol.showFullName == TermsName.Zio_Class && typeParams.size == 3) {
       report.debugwarn(s"Validation apply zio method: ${tree.name.show}")
       val body = bindingOpt.fold {
-        ref(ZioPreconditionsClass.requiredMethod(TermsName.ValidateObject_Method))
-          .withSpan(ctx.owner.span.focus)
+        ref(ZioPreconditionsClass.requiredMethod(TermsName.ValidateMethodArgs_Method))
+          .withSpan(summon[Context].owner.span.focus)
           .appliedToArgs(List(tree.rhs))
           .appliedToArgs(input)
       } { binding =>
-        val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
-        ref(ZioPreconditionsClass.requiredMethod(TermsName.ValidateObjectBinding_Method))
-          .withSpan(ctx.owner.span.focus)
-          .appliedToArgs(List(bindTerm))
+        ref(ZioPreconditionsClass.requiredMethod(TermsName.ValidateMethodArgsBinding_Method))
+          .withSpan(summon[Context].owner.span.focus)
+          .appliedToArgs(List(untpd.Ident(binding.name).withType(binding.tpe)))
           .appliedToArgs(List(tree.rhs))
           .appliedToArgs(input)
       }
-
       Block(
         List.empty,
         body
@@ -99,14 +104,13 @@ final class ValidationArgsPhase extends PluginPhase:
     } else {
       report.debugwarn(s"Validation apply normal method: ${tree.name.show}")
       val body = bindingOpt.fold {
-        ref(PreconditionsClass.requiredMethod(TermsName.ValidateObject_Method))
-          .withSpan(ctx.owner.span.focus)
+        ref(PreconditionsClass.requiredMethod(TermsName.ValidateMethodArgs_Method))
+          .withSpan(summon[Context].owner.span.focus)
           .appliedToArgs(input)
       } { binding =>
-        val bindTerm = untpd.Ident(binding.name).withType(binding.tpe)
-        ref(PreconditionsClass.requiredMethod(TermsName.ValidateObjectBinding_Method))
-          .withSpan(ctx.owner.span.focus)
-          .appliedToArgs(List(bindTerm))
+        ref(PreconditionsClass.requiredMethod(TermsName.ValidateMethodArgsBinding_Method))
+          .withSpan(summon[Context].owner.span.focus)
+          .appliedToArgs(List(untpd.Ident(binding.name).withType(binding.tpe)))
           .appliedToArgs(input)
       }
       Block(

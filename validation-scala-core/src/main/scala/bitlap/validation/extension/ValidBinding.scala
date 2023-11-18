@@ -1,6 +1,6 @@
 package bitlap.validation.extension
 
-import scala.annotation.{ meta, StaticAnnotation }
+import scala.annotation.{ unused, StaticAnnotation }
 
-@meta.param
+@unused
 final case class ValidBinding() extends StaticAnnotation

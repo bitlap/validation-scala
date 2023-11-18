@@ -12,9 +12,14 @@ package object extension {
 
   implicit final class ValidationExt(val genericValidator: GenericScalaValidator[Identity]) extends AnyVal {
 
-    def checkObjectBinding[T](obj: T, groups: Class[_]*): List[ConstraintViolation[T]] =
+    def checkMethodArgsBinding[T](
+      obj: T,
+      method: Method,
+      parameterValues: Array[AnyRef],
+      groups: Class[_]*
+    ): List[ConstraintViolation[T]] =
       genericValidator
-        .validate(obj, groups: _*)
+        .validateParameters(obj, method, parameterValues, groups: _*)
         .toList
 
     def checkMethodArgs[T](
@@ -27,7 +32,7 @@ package object extension {
         .validateParameters(obj, method, parameterValues, groups: _*)
         .map { violation =>
           (
-            violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("/"),
+            violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("#"),
             violation.getMessage,
             violation.getInvalidValue
           )
@@ -43,25 +48,5 @@ package object extension {
         )
       } else true
     }
-
-    def checkObject[T](obj: T, groups: Class[_]*): Identity[Boolean] = {
-      val errors = genericValidator
-        .validate(obj, groups: _*)
-        .map { violation =>
-          val path = violation.getPropertyPath.iterator().asScala.toList.map(_.getName).mkString("/")
-          (path, violation.getMessage, violation.getInvalidValue)
-        }
-        .toList
-      if (errors.nonEmpty) {
-        throw new IllegalArgumentException(
-          errors.headOption
-            .map(pathMessageValue =>
-              s"""Illegal argument ${pathMessageValue._3}, ${pathMessageValue._1} ${pathMessageValue._2}"""
-            )
-            .getOrElse("Illegal argument")
-        )
-      } else true
-    }
-
   }
 }

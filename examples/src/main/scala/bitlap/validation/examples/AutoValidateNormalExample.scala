@@ -8,28 +8,23 @@ import jakarta.validation.Valid
 
 object AutoValidateNormalExample extends App {
 
-  private def callMethod(a: => String): String =
+  def callMethod(a: => String): String =
     try a
     catch case e: IllegalArgumentException => e.getMessage
 
-  private def testValidatedTwoParams(@Validated person1: Person, @Validated person2: Person): String =
-    s"${person1.name} - $person2"
-
-  private def testValidatedOneParams(@Validated person1: Person): String =
-    s"${person1.name}"
-
-  private def testValidatedBindParams(
-    @Validated person1: Person,
-    bindingError: BindingResult = BindingResult.default
-  ): String =
-    s"${person1.name} - ${bindingError.violations.toList}"
-
+  private val personService = new PersonNormalService
   private val illegalPerson = Person(Some(""))
 
-  println(callMethod(testValidatedTwoParams(illegalPerson, illegalPerson)))
+  callMethod(personService.validatedOneParam(illegalPerson))
 
-  println(callMethod(testValidatedOneParams(illegalPerson)))
+  println(callMethod(personService.validatedOneParam(illegalPerson)))
 
-  println(testValidatedBindParams(illegalPerson))
+  println(callMethod(personService.validatedTwoParams(illegalPerson, illegalPerson)))
+
+  println(personService.validatedBindParams(illegalPerson))
+
+  println(callMethod(personService.validatedNotNullParam(null)))
+
+  println(callMethod(personService.validatedNotEmptyParam("")))
 
 }

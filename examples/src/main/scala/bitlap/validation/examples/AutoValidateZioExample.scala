@@ -13,32 +13,22 @@ object AutoValidateZioExample extends App {
     catch {
       case e: IllegalArgumentException => e.getMessage
     }
-
-  private def testValidatedTwoParams(
-    @Validated person1: Person,
-    @Validated person2: Person
-  ): ZIO[Any, Nothing, String] =
-    ZIO.succeed(s"${person1.name} - $person2")
-
-  private def testValidatedOneParams(@Validated person1: Person): ZIO[Any, Nothing, String] =
-    ZIO.succeed(s"${person1.name}")
-
-  private def testValidatedBindParams(
-    @Validated person1: Person,
-    bindingError: BindingResult = BindingResult.default
-  ): ZIO[Any, Nothing, String] =
-    ZIO.succeed(s"${person1.name} - ${bindingError.violations.toList}")
+  private val personService                                       = new PersonZioService
 
   private val illegalPerson = Person(Some(""))
 
-  println(callMethod(testValidatedTwoParams(illegalPerson, illegalPerson)))
+  println(callMethod(personService.zioValidatedOneParam(illegalPerson)))
 
-  println(callMethod(testValidatedOneParams(illegalPerson)))
+  println(callMethod(personService.zioValidatedTwoParams(illegalPerson, illegalPerson)))
 
   println {
     Unsafe.unsafe { implicit runtime =>
-      zio.Runtime.default.unsafe.run(testValidatedBindParams(illegalPerson)).getOrThrow()
+      zio.Runtime.default.unsafe.run(personService.zioValidatedBindParam(illegalPerson)).getOrThrow()
     }
   }
+
+  println(callMethod(personService.zioValidatedNotNullParam(illegalPerson)))
+
+  println(callMethod(personService.zioValidatedNotEmptyParam(null)))
 
 }
