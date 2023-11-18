@@ -11,7 +11,7 @@ class ValidationCompilerPlugin extends StandardPlugin:
   override val description: String = ValidationCompilerPlugin.description
 
   def init(options: List[String]): List[PluginPhase] =
-    new ValidationArgsPhase() :: Nil
+    new ValidationMethodArgsPhase() :: Nil
 
 end ValidationCompilerPlugin
 

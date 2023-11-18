@@ -18,7 +18,7 @@ import dotty.tools.dotc.plugins.PluginPhase
 import dotty.tools.dotc.report
 import dotty.tools.dotc.transform.*
 
-final class ValidationArgsPhase extends PluginPhase:
+final class ValidationMethodArgsPhase extends PluginPhase:
 
   override val phaseName: String       = ValidationCompilerPlugin.name
   override val description: String     = ValidationCompilerPlugin.description
