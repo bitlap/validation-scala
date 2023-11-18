@@ -15,6 +15,7 @@ import dotty.tools.dotc.core.StdNames.nme
 import dotty.tools.dotc.core.Symbols.*
 import dotty.tools.dotc.core.Types.{ Type, * }
 import dotty.tools.dotc.plugins.PluginPhase
+import dotty.tools.dotc.printing.Printer
 import dotty.tools.dotc.report
 import dotty.tools.dotc.transform.*
 
@@ -24,10 +25,6 @@ final class ValidationMethodArgsPhase extends PluginPhase:
   override val description: String     = ValidationCompilerPlugin.description
   override val runsAfter: Set[String]  = Set(Staging.name)
   override val runsBefore: Set[String] = Set(PickleQuotes.name)
-
-  @threadUnsafe private lazy val ValidatedAnnotationClass: Context ?=> ClassSymbol = requiredClass(
-    TermsName.Validated_Annotation
-  )
 
   @threadUnsafe private lazy val PreconditionsClass: Context ?=> TermSymbol = requiredModule(
     TermsName.Preconditions_Class
@@ -54,14 +51,21 @@ final class ValidationMethodArgsPhase extends PluginPhase:
       return tree
     }
 
-    // to determine if there are main scala annotations
-    val optAnnotations = tree.symbol.annotations.collectFirst {
-      case annotation if annotation.symbol.name.asSimpleName == ValidatedAnnotationClass.name.asSimpleName =>
-        report.debugwarn(s"Validation found: ${TermsName.Validated_Annotation} on method: ${tree.name.show}")
-        ValidatedAnnotationClass
+    val constraintAnnotations =
+      tree.termParamss
+        .flatMap(_.flatMap(_.mods.annotations.map(_.symbol.showFullName.stripSuffix(".<init>"))))
+
+    val existsAnnotations = constraintAnnotations.collect {
+      case a if TermsName.SupportAnnotations.values.contains(a) =>
+        a
     }
-    if optAnnotations.isEmpty then return tree
-    val bindOpt        = tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
+
+    if (existsAnnotations.isEmpty) return tree
+
+    // to determine if there are main scala annotations
+    report.debugwarn(s"Validation found: ${existsAnnotations.mkString(",")}")
+
+    val bindOpt = tree.termParamss.flatten.find(_.tpt.symbol.showFullName == TermsName.BindingResult_Class)
 
     mapDefDef(tree, bindOpt)
   }

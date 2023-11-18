@@ -27,6 +27,7 @@ Validation of annotation constraints on generic parameters is not supported beca
 - NegativeOrZer
 - Positive
 - PositiveOrZero
+- NotNull
 
 ## `jakarta.validation`
 

@@ -69,50 +69,33 @@ autoCompilerPlugins := true
 addCompilerPlugin("org.bitlap" %% "validation-scala-plugin" % "latest version")
 ```
 
-### `@Validated`
-
-Add `@Validated` to method:
-```scala
-import bitlap.validation.extension.Validated
-
-@Validated def update(person1: Person, person2: Person)
-```
-Then, checking code will be automatically inserted during compilation and may throw an `IllegalArgumentException` if the constraint checking fails.
-
-If you do not wish to throw an exception directly, you should add a `bind: BindingResult` parameter to method:.
-```scala
-import bitlap.validation.extension.Validated
-
-@Validated def update(person1: Person, person2: Person, bind: BindingResult = BindingResult.default)
-```
-
-The plugin captures the `bind` parameters based on the type, so the name doesn't matter.
-
 ### Cascade Validation
 
+Then, checking code will be automatically inserted during compilation and may throw an `IllegalArgumentException` if the constraint checking fails.
+
+If you do not wish to throw an exception directly, you should add a `bind: BindingResult` parameter to method:
 ```scala
 import jakarta.validation.Valid
-import bitlap.validation.extension.Validated
 import jakarta.validation.constraints.NotNull
 
-@Validated def validatedTwoParams(@Valid person1: Person, @Valid person2: Person): String
+def validatedTwoParams(@Valid person1: Person, @Valid person2: Person): String
 
-@Validated def validatedOneParams(@Valid person1: Person): String
+def validatedOneParams(@Valid person1: Person): String
 
-@Validated def validatedBindParams(@Valid person1: Person, bindingError: BindingResult = BindingResult.default): String
+// The plugin captures the `bind` parameters based on the type, so the name doesn't matter.
+def validatedBindParams(@Valid person1: Person, bindingError: BindingResult = BindingResult.default): String
 
-@Validated def validatedNotNullParams(@Valid @NotNull person1: Person): String
+def validatedNotNullParams(@Valid @NotNull person1: Person): String
 ```
 
 ### Non-Cascade Validation
 
 ```scala
-import bitlap.validation.extension.Validated
 import jakarta.validation.constraints.{ NotBlank, NotNull }
 
-@Validated def validatedNotNullParams(@NotNull person1: Person): String
+def validatedNotNullParams(@NotNull person1: Person): String
 
-@Validated def validatedNotEmptyParam(@NotBlank name: String): String
+def validatedNotEmptyParam(@NotBlank name: String): String
 ```
 
 ### Limitation
