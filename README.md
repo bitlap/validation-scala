@@ -9,10 +9,8 @@ Jakarta Bean Validation 3.0 for Scala.
 - Support Scala `3.x` and `2.13.x`, Java `11` and above
 - Support validate scala types, e.g. `Option`, `Seq`, `Set`, `Map`, `Vector`, etc
 - Support validate object
-- Support validate method parameter
-- Support validate `ZIO` method parameter
-- Supports automated error capture
 - Support cascade validation
+- For Scala3, support for parameter validation, catching errors and allowing access to error
 
 ## Introduction
 
