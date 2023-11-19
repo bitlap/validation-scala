@@ -1,20 +1,18 @@
 # validation-scala
 
-Jakarta Bean Validation 3.0 for Scala. Allows validation of some Scala types (e.g. `Option`, `Seq`, `Set`, `Map`, etc).
-
-Supports Scala `3` and `2.13`, above Java `11`.
+Jakarta Bean Validation 3.0 for Scala. 
 
 [![Project stage][Badge-Stage]][Badge-Stage-Page] ![CI][Badge-CI] [![Nexus (Snapshots)][Badge-Snapshots]][Link-Snapshots] [![Sonatype Nexus (Releases)][Badge-Releases]][Link-Releases]
 
-[Badge-Stage]: https://img.shields.io/badge/Project%20Stage-Experimental-orange.svg
-[Badge-Stage-Page]: https://github.com/bitlap/bitlap/wiki/Project-Stages
+## Features
 
-[Badge-CI]: https://github.com/bitlap/validation-scala/actions/workflows/scala.yml/badge.svg
-[Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/validation-scala-core_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Snapshots]: https://s01.oss.sonatype.org/content/repositories/snapshots/org/bitlap/validation-scala-core_3/
-
-[Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/validation-scala-core_3?server=https%3A%2F%2Fs01.oss.sonatype.org
-[Link-Releases]: https://s01.oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala-core_3/
+- Support Scala `3.x` and `2.13.x`, Java `11` and above
+- Support validate scala types, e.g. `Option`, `Seq`, `Set`, `Map`, `Vector`, etc
+- Support validate object
+- Support validate method parameter
+- Support validate `ZIO` method parameter
+- Supports automated error capture
+- Support cascade validation
 
 ## Introduction
 
@@ -24,7 +22,7 @@ libraryDependencies ++= Seq(
 )
 ```
 
-## Usage Instructions
+## Validate Object
 
 Step 1. Add annotations to your case class:
 ```scala
@@ -55,9 +53,9 @@ if (violations.nonEmpty) {
 }
 ```
 
-## Use it like SpringBoot
+## Validate Method Parameter
 
-> It does not support annotations with group parameters and only supports scala 3!
+This allows us to use it like SpringBoot. It does not support annotations with group parameters and only supports scala 3!
 
 Add the following code to `build.sbt`:
 ```scala
@@ -112,3 +110,14 @@ def validatedNotEmptyParam(@NotBlank name: String): String
 ## Inspired by
 
 [bean-validation-scala](https://github.com/bean-validation-scala/bean-validation-scala), JSR 303 and 349 Bean Validation for Scala.
+
+
+[Badge-Stage]: https://img.shields.io/badge/Project%20Stage-Experimental-orange.svg
+[Badge-Stage-Page]: https://github.com/bitlap/bitlap/wiki/Project-Stages
+
+[Badge-CI]: https://github.com/bitlap/validation-scala/actions/workflows/scala.yml/badge.svg
+[Badge-Snapshots]: https://img.shields.io/nexus/s/org.bitlap/validation-scala-core_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Snapshots]: https://s01.oss.sonatype.org/content/repositories/snapshots/org/bitlap/validation-scala-core_3/
+
+[Badge-Releases]: https://img.shields.io/nexus/r/org.bitlap/validation-scala-core_3?server=https%3A%2F%2Fs01.oss.sonatype.org
+[Link-Releases]: https://s01.oss.sonatype.org/content/repositories/releases/org/bitlap/validation-scala-core_3/
