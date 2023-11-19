@@ -13,7 +13,11 @@ private[plugin] object TermsName {
 
   object SupportAnnotations {
 
-    val values: Seq[String] = Seq(
+    private val hibernate: Seq[String] =
+      Seq("CreditCardNumber", "EAN", "Length", "LuhnCheck", "Mod10Check", "Mod11Check", "NotEmpty", "Range", "URL")
+        .map(a => s"org.hibernate.validator.constraints.$a")
+
+    private val jakarta: Seq[String] = Seq(
       "AssertFalse",
       "AssertTrue",
       "DecimalMax",
@@ -34,18 +38,11 @@ private[plugin] object TermsName {
       "NegativeOrZer",
       "Positive",
       "PositiveOrZero",
-      "CreditCardNumber",
-      "EAN",
-      "Length",
-      "LuhnCheck",
-      "Mod10Check",
-      "Mod11Check",
-      "NotEmpty",
-      "Range",
-      "URL",
       "NotNull"
-    ).map(a => s"jakarta.validation.constraints.$a") ++
-      Seq("AssertNone", "AssertSome", "ByteSize").map(a => s"bitlap.validation.$a") ++
-      Seq("jakarta.validation.Valid")
+    ).map(a => s"jakarta.validation.constraints.$a") ++ Seq("jakarta.validation.Valid")
+
+    private val bitlap: Seq[String] = Seq("AssertNone", "AssertSome", "ByteSize").map(a => s"bitlap.validation.$a")
+
+    val values: Seq[String] = hibernate ++ jakarta ++ bitlap
   }
 }
