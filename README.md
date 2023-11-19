@@ -51,7 +51,7 @@ if (violations.nonEmpty) {
 }
 ```
 
-## Validate Method Parameter
+## Validate Method Parameters
 
 This allows us to use it like SpringBoot. It does not support annotations with group parameters and only supports scala 3!
 
