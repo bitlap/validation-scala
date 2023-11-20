@@ -15,7 +15,7 @@ val jodaConvertVersion           = "2.2.3"
 val jodaTimeVersion              = "2.12.5"
 val specs2Version                = "4.20.3"
 val zioVersion                   = "2.0.19"
-val `example-dependency-version` = "0.0.0+108-bd563eaf-SNAPSHOT"
+val `example-dependency-version` = "1.0.0-RC1"
 val supportCrossVersionList      = Seq(scala3_Version, scala2_13Version)
 
 inThisBuild(
