@@ -43,10 +43,11 @@ final class ValidationMethodArgsPhase extends PluginPhase:
   override def transformDefDef(tree: DefDef)(using Context): Tree = {
     // only public methods of classes are supported
     if (
-      tree.symbol.isClassConstructor ||
       tree.symbol.is(Flags.Synthetic) ||
+      tree.symbol.isConstructor ||
       tree.symbol.isStatic ||
-      tree.symbol.isPrivate
+      tree.symbol.isPrivate ||
+      tree.name == nme.CONSTRUCTOR
     ) {
       return tree
     }
