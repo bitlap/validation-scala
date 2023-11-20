@@ -12,8 +12,9 @@ Jakarta Bean Validation 3.0 for Scala.
 - Support cascade validation
 - For Scala3, support for parameter validation, catching errors and allowing access to error
 
-## Introduction
+## Installation
 
+Add the following to `build.sbt`:
 ```scala
 libraryDependencies ++= Seq(
   "org.bitlap" %% "validation-scala-core" % "latest version"
@@ -55,7 +56,7 @@ if (violations.nonEmpty) {
 
 This allows us to use it like SpringBoot. It does not support annotations with group parameters and only supports scala 3!
 
-Add the following code to `build.sbt`:
+Add the following to `build.sbt`:
 ```scala
 libraryDependencies ++= Seq(
   "org.bitlap" %% "validation-scala-core" % "latest version",
