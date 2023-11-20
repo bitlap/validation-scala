@@ -44,7 +44,6 @@ final class ValidationMethodArgsPhase extends PluginPhase:
     // only public methods of classes are supported
     if (
       tree.symbol.is(Flags.Synthetic) ||
-      tree.symbol.isConstructor ||
       tree.symbol.isStatic ||
       tree.symbol.isPrivate ||
       tree.name == nme.CONSTRUCTOR
