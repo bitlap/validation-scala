@@ -5,6 +5,7 @@ import scala.annotation.unused
 import bitlap.validation.extension._
 import zio._
 
+@unused
 object ZioPreconditions {
 
   @unused
