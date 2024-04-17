@@ -7,7 +7,7 @@ ThisBuild / resolvers ++= Seq(
 
 val scala3_Version               = "3.3.3"
 val scala2_13Version             = "2.13.13"
-val scalaCollectionCompatVersion = "2.11.0"
+val scalaCollectionCompatVersion = "2.12.0"
 val hibernateVersion             = "8.0.1.Final"
 val jakartaVersion               = "3.0.2"
 val elVersion                    = "5.0.0"
