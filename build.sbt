@@ -14,7 +14,7 @@ val elVersion                    = "5.0.0"
 val jodaConvertVersion           = "2.2.3"
 val jodaTimeVersion              = "2.12.7"
 val specs2Version                = "4.20.5"
-val zioVersion                   = "2.1.0"
+val zioVersion                   = "2.1.1"
 val `example-dependency-version` = "1.0.0-RC1"
 val supportCrossVersionList      = Seq(scala3_Version, scala2_13Version)
 
