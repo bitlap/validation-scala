@@ -5,7 +5,7 @@ ThisBuild / resolvers ++= Seq(
   "Sonatype OSS Releases" at "https://s01.oss.sonatype.org/content/repositories/releases"
 )
 
-val scala3_Version               = "3.3.3"
+val scala3_Version               = "3.4.1"
 val scala2_13Version             = "2.13.14"
 val scalaCollectionCompatVersion = "2.12.0"
 val hibernateVersion             = "8.0.1.Final"
